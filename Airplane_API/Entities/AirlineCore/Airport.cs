@@ -4,6 +4,7 @@ namespace Airplane_API.Entities.AirlineCore
 {
     public class Airport : CodeBaseEntity
     {
-
+        public string City { get; set; }
+        public string Country { get; set; }
     }
 }

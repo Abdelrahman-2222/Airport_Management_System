@@ -8,8 +8,8 @@ namespace Airplane_API.Entities.AirlineCore
         public Flight()
         {
             FlightManifests = new HashSet<FlightManifest>();
-            GateAssignments = new HashSet<GateAssignment>();
-            RunwaySchedules = new HashSet<RunwaySchedule>();
+            //GateAssignments = new HashSet<GateAssignment>();
+            //RunwaySchedules = new HashSet<RunwaySchedule>();
         }
 
         public string FlightNumber { get; set; }
@@ -24,14 +24,14 @@ namespace Airplane_API.Entities.AirlineCore
         public virtual Aircraft Aircraft { get; set; }
 
         public int OriginAirportId { get; set; }
-        public virtual Airport OriginAirport { get; set; }
+        public virtual Airline OriginAirport { get; set; }
 
         public int DestinationAirportId { get; set; }
-        public virtual Airport DestinationAirport { get; set; }
+        public virtual Airline DestinationAirport { get; set; }
 
         public virtual ICollection<FlightManifest> FlightManifests { get; set; }
-        public virtual ICollection<GateAssignment> GateAssignments { get; set; }
-        public virtual ICollection<RunwaySchedule> RunwaySchedules { get; set; }
-        public virtual CateringOrder CateringOrder { get; set; }
+        //public virtual ICollection<GateAssignment> GateAssignments { get; set; }
+        //public virtual ICollection<RunwaySchedule> RunwaySchedules { get; set; }
+        //public virtual CateringOrder CateringOrder { get; set; }
     }
 }
