@@ -1,4 +1,5 @@
 ﻿using Airplane_API.Entities.Base;
+using Airplane_API.Entities.Security_Services;
 
 /// <summary>
 /// Defines a specific physical security screening location within a terminal.
