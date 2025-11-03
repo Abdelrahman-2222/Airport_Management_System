@@ -42,8 +42,9 @@ namespace Airplane_API.Data.Configurations.AirlineCore
             /// Deleting a passenger who appears on a manifest is restricted.
             /// </summary>
             builder.HasOne(fm => fm.Passenger)
-                .WithMany(p => p.FlightManifests)
-                .OnDelete(DeleteBehavior.Restrict);
+                   .WithMany(p => p.FlightManifests)
+                   .HasForeignKey(fm => fm.PassengerId)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

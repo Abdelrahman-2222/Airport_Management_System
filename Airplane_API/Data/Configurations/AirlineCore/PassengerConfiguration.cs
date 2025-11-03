@@ -39,16 +39,6 @@ namespace Airplane_API.Data.Configurations.AirlineCore
             /// </summary>
             builder.Property(p => p.PassportNumber)
                 .HasMaxLength(20);
-
-            /// <summary>
-            /// Relationship: Passenger → FlightManifest
-            /// Configures the one-to-many relationship between Passenger and FlightManifest.
-            /// Deleting a passenger who appears on a manifest is restricted.
-            /// </summary>
-            builder.HasMany<FlightManifest>()
-                .WithOne(fm => fm.Passenger)
-                .HasForeignKey(fm => fm.PassengerId)
-                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

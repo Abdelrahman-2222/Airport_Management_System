@@ -35,15 +35,6 @@ namespace Airplane_API.Data.Configurations.AirlineCore
                 .IsUnique();
 
             /// <summary>
-            /// Configures the one-to-many relationship between Aircraft and Flight.
-            /// Deleting an aircraft will not delete related flights — deletion is restricted to maintain referential integrity.
-            /// </summary>
-            builder.HasMany<Flight>()
-                .WithOne(f => f.Aircraft)
-                .HasForeignKey(f => f.AircraftId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            /// <summary>
             /// Configures the one-to-many relationship between Aircraft and MaintenanceLog.
             /// Deleting an aircraft will not delete related maintenance logs — deletion is restricted to preserve history and traceability.
             /// </summary>

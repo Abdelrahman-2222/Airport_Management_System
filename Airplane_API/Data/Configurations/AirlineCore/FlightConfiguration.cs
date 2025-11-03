@@ -63,8 +63,9 @@ namespace Airplane_API.Data.Configurations.AirlineCore
             /// Deleting an aircraft will not delete related flights — deletion is restricted to preserve flight history.
             /// </summary>
             builder.HasOne(f => f.Aircraft)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
+                   .WithMany(a => a.Flights) 
+                   .HasForeignKey(f => f.AircraftId)
+                   .OnDelete(DeleteBehavior.Restrict);
 
             /// <summary>
             /// Configures the one-to-many relationship between Flight and FlightManifest.
