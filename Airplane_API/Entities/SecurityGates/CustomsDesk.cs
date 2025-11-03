@@ -1,4 +1,6 @@
 ﻿using Airplane_API.Entities.Base;
+using Airplane_API.Entities.GateAssignment;
+using Airport.Models.Security_Services;
 namespace Airplane_API.Entities.Security_Services;
 
     /// <summary>
