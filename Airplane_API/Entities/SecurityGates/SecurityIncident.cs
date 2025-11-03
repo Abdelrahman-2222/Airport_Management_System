@@ -1,5 +1,4 @@
 ﻿using Airplane_API.Entities.Base;
-
 namespace Airplane_API.Entities.SecurityGates;
 
 /// <summary>
