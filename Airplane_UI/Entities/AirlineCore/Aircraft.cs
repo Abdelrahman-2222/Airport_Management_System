@@ -1,7 +1,7 @@
-﻿using Airplane_API.Entities.Base;
-using Airplane_API.Entities.LuggageMaintnance;
+﻿using Airplane_UI.Entities.Base;
+using Airplane_UI.Entities.LuggageMaintnance;
 
-namespace Airplane_API.Entities.AirlineCore
+namespace Airplane_UI.Entities.AirlineCore
 {
     /// <summary>
     /// Represents an aircraft within the system.

@@ -1,8 +1,8 @@
-﻿using Airplane_API.Entities.SecurityGates;
+﻿using Airplane_UI.Entities.SecurityGates;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Airplane_API.Data.Configuration.SecurityServices;
+namespace Airplane_UI.Data.Configuration.SecurityServices;
 
 
 /// <summary>

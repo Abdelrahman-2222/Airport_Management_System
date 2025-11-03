@@ -1,5 +1,5 @@
-﻿using Airplane_API.Entities.Base;
-namespace Airplane_API.Entities.SecurityGates;
+﻿using Airplane_UI.Entities.Base;
+namespace Airplane_UI.Entities.SecurityGates;
 
 /// <summary>
 /// Represents a specific work shift assigned to a staff member at one operational location within the airport.

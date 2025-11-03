@@ -1,7 +1,7 @@
-﻿using Airplane_API.Entities.Base;
-using Airplane_API.Enums;
+﻿using Airplane_UI.Entities.Base;
+using Airplane_UI.Enums;
 
-namespace Airplane_API.Entities.GateAssignments
+namespace Airplane_UI.Entities.GateAssignments
 {
     public class Runway : IBaseEntity, INamedBaseEntity
     {

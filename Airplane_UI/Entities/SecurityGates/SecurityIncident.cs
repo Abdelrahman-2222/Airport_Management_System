@@ -1,5 +1,5 @@
-﻿using Airplane_API.Entities.Base;
-namespace Airplane_API.Entities.SecurityGates;
+﻿using Airplane_UI.Entities.Base;
+namespace Airplane_UI.Entities.SecurityGates;
 
 /// <summary>
 /// Defines a recorded security event or incident occurring within the airport.

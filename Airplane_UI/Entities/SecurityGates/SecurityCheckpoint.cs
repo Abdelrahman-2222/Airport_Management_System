@@ -1,6 +1,6 @@
-﻿using Airplane_API.Entities.Base;
-using Airplane_API.Entities.GateAssignments;
-namespace Airplane_API.Entities.SecurityGates;
+﻿using Airplane_UI.Entities.Base;
+using Airplane_UI.Entities.GateAssignments;
+namespace Airplane_UI.Entities.SecurityGates;
 
 /// <summary>
 /// Defines a specific physical security screening location within a terminal.

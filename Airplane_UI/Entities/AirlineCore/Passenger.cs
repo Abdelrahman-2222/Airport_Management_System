@@ -1,7 +1,7 @@
-﻿using Airplane_API.Entities.Base;
+﻿using Airplane_UI.Entities.Base;
 using System.Collections.Generic;
 
-namespace Airplane_API.Entities.AirlineCore
+namespace Airplane_UI.Entities.AirlineCore
 {
     /// <summary>
     /// Represents a passenger who travels on one or more flights within the system.

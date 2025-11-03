@@ -1,7 +1,7 @@
-﻿using Airplane_API.Entities.AirlineCore;
-using Airplane_API.Entities.GateAssignments;
-using Airplane_API.Entities.LuggageMaintnance;
-using Airplane_API.Entities.SecurityGates;
+﻿using Airplane_UI.Entities.AirlineCore;
+using Airplane_UI.Entities.GateAssignments;
+using Airplane_UI.Entities.LuggageMaintnance;
+using Airplane_UI.Entities.SecurityGates;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 

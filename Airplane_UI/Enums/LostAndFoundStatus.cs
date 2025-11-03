@@ -1,4 +1,4 @@
-﻿namespace Airplane_API.Enums
+﻿namespace Airplane_UI.Enums
 {
     public enum LostAndFoundStatus
     {

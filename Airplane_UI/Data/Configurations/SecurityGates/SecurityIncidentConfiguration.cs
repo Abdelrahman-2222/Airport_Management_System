@@ -1,8 +1,8 @@
-﻿using Airplane_API.Entities.SecurityGates;
+﻿using Airplane_UI.Entities.SecurityGates;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Airplane_API.Data.Configuration;
+namespace Airplane_UI.Data.Configuration;
 
 /// <summary>
 /// Configuration for the SecurityIncident entity in the Airport system.

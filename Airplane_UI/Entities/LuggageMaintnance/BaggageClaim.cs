@@ -1,8 +1,8 @@
-﻿using Airplane_API.Entities.Base;
-using Airplane_API.Entities.GateAssignments;
-using Airplane_API.Enums;
+﻿using Airplane_UI.Entities.Base;
+using Airplane_UI.Entities.GateAssignments;
+using Airplane_UI.Enums;
 
-namespace Airplane_API.Entities.LuggageMaintnance;
+namespace Airplane_UI.Entities.LuggageMaintnance;
 /// <summary>
 /// Represents an BaggageClaim in the Airplane. 
 /// </summary>

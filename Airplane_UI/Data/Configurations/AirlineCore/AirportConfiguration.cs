@@ -1,8 +1,8 @@
-﻿using Airplane_API.Entities.AirlineCore;
+﻿using Airplane_UI.Entities.AirlineCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Airplane_API.Data.Configurations.AirlineCore
+namespace Airplane_UI.Data.Configurations.AirlineCore
 {
     /// <summary>
     /// Configures the entity mapping for the Airport entity using the Entity Framework Fluent API.

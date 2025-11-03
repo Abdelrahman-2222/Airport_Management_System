@@ -1,6 +1,6 @@
-﻿using Airplane_API.Entities.Base;
+﻿using Airplane_UI.Entities.Base;
 
-namespace Airplane_API.Entities.AirlineCore
+namespace Airplane_UI.Entities.AirlineCore
 {
     /// <summary>
     /// Represents an Airport entity within the system

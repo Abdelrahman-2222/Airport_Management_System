@@ -1,7 +1,7 @@
-﻿using Airplane_API.Entities.Base;
+﻿using Airplane_UI.Entities.Base;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Airplane_API.Entities.GateAssignments
+namespace Airplane_UI.Entities.GateAssignments
 {
     public class GroundCrewTeam : IBaseEntity, INamedBaseEntity
     {

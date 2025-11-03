@@ -1,8 +1,8 @@
-﻿using Airplane_API.Entities.GateAssignments;
+﻿using Airplane_UI.Entities.GateAssignments;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Airplane_API.Data.Configurations.GateAssignments
+namespace Airplane_UI.Data.Configurations.GateAssignments
 {
     public class RunwayConfiguration : IEntityTypeConfiguration<Runway>
     {

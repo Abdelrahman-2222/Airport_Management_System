@@ -1,8 +1,8 @@
-﻿using Airplane_API.Entities.Base;
-using Airplane_API.Entities.LuggageMaintnance;
-using Airplane_API.Entities.SecurityGates;
+﻿using Airplane_UI.Entities.Base;
+using Airplane_UI.Entities.LuggageMaintnance;
+using Airplane_UI.Entities.SecurityGates;
 
-namespace Airplane_API.Entities.GateAssignments
+namespace Airplane_UI.Entities.GateAssignments
 {
     public class Terminal : IBaseEntity, INamedBaseEntity
     {

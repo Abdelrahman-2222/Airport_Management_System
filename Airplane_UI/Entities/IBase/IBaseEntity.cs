@@ -1,4 +1,4 @@
-﻿namespace Airplane_API.Entities.Base
+﻿namespace Airplane_UI.Entities.Base
 {
     /// <summary>
     /// Represents the base entity that defines a unique identifier for all derived entities.

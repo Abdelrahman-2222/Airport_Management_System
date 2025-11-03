@@ -1,8 +1,8 @@
-﻿using Airplane_API.Entities.LuggageMaintnance;
+﻿using Airplane_UI.Entities.LuggageMaintnance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Airplane_API.Data.Configurations.LuggageMaintnance;
+namespace Airplane_UI.Data.Configurations.LuggageMaintnance;
 /// <summary>
 /// Configuration for the Baggage Claim entity in the Airplane.
 /// </summary>

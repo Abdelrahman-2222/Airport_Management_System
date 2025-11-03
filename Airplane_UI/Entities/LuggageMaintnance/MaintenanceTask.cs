@@ -1,7 +1,7 @@
-﻿using Airplane_API.Entities.Base;
+﻿using Airplane_UI.Entities.Base;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Airplane_API.Entities.LuggageMaintnance;
+namespace Airplane_UI.Entities.LuggageMaintnance;
 /// <summary>
 /// Represents a maintenance task with a name, description, and related maintenance logs.
 /// </summary>

@@ -1,9 +1,9 @@
-﻿using Airplane_API.Entities.Base;
-using Airplane_API.Entities.GateAssignments;
-using Airplane_API.Entities.LuggageMaintnance;
-using Airplane_API.Enums;
+﻿using Airplane_UI.Entities.Base;
+using Airplane_UI.Entities.GateAssignments;
+using Airplane_UI.Entities.LuggageMaintnance;
+using Airplane_UI.Enums;
 
-namespace Airplane_API.Entities.AirlineCore
+namespace Airplane_UI.Entities.AirlineCore
 {
     /// <summary>
     /// Represents a flight within the system.
