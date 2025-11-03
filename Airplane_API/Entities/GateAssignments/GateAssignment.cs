@@ -1,7 +1,7 @@
 ﻿using Airplane_API.Entities.AirlineCore;
 using Airplane_API.Entities.Base;
 
-namespace Airplane_API.Entities.GateAssignment
+namespace Airplane_API.Entities.GateAssignments
 {
     public class GateAssignment : BaseEntity
     {
