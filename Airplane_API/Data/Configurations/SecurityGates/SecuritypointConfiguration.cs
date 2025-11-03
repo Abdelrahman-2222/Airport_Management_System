@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Airport.Data.Configuration;
+namespace Airplane_API.Data.Configuration;
 
 /// <summary>
 /// Configuration for the SecurityCheckpoint entity in the Airport system.

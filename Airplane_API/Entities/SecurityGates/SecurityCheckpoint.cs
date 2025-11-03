@@ -1,5 +1,5 @@
 ﻿using Airplane_API.Entities.Base;
-using Airplane_API.Entities.GateAssignment;
+using Airplane_API.Entities.GateAssignments;
 namespace Airplane_API.Entities.SecurityGates;
 
 /// <summary>

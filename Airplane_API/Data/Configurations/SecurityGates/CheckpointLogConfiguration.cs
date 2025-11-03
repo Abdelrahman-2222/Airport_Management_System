@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Airport.Data.Configuration.SecurityServices;
+namespace Airplane_API.Data.Configuration.SecurityServices;
 
 
 /// <summary>
