@@ -1,4 +1,5 @@
 ﻿using Airplane_API.Entities.Base;
+using Airplane_API.Entities.GateAssignments;
 using Airplane_API.Enums;
 
 namespace Airplane_API.Entities.LuggageMaintnance;
