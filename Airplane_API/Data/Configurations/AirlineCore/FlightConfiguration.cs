@@ -1,4 +1,5 @@
 ﻿using Airplane_API.Entities.AirlineCore;
+using Airplane_API.Entities.LuggageMaintnance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
