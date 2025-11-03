@@ -1,4 +1,7 @@
 
+using Airplane_API.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace Airplane_API
 {
     public class Program
@@ -13,6 +16,10 @@ namespace Airplane_API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            // Add Db context config
+            builder.Services.AddDbContext<AirplaneManagementSystemContext>(opt => opt.UseSqlServer(
+                builder.Configuration.GetConnectionString("DefaultConnection")));
 
             var app = builder.Build();
 
