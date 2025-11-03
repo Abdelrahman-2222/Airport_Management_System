@@ -1,5 +1,5 @@
 ﻿using Airplane_API.Entities.Base;
-namespace Airplane_API.Entities.Security_Services;
+namespace Airplane_API.Entities.SecurityGates;
 
     /// <summary>
     /// Represents a log entry for a security checkpoint in the airport system.
