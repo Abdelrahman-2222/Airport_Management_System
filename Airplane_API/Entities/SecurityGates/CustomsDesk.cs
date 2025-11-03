@@ -1,5 +1,6 @@
 ﻿using Airplane_API.Entities.Base;
-namespace Airplane_API.Entities.Security_Services;
+using Airplane_API.Entities.GateAssignment;
+namespace Airplane_API.Entities.SecurityGates;
 
     /// <summary>
     /// Represents a specific customs and immigration counter location within an airport terminal.
