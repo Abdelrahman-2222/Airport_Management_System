@@ -8,6 +8,9 @@ namespace Airplane_UI.Entities.LuggageMaintnance;
 /// </summary>
 public class BaggageClaim : IBaseEntity
 {
+    /// <summary>
+    /// The unique identifier for the entity.
+    /// </summary>
     public int Id { get; set; }
     /// <summary>
     /// Gets or sets the Carousel Number of the Baggage Claim.

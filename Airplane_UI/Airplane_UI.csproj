@@ -23,7 +23,6 @@
     <Folder Include="Contracts\LuggageMaintnance\" />
     <Folder Include="Contracts\SecurityGates\" />
     <Folder Include="Controllers\" />
-    <Folder Include="DTOs\" />
     <Folder Include="Mapper\" />
     <Folder Include="Services\AirlineCore\" />
     <Folder Include="Services\GateAssignments\" />
