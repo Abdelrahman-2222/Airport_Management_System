@@ -9,6 +9,6 @@
         /// <summary>
         /// Gets or sets the name of the entity.
         /// </summary>
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
     }
 }
