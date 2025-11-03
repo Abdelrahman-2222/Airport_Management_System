@@ -2,7 +2,7 @@
 using Airplane_API.Entities.Base;
 using Airplane_API.Enums;
 
-namespace Airplane_API.Entities.GateAssignment
+namespace Airplane_API.Entities.GateAssignments
 {
     public class RunwaySchedule : BaseEntity
     {

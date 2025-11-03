@@ -1,8 +1,8 @@
-﻿using Airplane_API.Entities.GateAssignment;
+﻿using Airplane_API.Entities.GateAssignments;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Airplane_API.Data.Configurations.GateAssignment
+namespace Airplane_API.Data.Configurations.GateAssignments
 {
     public class TerminalConfiguration : IEntityTypeConfiguration<Terminal>
     {
