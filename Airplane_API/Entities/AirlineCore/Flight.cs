@@ -1,5 +1,6 @@
 ﻿using Airplane_API.Entities.Base;
 using Airplane_API.Entities.GateAssignments;
+using Airplane_API.Entities.LuggageMaintnance;
 using Airplane_API.Enums;
 
 namespace Airplane_API.Entities.AirlineCore
@@ -7,19 +8,14 @@ namespace Airplane_API.Entities.AirlineCore
     /// <summary>
     /// Represents a flight within the system.
     /// </summary>
-    public class Flight : BaseEntity
+    public class Flight : IBaseEntity
     {
+        public int Id { get; set; }
         /// <summary>
         /// Initializes a new instance of the Flight class.
         /// The constructor initializes related entity collections to prevent null reference exceptions 
         /// when adding or modifying relationships.
         /// </summary>
-        public Flight()
-        {
-            FlightManifests = new HashSet<FlightManifest>();
-            GateAssignments = new HashSet<GateAssignment>();
-            RunwaySchedules = new HashSet<RunwaySchedule>();
-        }
 
         /// <summary>
         /// Gets or sets the unique flight number assigned by the airline.
@@ -85,21 +81,22 @@ namespace Airplane_API.Entities.AirlineCore
         /// <summary>
         /// Gets or sets the collection of flight manifests associated with this flight.
         /// </summary>
-        public virtual ICollection<FlightManifest> FlightManifests { get; set; }
+        public virtual ICollection<FlightManifest> FlightManifests { get; set; } = new HashSet<FlightManifest>();
 
         /// <summary>
         /// Gets or sets the collection of gate assignments associated with this flight.
         /// </summary>
-        public virtual ICollection<GateAssignment> GateAssignments { get; set; }
+        public virtual ICollection<GateAssignment> GateAssignments { get; set; } = new HashSet<GateAssignment>();
 
         /// <summary>
         /// Gets or sets the collection of runway schedules associated with this flight.
         /// </summary>
-        public virtual ICollection<RunwaySchedule> RunwaySchedules { get; set; }
+        public virtual ICollection<RunwaySchedule> RunwaySchedules { get; set; } = new HashSet<RunwaySchedule>();
 
         /// <summary>
         /// Gets or sets the catering order associated with this flight, if any.
         /// </summary>
         public virtual CateringOrder CateringOrder { get; set; }
+        
     }
 }

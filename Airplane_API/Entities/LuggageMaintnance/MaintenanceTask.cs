@@ -5,25 +5,14 @@ namespace Airplane_API.Entities.LuggageMaintnance;
 /// <summary>
 /// Represents a maintenance task with a name, description, and related maintenance logs.
 /// </summary>
-public class MaintenanceTask : NamedBaseEntity
+public class MaintenanceTask : INamedBaseEntity , IBaseEntity
 {
-    public MaintenanceTask()
-    {
-        MaintenanceLogs = new HashSet<MaintenanceLog>();
-    }
+    public int Id { get; set; }
     /// <summary>
     /// The name of the maintenance task.
     /// </summary>
-    public string TaskName { get; set; }
-    /// <summary>
-    /// The name property mapped to the TaskName, not stored in the database.
-    /// </summary>  
-    [NotMapped]
-    public override string Name 
-    { 
-        get => TaskName; 
-        set => TaskName = value; 
-    }
+    public string Name { get; set; }
+
     /// <summary>
     /// Description of the maintenance task.
     /// </summary>
@@ -31,5 +20,5 @@ public class MaintenanceTask : NamedBaseEntity
     /// <summary>
     /// Collection of maintenance logs associated with this task.
     /// </summary>
-    public virtual ICollection<MaintenanceLog> MaintenanceLogs { get; set; }
+    public virtual ICollection<MaintenanceLog> MaintenanceLogs { get; set; } = new HashSet<MaintenanceLog>();
 }

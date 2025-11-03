@@ -1,12 +1,13 @@
 ﻿using Airplane_API.Entities.Base;
-using Airplane_API.Entities.GateAssignment;
+using Airplane_API.Entities.GateAssignments;
 namespace Airplane_API.Entities.SecurityGates;
 
     /// <summary>
     /// Represents a specific customs and immigration counter location within an airport terminal.
     /// </summary>
-    public class CustomsDesk : BaseEntity
+    public class CustomsDesk : IBaseEntity
     {
+        public int Id { get; set; }
         /// <summary>
         /// The identifier of the terminal to which this customs desk belongs.
         /// </summary>
@@ -30,6 +31,6 @@ namespace Airplane_API.Entities.SecurityGates;
         /// <summary>
         /// The collection of staff shifts assigned to this customs desk.
         /// </summary>
-        public ICollection<StaffShift> AssignedShifts { get; set; } = new List<StaffShift>();
+        public ICollection<StaffShift> AssignedShifts { get; set; } = new HashSet<StaffShift>();
     }
 

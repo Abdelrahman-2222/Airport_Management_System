@@ -6,8 +6,9 @@ namespace Airplane_API.Entities.LuggageMaintnance;
 /// <summary>
 /// Represents an BaggageClaim in the Airplane. 
 /// </summary>
-public class BaggageClaim : BaseEntity
+public class BaggageClaim : IBaseEntity
 {
+    public int Id { get; set; }
     /// <summary>
     /// Gets or sets the Carousel Number of the Baggage Claim.
     /// </summary>

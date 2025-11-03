@@ -4,11 +4,11 @@
     /// Represents an entity that includes a name and unique identifier 
     /// for all derived entities.
     /// </summary>
-    public class NamedBaseEntity : BaseEntity
+    public interface INamedBaseEntity
     {
         /// <summary>
         /// Gets or sets the name of the entity.
         /// </summary>
-        public virtual string Name { get; set; }
+        public string Name { get; set; }
     }
 }

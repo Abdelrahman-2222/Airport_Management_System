@@ -6,8 +6,9 @@ namespace Airplane_API.Entities.AirlineCore
     /// Represents a record linking a Passenger to a specific Flight, 
     /// typically used to track passenger assignments, seat numbers, and flight participation details.
     /// </summary>
-    public class FlightManifest : BaseEntity
+    public class FlightManifest : IBaseEntity
     {
+        public int Id { get; set; }
         /// <summary>
         /// Gets or sets the seat number assigned to the passenger on the flight.
         /// </summary>

@@ -1,23 +1,17 @@
 ﻿using Airplane_API.Entities.Base;
 using Airplane_API.Entities.LuggageMaintnance;
-using Airplane_API.Entities.Security_Services;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using Airplane_API.Entities.SecurityGates;
 
 namespace Airplane_API.Entities.GateAssignments
 {
-    public class Terminal : NamedBaseEntity
+    public class Terminal : IBaseEntity, INamedBaseEntity
     {
-        public Terminal()
-        {
-            Gates = new HashSet<Gate>();
-            BaggageClaims = new HashSet<BaggageClaim>();
-            SecurityCheckpoints = new HashSet<SecurityCheckpoint>();
-            CustomsDesks = new HashSet<CustomsDesk>();
-        }
+        public int Id { get; set; }
+        public string Name { get; set; }
 
-        public virtual ICollection<Gate> Gates { get; set; }
-        public virtual ICollection<BaggageClaim> BaggageClaims { get; set; }
-        public virtual ICollection<SecurityCheckpoint> SecurityCheckpoints { get; set; }
-        public virtual ICollection<CustomsDesk> CustomsDesks { get; set; }
+        public virtual ICollection<Gate> Gates { get; set; } = new HashSet<Gate>();
+        public virtual ICollection<BaggageClaim> BaggageClaims { get; set; } = new HashSet<BaggageClaim>();
+        public virtual ICollection<SecurityCheckpoint> SecurityCheckpoints { get; set; } = new HashSet<SecurityCheckpoint>();
+        public virtual ICollection<CustomsDesk> CustomsDesks { get; set; } = new HashSet<CustomsDesk>();
     }
 }

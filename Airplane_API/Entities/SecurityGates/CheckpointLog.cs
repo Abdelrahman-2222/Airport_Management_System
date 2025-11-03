@@ -4,13 +4,13 @@ namespace Airplane_API.Entities.SecurityGates;
     /// <summary>
     /// Represents a log entry for a security checkpoint in the airport system.
     /// </summary>
-    public class CheckpointLog : BaseEntity
+    public class CheckpointLog : IBaseEntity
     {
+        public int Id { get; set; }
         /// <summary>
         /// The identifier of the related security checkpoint.
         /// </summary>
         public int CheckpointID { get; set; }
-
         /// <summary>
         /// The exact date and time when the checkpoint log was recorded.
         /// </summary>

@@ -3,8 +3,9 @@ using Airplane_API.Entities.Base;
 
 namespace Airplane_API.Entities.GateAssignments
 {
-    public class GateAssignment : BaseEntity
+    public class GateAssignment : IBaseEntity
     {
+        public int Id { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
 

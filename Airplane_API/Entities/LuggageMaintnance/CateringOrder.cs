@@ -6,8 +6,9 @@ namespace Airplane_API.Entities.LuggageMaintnance;
 /// <summary>
 /// Represents a catering order associated with a specific flight and catering facility,
 /// </summary>
-public class CateringOrder : BaseEntity
+public class CateringOrder : IBaseEntity
 {
+    public int Id { get; set; }
     /// <summary>
     /// The number of meals included in the catering order.
     /// </summary>

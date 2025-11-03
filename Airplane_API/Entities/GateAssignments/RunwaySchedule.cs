@@ -4,8 +4,9 @@ using Airplane_API.Enums;
 
 namespace Airplane_API.Entities.GateAssignments
 {
-    public class RunwaySchedule : BaseEntity
+    public class RunwaySchedule : IBaseEntity
     {
+        public int Id { get; set; }
         public DateTime ScheduledTime { get; set; }
         public RunwayScheduleType Type { get; set; }
 

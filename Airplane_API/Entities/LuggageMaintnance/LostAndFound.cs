@@ -6,8 +6,9 @@ namespace Airplane_API.Entities.LuggageMaintnance;
 /// <summary>
 /// Represents a lost and found item with its description, date found, and current status.
 /// </summary>
-public class LostAndFound : BaseEntity
+public class LostAndFound : IBaseEntity
 {
+    public int Id { get; set; }
     /// <summary>
     /// Description of the lost or found item.
     /// </summary>

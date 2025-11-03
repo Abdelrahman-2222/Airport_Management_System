@@ -4,8 +4,9 @@ namespace Airplane_API.Entities.SecurityGates;
 /// <summary>
 /// Represents a specific work shift assigned to a staff member at one operational location within the airport.
 /// </summary>
-public class StaffShift : BaseEntity
+public class StaffShift : IBaseEntity
 {
+    public int Id { get; set; }
     /// <summary>
     /// Foreign Key linking the shift to the staff member performing it.
     /// </summary>

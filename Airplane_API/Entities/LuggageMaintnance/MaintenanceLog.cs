@@ -7,8 +7,9 @@ namespace Airplane_API.Entities.LuggageMaintnance;
 /// <summary>
 /// Represents a maintenance log entry that records details about maintenance activities, 
 /// </summary>
-public class MaintenanceLog : BaseEntity
+public class MaintenanceLog : IBaseEntity
 {
+    public int Id { get; set; }
     /// <summary>
     /// Description of the maintenance activity performed.
     /// </summary>

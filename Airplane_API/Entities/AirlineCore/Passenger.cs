@@ -6,17 +6,14 @@ namespace Airplane_API.Entities.AirlineCore
     /// <summary>
     /// Represents a passenger who travels on one or more flights within the system.
     /// </summary>
-    public class Passenger : BaseEntity
+    public class Passenger : IBaseEntity
     {
+        public int Id { get; set; }
         /// <summary>
         /// Initializes a new instance of the Passenger class.
         /// The constructor initializes the FlightManifests collection 
         /// to prevent null reference issues when adding related flight records.
         /// </summary>
-        public Passenger()
-        {
-            FlightManifests = new HashSet<FlightManifest>();
-        }
 
         /// <summary>
         /// Gets or sets the first name of the passenger.
@@ -36,6 +33,6 @@ namespace Airplane_API.Entities.AirlineCore
         /// <summary>
         /// Gets or sets the collection of flight manifests associated with this passenger.
         /// </summary>
-        public virtual ICollection<FlightManifest> FlightManifests { get; set; }
+        public virtual ICollection<FlightManifest> FlightManifests { get; set; } = new HashSet<FlightManifest>();
     }
 }

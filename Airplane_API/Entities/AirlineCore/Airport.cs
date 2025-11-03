@@ -6,8 +6,11 @@ namespace Airplane_API.Entities.AirlineCore
     /// Represents an Airport entity within the system
     /// and inherits Id, Name and IATA_Code from CodeBaseEntity
     /// </summary>
-    public class Airport : CodeBaseEntity
+    public class Airport : IBaseEntity, INamedBaseEntity, ICodeBaseEntity
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string IATA_Code { get; set; }
 
     }
 }

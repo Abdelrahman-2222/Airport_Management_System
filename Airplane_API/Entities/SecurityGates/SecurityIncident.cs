@@ -4,8 +4,9 @@ namespace Airplane_API.Entities.SecurityGates;
 /// <summary>
 /// Defines a recorded security event or incident occurring within the airport.
 /// </summary>
-public class SecurityIncident : BaseEntity
+public class SecurityIncident : IBaseEntity
 {
+    public int Id { get; set; }
     /// <summary>
     /// Optional Foreign Key linking the incident to the staff member assigned to handle it.
     /// </summary>

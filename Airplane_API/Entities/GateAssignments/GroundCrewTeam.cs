@@ -3,15 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Airplane_API.Entities.GateAssignments
 {
-    public class GroundCrewTeam : NamedBaseEntity
+    public class GroundCrewTeam : IBaseEntity, INamedBaseEntity
     {
-        public string TeamName { get; set; }
-
-        [NotMapped]
-        public override string Name
-        {
-            get => TeamName;
-            set => TeamName = value;
-        }
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }
