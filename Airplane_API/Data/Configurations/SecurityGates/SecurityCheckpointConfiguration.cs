@@ -40,7 +40,7 @@ public class SecurityCheckpointConfiguration : IEntityTypeConfiguration<Security
         builder.HasOne(sc => sc.Terminal)
             .WithMany(t => t.SecurityCheckpoints)
             .HasForeignKey(sc => sc.TerminalID)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
 
         /// <summary>
         /// Defines the relationship between SecurityCheckpoint and CheckpointLogs.
@@ -48,7 +48,7 @@ public class SecurityCheckpointConfiguration : IEntityTypeConfiguration<Security
         builder.HasMany(sc => sc.CheckpointLogs)
             .WithOne(cl => cl.SecurityCheckpoint)
             .HasForeignKey(cl => cl.CheckpointID)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
 
         /// <summary>
         /// Defines the relationship between SecurityCheckpoint and AssignedShifts.

@@ -9,7 +9,7 @@ namespace Airplane_API.Data.Configurations.GateAssignments
         public void Configure(EntityTypeBuilder<GroundCrewTeam> builder)
         {
             builder.HasKey(g => g.Id);
-            builder.Property(g => g.TeamName).IsRequired().HasMaxLength(100);
+            builder.Property(g => g.Name).IsRequired().HasMaxLength(100).HasColumnName("TaskName");
         }
     }
 }

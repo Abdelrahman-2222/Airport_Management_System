@@ -28,7 +28,7 @@ namespace Airplane_API.Data.Configurations.GateAssignments
 
             builder.HasMany(t => t.CustomsDesks)
                 .WithOne(cd => cd.Terminal)
-                .HasForeignKey(cd => cd.TerminalId)
+                .HasForeignKey(cd => cd.TerminalID)
                 .OnDelete(DeleteBehavior.Restrict); 
         }
     }

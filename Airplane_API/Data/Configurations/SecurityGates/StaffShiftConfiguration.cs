@@ -26,14 +26,6 @@ public class StaffShiftConfiguration : IEntityTypeConfiguration<StaffShift>
         builder.Property(ss => ss.EndTime).IsRequired();
 
         /// <summary>
-        /// Defines the relationship with AirportStaff.
-        /// </summary>
-        builder.HasOne(ss => ss.AirportStaff)
-            .WithMany(s => s.StaffShifts)
-            .HasForeignKey(ss => ss.StaffID)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        /// <summary>
         /// Defines optional relationship with SecurityCheckpoint.
         /// </summary>
         builder.HasOne(ss => ss.AssignedCheckpoint)

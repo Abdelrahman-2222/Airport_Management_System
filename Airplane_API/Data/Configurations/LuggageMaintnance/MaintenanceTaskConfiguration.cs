@@ -20,6 +20,6 @@ public class MaintenanceTaskConfiguration : IEntityTypeConfiguration<Maintenance
         /// <summary>
         /// Configures the TaskName property as required with a maximum length of 150 characters.
         /// </summary>
-        builder.Property(mt => mt.TaskName).IsRequired().HasMaxLength(150);
+        builder.Property(mt => mt.Name).IsRequired().HasMaxLength(150).HasColumnName("TaskName");
     }
 }

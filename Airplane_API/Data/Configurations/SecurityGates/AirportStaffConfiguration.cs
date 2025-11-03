@@ -39,7 +39,7 @@ public class AirportStaffConfiguration : IEntityTypeConfiguration<AirportStaff>
         builder.HasMany(s => s.StaffShifts)
             .WithOne(ss => ss.AirportStaff)
             .HasForeignKey(ss => ss.StaffID)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
 
         /// <summary>
         /// Defines one-to-many relationship with SecurityIncidentsHandled.

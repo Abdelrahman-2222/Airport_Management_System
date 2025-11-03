@@ -39,6 +39,6 @@ public void Configure(EntityTypeBuilder<CheckpointLog> builder)
     builder.HasOne(cl => cl.SecurityCheckpoint)
         .WithMany(sc => sc.CheckpointLogs)
         .HasForeignKey(cl => cl.CheckpointID)
-        .OnDelete(DeleteBehavior.Cascade);
+        .OnDelete(DeleteBehavior.Restrict);
 }
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Airplane_API.Data.Configurations.GateAssignments
 {
-    public class GateConfiguration
+    public class GateConfiguration : IEntityTypeConfiguration<Gate>
     {
         public void Configure(EntityTypeBuilder<Gate> builder)
         {

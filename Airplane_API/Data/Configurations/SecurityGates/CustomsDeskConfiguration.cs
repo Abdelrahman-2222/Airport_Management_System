@@ -39,7 +39,7 @@ public class CustomsDeskConfiguration : IEntityTypeConfiguration<CustomsDesk>
         builder.HasOne(cd => cd.Terminal)
             .WithMany(t => t.CustomsDesks)
             .HasForeignKey(cd => cd.TerminalID)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
 
         /// <summary>
         /// Defines the relationship between CustomsDesk and AssignedShifts.

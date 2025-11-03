@@ -20,7 +20,7 @@ public class CateringFacilitiesConfiguration : IEntityTypeConfiguration<Catering
         /// <summary>
         /// Configures the ProviderName property as required with a maximum length of 100 characters.
         /// </summary>
-        builder.Property(cs => cs.ProviderName).IsRequired().HasMaxLength(100);
+        builder.Property(cs => cs.Name).IsRequired().HasMaxLength(100).HasColumnName("ProviderName");
         /// <summary>
         /// Configures the one-to-many relationship between CateringFacilities and CateringOrders
         /// with restricted delete behavior.
