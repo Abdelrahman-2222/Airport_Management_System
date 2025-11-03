@@ -3,7 +3,7 @@
 /// <summary>
 /// Defines a specific physical security screening location within a terminal.
 /// </summary>
-public class SecurityCheckpoint : BaseEntity
+public class SecurityCheckpoint : NamedBaseEntity
 {
     /// <summary>
     /// Foreign Key linking the checkpoint to its parent terminal.
@@ -11,15 +11,9 @@ public class SecurityCheckpoint : BaseEntity
     public int TerminalID { get; set; }
 
     /// <summary>
-    /// A descriptive name for the checkpoint (e.g., 'A-North Security').
-    /// </summary>
-    public string Name { get; set; }
-
-    /// <summary>
     /// The operational status of the checkpoint (e.g., 'Open', 'Closed', 'Reduced Staff').
     /// </summary>
     public string Status { get; set; }
-
 
     /// <summary>
     /// Navigation property to the parent Terminal.
