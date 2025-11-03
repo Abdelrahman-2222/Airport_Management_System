@@ -7,6 +7,10 @@ namespace Airplane_API.Entities.LuggageMaintnance;
 /// </summary>
 public class MaintenanceTask : NamedBaseEntity
 {
+    public MaintenanceTask()
+    {
+        MaintenanceLogs = new HashSet<MaintenanceLog>();
+    }
     /// <summary>
     /// The name of the maintenance task.
     /// </summary>

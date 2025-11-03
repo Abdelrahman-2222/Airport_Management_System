@@ -1,5 +1,5 @@
 ﻿using Airplane_API.Entities.Base;
-namespace Airport.Models.Security_Services;
+namespace Airplane_API.Entities.SecurityGates;
 
 /// <summary>
 /// Represents an airport employee assigned to security or passenger service roles.
