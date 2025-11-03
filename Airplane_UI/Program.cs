@@ -1,4 +1,6 @@
+using Airplane_UI.Data;
 using Airplane_UI.Components;
+using Microsoft.EntityFrameworkCore;
 
 namespace Airplane_UI
 {
@@ -9,10 +11,26 @@ namespace Airplane_UI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            builder.Services.AddControllers();
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
             builder.Services.AddRazorComponents()
-                .AddInteractiveServerComponents();
+                            .AddInteractiveServerComponents();
+
+            // Add Db context config
+            builder.Services.AddDbContext<AirplaneManagementSystemContext>(opt => opt.UseSqlServer(
+                builder.Configuration.GetConnectionString("DefaultConnection")));
 
             var app = builder.Build();
+
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -21,6 +39,13 @@ namespace Airplane_UI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseHttpsRedirection();
+
+            app.UseAuthorization();
+
+
+            app.MapControllers();
 
             app.UseHttpsRedirection();
 
