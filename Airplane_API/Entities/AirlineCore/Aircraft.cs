@@ -1,4 +1,5 @@
 ﻿using Airplane_API.Entities.Base;
+using Airplane_API.Entities.LuggageMaintnance;
 
 namespace Airplane_API.Entities.AirlineCore
 {
