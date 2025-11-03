@@ -17,10 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Data\Configurations\AirlineCore\" />
-    <Folder Include="DTOs\" />
     <Folder Include="Contracts\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="DTOs\" />
     <Folder Include="Mapper\" />
     <Folder Include="Services\" />
   </ItemGroup>

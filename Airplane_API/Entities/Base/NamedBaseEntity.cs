@@ -1,7 +1,7 @@
 ﻿namespace Airplane_API.Entities.Base
 {
     /// <summary>
-    /// Represents an entity that includes a name property and unique identifier 
+    /// Represents an entity that includes a name and unique identifier 
     /// for all derived entities.
     /// </summary>
     public class NamedBaseEntity : BaseEntity
