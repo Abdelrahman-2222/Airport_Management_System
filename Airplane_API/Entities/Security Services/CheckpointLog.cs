@@ -26,4 +26,3 @@ namespace Airplane_API.Entities.Security_Services;
         /// </summary>
         public SecurityCheckpoint SecurityCheckpoint { get; set; }
     }
-}
