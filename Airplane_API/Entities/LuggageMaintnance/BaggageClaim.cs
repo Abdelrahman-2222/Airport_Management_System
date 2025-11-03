@@ -24,5 +24,5 @@ public class BaggageClaim : BaseEntity
     /// <summary>
     /// Navigation property for the Terminal who received the Terminal.
     /// </summary>
-    //public virtual Terminal Terminal { get; set; }
+    public virtual Terminal Terminal { get; set; }
 }
