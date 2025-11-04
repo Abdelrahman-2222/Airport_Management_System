@@ -46,9 +46,9 @@ namespace Airplane_UI.Controllers.GateAssignments
         public async Task<ActionResult<GetAllDetailsGateDTO>> Create([FromBody] CreateAndUpdateGateDTO createGateDTO)
         {
             var createdGate = await _service.CreateAsync(createGateDTO);
-            if(createdGate is null) return NotFound();
-            if(!ModelState.IsValid) return BadRequest(ModelState);
-            return CreatedAtAction(nameof(createdGate), new { id = createdGate.Id }, createdGate);
+            if (createdGate is null) return NotFound();
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            return CreatedAtAction(nameof(GetById), new { id = createdGate.Id }, createdGate);
         }
         // Update
         [HttpPut("{id}")]

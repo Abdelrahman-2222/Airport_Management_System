@@ -4,6 +4,7 @@ using Airplane_UI.DTOs.GateAssignments.GateAssignmentDTOs;
 using Airplane_UI.DTOs.GateAssignments.GateDTOs;
 using Airplane_UI.DTOs.GateAssignments.TerminalDTOs;
 using Airplane_UI.Entities.GateAssignments;
+using Airplane_UI.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Airplane_UI.Services.GateAssignments
@@ -22,7 +23,7 @@ namespace Airplane_UI.Services.GateAssignments
             {
                 Id = g.Id,
                 GateNumber = g.GateNumber,
-                Status = g.Status,
+                Status = g.Status.ToString(),
                 TerminalName = g.Terminal.Name
             }).ToListAsync();
             return gates;
@@ -34,7 +35,7 @@ namespace Airplane_UI.Services.GateAssignments
             {
                 Id = g.Id,
                 GateNumber = g.GateNumber,
-                Status = g.Status,
+                Status = g.Status.ToString(),
                 Terminal = new GetTerminalDTO
                 {
                     Id = g.Terminal.Id,
@@ -59,7 +60,7 @@ namespace Airplane_UI.Services.GateAssignments
                 {
                     Id = g.Id,
                     GateNumber = g.GateNumber,
-                    Status = g.Status,
+                    Status = g.Status.ToString(),
                     TerminalName = g.Terminal.Name
                 }).SingleOrDefaultAsync();
             return gate;
@@ -73,11 +74,32 @@ namespace Airplane_UI.Services.GateAssignments
                 Status = gateDto.Status,
                 TerminalId = gateDto.TerminalId
             };
-            if(gate == null) return null;
-            await _context.Gates.AddAsync(gate);
+
+            _context.Gates.Add(gate);
             await _context.SaveChangesAsync();
-            var createdGate = await GetDetailsAsync();
-            return createdGate.SingleOrDefault(g => g.Id == gate.Id);
+            
+            var result = await _context.Gates
+            .Where(g => g.Id == gate.Id)
+            .Select(g => new GetAllDetailsGateDTO
+            {
+                Id = g.Id,
+                GateNumber = g.GateNumber,
+                Status = g.Status.ToString(),
+                Terminal = new GetTerminalDTO
+                {
+                    Id = g.Terminal.Id,
+                    Name = g.Terminal.Name
+                },
+                GateAssignments = g.GateAssignments
+                    .Select(ga => new GetGateAssignmentDTO
+                    {
+                        Id = ga.Id,
+                        StartTime = ga.StartTime,
+                        EndTime = ga.EndTime
+                    }).ToList()
+            })
+            .SingleAsync();
+            return result;
         }
         // Update
         public async Task<GetGateDTO> UpdateAsync(int gateId, CreateAndUpdateGateDTO gateDto)
