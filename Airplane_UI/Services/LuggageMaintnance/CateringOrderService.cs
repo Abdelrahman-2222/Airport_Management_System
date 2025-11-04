@@ -86,8 +86,8 @@ public class CateringOrderService : ICateringOrderService
         {
             return null;
         }
-        var updateBaggageClaimEntity = dto.ToEntity();
-        if (updateBaggageClaimEntity == null)
+        var updateCateringOrderEntity = dto.ToEntity();
+        if (updateCateringOrderEntity == null)
         {
             return null;
         }
