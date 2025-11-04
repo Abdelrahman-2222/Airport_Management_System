@@ -40,7 +40,7 @@ namespace Airplane_UI.Contracts.SecurityGates
             /// Deletes a staff shift.
             /// </summary>
             /// <param name="id">The ID of the shift to delete.</param>
-            /// <returns>A task representing the asynchronous operation.</returns>
+            /// <returns>A task representing the operation.</returns>
             Task<string> DeleteAsync(int id);
         }
 }
