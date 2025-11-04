@@ -18,8 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\GateAssignments\" />
     <Folder Include="Contracts\SecurityGates\" />
+    <Folder Include="DTOs\GateAssignments\GroundCrewTeamDTOs\" />
+    <Folder Include="DTOs\GateAssignments\RunwayScheduleDTOs\" />
+    <Folder Include="DTOs\GateAssignments\RunwayDTOs\" />
     <Folder Include="Mapper\" />
     <Folder Include="Services\AirlineCore\" />
     <Folder Include="Services\GateAssignments\" />
