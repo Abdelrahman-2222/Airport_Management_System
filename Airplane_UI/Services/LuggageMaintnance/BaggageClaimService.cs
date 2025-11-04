@@ -1,7 +1,6 @@
 ﻿using Airplane_UI.Contracts.LuggageMaintnance;
 using Airplane_UI.Data;
 using Airplane_UI.DTOs.LuggageMaintnance.BaggageClaim;
-using Airplane_UI.Entities.LuggageMaintnance;
 using Airplane_UI.Mapper.LuggageMaintnance;
 using Microsoft.EntityFrameworkCore;
 
