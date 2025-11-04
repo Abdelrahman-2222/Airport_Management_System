@@ -1,0 +1,56 @@
+﻿using Airplane_API.DTOs.AirlineCore.AirportDTOs;
+
+namespace Airplane_API.Contracts.AirlineCore
+{
+    /// <summary>
+    /// Defines the contract for managing airport-related operations.
+    /// Provides asynchronous methods for retrieving, creating, updating, and deleting airport data.
+    /// </summary>
+    public interface IAirportService
+    {
+        /// <summary>
+        /// Retrieves all airports from the system.
+        /// </summary>
+        /// <returns>
+        /// The task result contains a collection of AirportDTOs objects.
+        /// </returns>
+        Task<IEnumerable<AirportDTOs>> GetAllAsync();
+
+        /// <summary>
+        /// Retrieves a specific airport by its unique identifier.
+        /// </summary>
+        /// <param name="id">The unique identifier of the airport to retrieve.</param>
+        /// <returns>
+        /// The task result contains the AirportDTOs if found; otherwise, null.
+        /// </returns>
+        Task<AirportDTOs> GetyByIdAsync(int id);
+
+        /// <summary>
+        /// Creates a new airport record in the system.
+        /// </summary>
+        /// <param name="dto">The data transfer object containing details of the airport to create.</param>
+        /// <returns>
+        /// The task result contains the created AirportDTOs object.
+        /// </returns>
+        Task<AirportDTOs> CreateAsync(AddAirportDTOs dto);
+
+        /// <summary>
+        /// Updates an existing airport record identified by its unique identifier.
+        /// </summary>
+        /// <param name="id">The unique identifier of the airport to update.</param>
+        /// <param name="dto">The data transfer object containing updated airport details.</param>
+        /// <returns>
+        /// The task result indicates whether the update operation was successful.
+        /// </returns>
+        Task<bool> UpdateAsync(int id, AddAirportDTOs dto);
+
+        /// <summary>
+        /// Deletes an existing airport record from the system.
+        /// </summary>
+        /// <param name="id">The unique identifier of the airport to delete.</param>
+        /// <returns>
+        /// The task result indicates whether the delete operation was successful.
+        /// </returns>
+        Task<bool> DeleteAsync(int id);
+    }
+}
