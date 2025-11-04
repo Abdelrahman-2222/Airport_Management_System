@@ -1,7 +1,9 @@
 ﻿using Airplane_UI.Enums;
 
 namespace Airplane_UI.DTOs.LuggageMaintnance.LostAndFoundDTOs;
-
+/// <summary>
+/// Data Transfer Object (DTO) used for creating or updating LostAndFound records.
+/// </summary>
 public class GetLostAndFoundDTO
 {
     /// <summary>
