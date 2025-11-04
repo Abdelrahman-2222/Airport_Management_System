@@ -21,5 +21,5 @@ public class GetLostAndFoundDTO
     /// <summary>
     /// The current status of the lost and found item.
     /// </summary>
-    public LostAndFoundStatus Status { get; set; }
+    public string Status { get; set; }
 }
