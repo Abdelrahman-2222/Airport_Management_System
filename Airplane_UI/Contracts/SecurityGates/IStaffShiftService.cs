@@ -41,6 +41,6 @@ namespace Airplane_UI.Contracts.SecurityGates
             /// </summary>
             /// <param name="id">The ID of the shift to delete.</param>
             /// <returns>A task representing the asynchronous operation.</returns>
-            Task DeleteAsync(int id);
+            Task<string> DeleteAsync(int id);
         }
 }
