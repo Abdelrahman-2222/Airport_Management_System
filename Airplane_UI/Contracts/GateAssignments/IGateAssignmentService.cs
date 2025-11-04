@@ -1,5 +1,4 @@
-﻿
-using Airplane_UI.DTOs.GateAssignments.GateAssignmentDTOs;
+﻿using Airplane_UI.DTOs.GateAssignments.GateAssignmentDTOs;
 
 namespace Airplane_UI.Contracts.GateAssignments
 {
