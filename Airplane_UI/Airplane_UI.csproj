@@ -21,7 +21,6 @@
     <Folder Include="Contracts\AirlineCore\" />
     <Folder Include="Contracts\GateAssignments\" />
     <Folder Include="Contracts\SecurityGates\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Mapper\" />
     <Folder Include="Services\AirlineCore\" />
     <Folder Include="Services\GateAssignments\" />
