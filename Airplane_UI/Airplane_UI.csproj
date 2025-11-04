@@ -27,7 +27,6 @@
 
     <Folder Include="Mapper\" />
     <Folder Include="Services\AirlineCore\" />
-    <Folder Include="Services\GateAssignments\" />
     <Folder Include="Services\SecurityGates\" />
   </ItemGroup>
 
