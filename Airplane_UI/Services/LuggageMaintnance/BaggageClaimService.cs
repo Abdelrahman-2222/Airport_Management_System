@@ -10,6 +10,7 @@ namespace Airplane_UI.Services.LuggageMaintnance;
 /// <summary>
 /// Provides implementation for baggage claim service operations such as retrieving,
 /// creating, updating, and deleting baggage claim records.
+/// 
 /// </summary>
 public class BaggageClaimService : IBaggageClaimService
 {
