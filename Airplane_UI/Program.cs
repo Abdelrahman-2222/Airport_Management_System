@@ -28,12 +28,17 @@ namespace Airplane_UI
             builder.Services.AddDbContext<AirplaneManagementSystemContext>(opt => opt.UseSqlServer(
                 builder.Configuration.GetConnectionString("DefaultConnection")));
             #region GateAssignments Services
-            builder.Services.AddScoped<IGateService, GateService>(); 
+            builder.Services.AddScoped<IGateService, GateService>();
             #endregion
 
-            // Inject Services
+            #region LuggageMaintnance Services
             builder.Services.AddScoped<IBaggageClaimService, BaggageClaimService>();
             builder.Services.AddScoped<ILostAndFoundService, LostAndFoundService>();
+            builder.Services.AddScoped<IMaintenanceLogService, MaintenanceLogService>();
+            builder.Services.AddScoped<IMaintenanceTaskService, MaintenanceTaskService>();
+            builder.Services.AddScoped<ICateringFacilitiesService, CateringFacilitiesService>();
+            builder.Services.AddScoped<ICateringOrderService, CateringOrderService>();
+            #endregion
 
             var app = builder.Build();
 
