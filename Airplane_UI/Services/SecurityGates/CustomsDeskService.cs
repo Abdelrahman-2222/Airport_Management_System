@@ -78,15 +78,15 @@ namespace Airplane_UI.Services.SecurityGates
                     TerminalID = d.TerminalID,
                     DeskNumber = d.DeskNumber,
                     Status = d.Status,
-                    AssignedShifts = d.AssignedShifts
-                        .Select(s => new StaffShiftDto
-                        {
-                            Id = s.Id,
-                            StaffName = s.Staff.Name,
-                            Role = s.Staff.Role,
-                            StartTime = s.StartTime,
-                            EndTime = s.EndTime
-                        }).ToList()
+                    //AssignedShifts = d.AssignedShifts
+                    //    .Select(s => new StaffShiftDto
+                    //    {
+                    //        Id = s.Id,
+                    //        StaffName = s.Staff.Name,
+                    //        Role = s.Staff.Role,
+                    //        StartTime = s.StartTime,
+                    //        EndTime = s.EndTime
+                    //    }).ToList()
                 })
                 .FirstOrDefaultAsync();
         }

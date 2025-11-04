@@ -76,7 +76,7 @@ public class BaggageClaimService : IBaggageClaimService
             return null;
         }
         var existingClaim = await _context.BaggageClaims.FindAsync(BaggageId);
-        if (existingClaim == null || existingClaim.Terminal.Id != dto.TerminalId)
+        if (existingClaim == null )
         {
             return null;
         }
