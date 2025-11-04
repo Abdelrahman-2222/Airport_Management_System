@@ -28,6 +28,6 @@
         /// <summary>
         /// Gets or sets a collection of staff shift assignments associated with this desk.
         /// </summary>
-        public ICollection<StaffShiftDto> AssignedShifts { get; set; } = new List<StaffShiftDto>();
+        //public ICollection<StaffShiftDto> AssignedShifts { get; set; } = new List<StaffShiftDto>();
     }
 }

@@ -1,6 +1,6 @@
-﻿using Airplane_API.DTOs.AirlineCore.AirportDTOs;
+﻿using Airplane_UI.DTOs.AirlineCore.AirportDTOs;
 
-namespace Airplane_API.Contracts.AirlineCore
+namespace Airplane_UI.Contracts.AirlineCore
 {
     /// <summary>
     /// Defines the contract for managing airport-related operations.

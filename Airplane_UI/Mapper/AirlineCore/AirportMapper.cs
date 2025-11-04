@@ -1,4 +1,4 @@
-﻿using Airplane_API.DTOs.AirlineCore.AirportDTOs;
+﻿using Airplane_UI.DTOs.AirlineCore.AirportDTOs;
 using Airplane_UI.Entities.AirlineCore;
 using Microsoft.EntityFrameworkCore;
 
