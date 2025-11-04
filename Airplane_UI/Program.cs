@@ -33,6 +33,7 @@ namespace Airplane_UI
 
             // Inject Services
             builder.Services.AddScoped<IBaggageClaimService, BaggageClaimService>();
+            builder.Services.AddScoped<ILostAndFoundService, LostAndFoundService>();
 
             var app = builder.Build();
 

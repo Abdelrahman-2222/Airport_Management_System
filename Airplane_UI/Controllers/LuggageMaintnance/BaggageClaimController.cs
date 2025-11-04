@@ -84,6 +84,6 @@ public class BaggageClaimController : ControllerBase
         var isDeleted = await _service.DeleteAsync(baggageId);
         if (isDeleted == null)
             return NotFound("Delete not successfully");
-        return Ok("Delete is Done"); ;
+        return Ok("Delete is Done");
     }
 }
