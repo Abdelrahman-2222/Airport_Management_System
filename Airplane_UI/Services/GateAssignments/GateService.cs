@@ -1,4 +1,5 @@
-﻿using Airplane_UI.Data;
+﻿using Airplane_UI.Contracts.GateAssignments;
+using Airplane_UI.Data;
 using Airplane_UI.DTOs.GateAssignments.GateAssignmentDTOs;
 using Airplane_UI.DTOs.GateAssignments.GateDTOs;
 using Airplane_UI.DTOs.GateAssignments.TerminalDTOs;
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Airplane_UI.Services.GateAssignments
 {
-    public class GateService
+    public class GateService : IGateService
     {
         private readonly AirplaneManagementSystemContext _context;
         public GateService(AirplaneManagementSystemContext context)
@@ -15,7 +16,7 @@ namespace Airplane_UI.Services.GateAssignments
             _context = context;
         }
         // Get All
-        public async Task<List<GetGateDTO>> GetAllAsync()
+        public async Task<IList<GetGateDTO>> GetAllAsync()
         {
             var gates = await _context.Gates.Select(g => new GetGateDTO
             {
@@ -27,7 +28,7 @@ namespace Airplane_UI.Services.GateAssignments
             return gates;
         }
         // Get Details
-        public async Task<List<GetAllDetailsGateDTO>> GetDetailsAsync()
+        public async Task<IList<GetAllDetailsGateDTO>> GetDetailsAsync()
         {
             var gates = await _context.Gates.Select(g => new GetAllDetailsGateDTO
             {
