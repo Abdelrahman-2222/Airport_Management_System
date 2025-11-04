@@ -20,13 +20,11 @@
   <ItemGroup>
     <Folder Include="Contracts\AirlineCore\" />
     <Folder Include="Contracts\GateAssignments\" />
-    <Folder Include="Contracts\LuggageMaintnance\" />
     <Folder Include="Contracts\SecurityGates\" />
     <Folder Include="Controllers\" />
     <Folder Include="Mapper\" />
     <Folder Include="Services\AirlineCore\" />
     <Folder Include="Services\GateAssignments\" />
-    <Folder Include="Services\LuggageMaintnance\" />
     <Folder Include="Services\SecurityGates\" />
   </ItemGroup>
 
