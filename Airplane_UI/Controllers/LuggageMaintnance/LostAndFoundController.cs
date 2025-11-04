@@ -30,7 +30,7 @@ public class LostAndFoundController : ControllerBase
     /// </summary>
     /// <returns>A list of Lost and Found records.</returns>
     [HttpGet]
-    public async Task<ActionResult> GetAll()
+    public async Task<ActionResult<GetLostAndFoundDTO>> GetAll()
     {
         var getLostAndFound = await _service.GetAllAsync();
         return Ok(getLostAndFound);
@@ -46,6 +46,10 @@ public class LostAndFoundController : ControllerBase
         var getLostAndFound = await _service.GetByIdAsync(lostAndFoundId);
         if (getLostAndFound == null)
             return BadRequest("Invalid Id");
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         return Ok(getLostAndFound);
     }
     /// <summary>
@@ -57,6 +61,10 @@ public class LostAndFoundController : ControllerBase
     public async Task<ActionResult<GetLostAndFoundDTO>> Create([FromBody] CreateAndUpdateLostandFoundDTO dto)
     {
         var created = await _service.CreateAsync(dto);
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         return Created();
     }
     /// <summary>
@@ -71,6 +79,10 @@ public class LostAndFoundController : ControllerBase
         var isUpdated = await _service.UpdateAsync(lostAndFoundId, dto);
         if (isUpdated == null)
             return NotFound("Update not successfully");
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         return Ok("Update is Done");
     }
     /// <summary>
@@ -84,6 +96,10 @@ public class LostAndFoundController : ControllerBase
         var isDeleted = await _service.DeleteAsync(lostAndFoundId);
         if (isDeleted == null)
             return NotFound("Delete not successfully");
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         return Ok("Delete is Done");
     }
 
