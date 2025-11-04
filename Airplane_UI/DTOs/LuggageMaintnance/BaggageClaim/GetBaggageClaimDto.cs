@@ -6,6 +6,7 @@ namespace Airplane_UI.DTOs.LuggageMaintnance.BaggageClaim;
 /// </summary>
 public class GetBaggageClaimDto
 {
+    public int Id { get; set; }
     /// <summary>
     /// The number of the baggage carousel.
     /// </summary>
