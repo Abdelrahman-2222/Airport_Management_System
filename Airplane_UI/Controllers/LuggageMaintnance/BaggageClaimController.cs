@@ -54,7 +54,7 @@ public class BaggageClaimController : ControllerBase
     /// <param name="dto">The data transfer object containing the details of the baggage claim to create.</param>
     /// <returns>The created baggage claim record.</returns>
     [HttpPost]
-    public async Task<ActionResult> Create([FromBody] CreateBaggageClaimDto dto)
+    public async Task<ActionResult> Create([FromBody] CreateAndUpdateBaggageClaimDto dto)
     {
         var created = await _service.CreateAsync(dto);
         return Created();
@@ -66,7 +66,7 @@ public class BaggageClaimController : ControllerBase
     /// <param name="dto">The data transfer object containing updated baggage claim details.</param>
     /// <returns>No content if successful; otherwise, a BadRequest result.</returns>
     [HttpPut("{baggageId}")]
-    public async Task<ActionResult> Update(int baggageId, [FromBody] CreateBaggageClaimDto dto)
+    public async Task<ActionResult> Update(int baggageId, [FromBody] CreateAndUpdateBaggageClaimDto dto)
     {
         var isUpdated = await _service.UpdateAsync(baggageId, dto);
         if (isUpdated == null)
