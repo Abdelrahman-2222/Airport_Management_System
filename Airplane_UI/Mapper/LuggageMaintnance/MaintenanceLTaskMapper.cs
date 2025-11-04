@@ -11,7 +11,7 @@ namespace Airplane_UI.Mapper.LuggageMaintnance;
 public static class MaintenanceLTaskMapper
 {
     /// <summary>
-    /// Converts a <see cref="MaintenanceTask"/> entity to a <see cref="GetMaintenanceTaskDTO"/>.
+    /// Converts a MaintenanceTask entity to a GetMaintenanceTaskDTO.
     /// </summary>
     /// <param name="claims">The MaintenanceTask entity to convert.</param>
     /// <returns>
