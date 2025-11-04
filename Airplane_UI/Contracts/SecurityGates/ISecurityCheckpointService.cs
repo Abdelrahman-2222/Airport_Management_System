@@ -14,13 +14,6 @@ namespace Airplane_UI.Contracts.SecurityGates
         Task<List<GetSecurityCheckpointDto>> GetAllAsync();
 
         /// <summary>
-        /// Retrieves a specific security checkpoint by its unique identifier.
-        /// </summary>
-        /// <param name="id">The unique identifier of the checkpoint.</param>
-        /// <returns>The corresponding checkpoint if found; otherwise, null.</returns>
-        Task<GetSecurityCheckpointDto> GetByIdAsync(int id);
-
-        /// <summary>
         /// Retrieves detailed information about a specific checkpoint, 
         /// including its related logs and staff assignments.
         /// </summary>
@@ -29,18 +22,25 @@ namespace Airplane_UI.Contracts.SecurityGates
         Task<GetSecurityCheckpointDetailsDto> GetDetailsAsync(int id);
 
         /// <summary>
+        /// Retrieves a specific security checkpoint by its unique identifier.
+        /// </summary>
+        /// <param name="id">The unique identifier of the checkpoint.</param>
+        /// <returns>The corresponding checkpoint if found; otherwise, null.</returns>
+        Task<GetSecurityCheckpointDto> GetByIdAsync(int id);
+
+        /// <summary>
         /// Retrieves all security checkpoints that belong to a specific terminal.
         /// </summary>
         /// <param name="terminalId">The identifier of the terminal.</param>
-        /// <returns>An enumerable collection of checkpoints within the given terminal.</returns>
-        Task<IEnumerable<GetSecurityCheckpointDto>> GetByTerminalAsync(int terminalId);
+        /// <returns>An List collection of checkpoints within the given terminal.</returns>
+        Task<List<GetSecurityCheckpointDto>> GetByTerminalAsync(int terminalId);
 
         /// <summary>
         /// Retrieves all checkpoints that share a specific operational status (e.g., Active, Maintenance).
         /// </summary>
         /// <param name="status">The operational status to filter checkpoints by.</param>
-        /// <returns>An enumerable collection of checkpoints with the given status.</returns>
-        Task<IEnumerable<GetSecurityCheckpointDto>> GetByStatusAsync(string status);
+        /// <returns>An List collection of checkpoints with the given status.</returns>
+        Task<List<GetSecurityCheckpointDto>> GetByStatusAsync(string status);
 
         /// <summary>
         /// Creates a new security checkpoint and adds it to the system.
