@@ -3,7 +3,7 @@
     /// <summary>
     /// Detailed DTO that provides additional data about a Security Checkpoint.
     /// </summary>
-    public class SecurityCheckpointDetailDto
+    public class GetSecurityCheckpointDetailsDto
     {
         /// <summary>
         /// Unique identifier of the checkpoint.
