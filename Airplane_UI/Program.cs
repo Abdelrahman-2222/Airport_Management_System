@@ -3,6 +3,8 @@ using Airplane_UI.Components;
 using Microsoft.EntityFrameworkCore;
 using Airplane_UI.Contracts.GateAssignments;
 using Airplane_UI.Services.GateAssignments;
+using Airplane_UI.Contracts.LuggageMaintnance;
+using Airplane_UI.Services.LuggageMaintnance;
 
 namespace Airplane_UI
 {
@@ -28,6 +30,9 @@ namespace Airplane_UI
             #region GateAssignments Services
             builder.Services.AddScoped<IGateService, GateService>(); 
             #endregion
+
+            // Inject Services
+            builder.Services.AddScoped<IBaggageClaimService, BaggageClaimService>();
 
             var app = builder.Build();
 

@@ -1,6 +1,6 @@
-﻿using Airplane_API.DTOs.AirlineCore.AirportDTOs;
+﻿using Airplane_UI.DTOs.AirlineCore.AirportDTOs;
 
-namespace Airplane_API.Contracts.AirlineCore
+namespace Airplane_UI.Contracts.AirlineCore
 {
     /// <summary>
     /// Defines the contract for managing airport-related operations.
@@ -14,7 +14,7 @@ namespace Airplane_API.Contracts.AirlineCore
         /// <returns>
         /// The task result contains a collection of AirportDTOs objects.
         /// </returns>
-        Task<IEnumerable<AirportDTOs>> GetAllAsync();
+        Task<IList<GetAirportDTO>> GetAllAsync();
 
         /// <summary>
         /// Retrieves a specific airport by its unique identifier.
@@ -23,7 +23,7 @@ namespace Airplane_API.Contracts.AirlineCore
         /// <returns>
         /// The task result contains the AirportDTOs if found; otherwise, null.
         /// </returns>
-        Task<AirportDTOs> GetyByIdAsync(int id);
+        Task<GetAirportDTO> GetyByIdAsync(int airportId);
 
         /// <summary>
         /// Creates a new airport record in the system.
@@ -32,7 +32,7 @@ namespace Airplane_API.Contracts.AirlineCore
         /// <returns>
         /// The task result contains the created AirportDTOs object.
         /// </returns>
-        Task<AirportDTOs> CreateAsync(AddAirportDTOs dto);
+        Task<GetAirportDTO> CreateAsync(CreateAndUpdateAirportDTO dto);
 
         /// <summary>
         /// Updates an existing airport record identified by its unique identifier.
@@ -42,7 +42,7 @@ namespace Airplane_API.Contracts.AirlineCore
         /// <returns>
         /// The task result indicates whether the update operation was successful.
         /// </returns>
-        Task<bool> UpdateAsync(int id, AddAirportDTOs dto);
+        Task<GetAirportDTO> UpdateAsync(int id, CreateAndUpdateAirportDTO dto);
 
         /// <summary>
         /// Deletes an existing airport record from the system.
@@ -51,6 +51,6 @@ namespace Airplane_API.Contracts.AirlineCore
         /// <returns>
         /// The task result indicates whether the delete operation was successful.
         /// </returns>
-        Task<bool> DeleteAsync(int id);
+        Task<string> DeleteAsync(int airportId);
     }
 }

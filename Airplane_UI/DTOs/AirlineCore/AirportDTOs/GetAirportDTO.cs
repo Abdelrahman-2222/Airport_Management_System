@@ -1,6 +1,6 @@
 ﻿using Airplane_UI.Entities.AirlineCore;
 
-namespace Airplane_API.DTOs.AirlineCore.AirportDTOs
+namespace Airplane_UI.DTOs.AirlineCore.AirportDTOs
 {
     /// <summary>
     /// Represents a (DTO) for an airport.

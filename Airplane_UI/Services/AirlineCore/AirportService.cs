@@ -1,33 +1,59 @@
-﻿using Airplane_API.Contracts.AirlineCore;
-using Airplane_API.DTOs.AirlineCore.AirportDTOs;
+﻿using Airplane_UI.Contracts.AirlineCore;
 using Airplane_UI.Data;
+using Airplane_UI.DTOs.AirlineCore.AirportDTOs;
 using Airplane_UI.Entities.AirlineCore;
 using Airplane_UI.Mapper.AirlineCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Airplane_UI.Services.AirlineCore
 {
+    /// <summary>
+    /// Provides implementation for managing airport data,
+    /// including creating, retrieving, updating, and deleting airport records.
+    /// </summary>
     public class AirportService : IAirportService
     {
         private readonly AirplaneManagementSystemContext _context;
 
+        /// <summary>
+        /// Initializes a new instance of the AirportService class.
+        /// </summary>
+        /// <param name="context">The database context used for data operations.</param>
         public AirportService(AirplaneManagementSystemContext context)
         {
             _context = context;
         }
+
+        /// <summary>
+        /// Retrieves all airports asynchronously.
+        /// </summary>
         public async Task<IList<GetAirportDTO>> GetAllAsync()
         {
-            var airports = await _context.Airports.Select(a=>a.ToDto()).ToListAsync();
+            var airports = await _context.Airports
+                .Select(a => a.ToDto())
+                .ToListAsync();
+
             return airports;
         }
 
-        public async Task<GetAirportDTO> GetyByIdAsync(int id)
+        /// <summary>
+        /// Retrieves a specific airport by its unique identifier.
+        /// </summary>
+        public async Task<GetAirportDTO> GetyByIdAsync(int airportId)
         {
-            var airport = await _context.Airports.Where(a => a.Id == id).Select(a => a.ToDto()).SingleOrDefaultAsync();
+            var airport = await _context.Airports
+                .Where(a => a.Id == airportId)
+                .Select(a => a.ToDto())
+                .SingleOrDefaultAsync();
 
-            if (airport == null) return null;
             return airport;
         }
+
+        /// <summary>
+        /// Creates a new airport record asynchronously.
+        /// </summary>
+        /// <param name="dto">The DTO containing airport details to create.</param>
+        /// <returns>The new created airport as a DTO.</returns>
         public async Task<GetAirportDTO> CreateAsync(CreateAndUpdateAirportDTO dto)
         {
             var airport = dto.ToEntity();
@@ -37,28 +63,44 @@ namespace Airplane_UI.Services.AirlineCore
 
             return airport.ToDto();
         }
-
+        /// <summary>
+        /// Updates an existing airport record by ID.
+        /// </summary>
+        /// <param name="id">The unique identifier of the airport to update.</param>
+        /// <param name="dto">The DTO containing updated airport details.</param>
+        /// <returns>
+        /// The task result contains the updated GetAirportDTO object if the update succeeded. otherwise, null if the airport was not found.
+        /// </returns>
         public async Task<GetAirportDTO> UpdateAsync(int id, CreateAndUpdateAirportDTO dto)
         {
             var airport = await _context.Airports.FindAsync(id);
             if (airport == null) return null;
 
-            dto.ToEntity();
+            airport.Name = dto.Name;
+            airport.IATA_Code = dto.IATA_Code;
 
             _context.Airports.Update(airport);
             await _context.SaveChangesAsync();
+
             return airport.ToDto();
         }
 
-        public async Task<string> DeleteAsync(int id)
+        /// <summary>
+        /// Deletes an airport record by ID asynchronously.
+        /// </summary>
+        /// <param name="airportId">The unique identifier of the airport to delete.</param>
+        /// <returns>A message indicating the result of the delete operation, or <c>null</c> if not found.</returns>
+        public async Task<string> DeleteAsync(int airportId)
         {
-            var airport = await _context.Airports.FindAsync(id);
+            var airport = await _context.Airports.FindAsync(airportId);
             if (airport == null) return null;
 
             _context.Airports.Remove(airport);
             await _context.SaveChangesAsync();
 
-            return $"Airport with ID {id} deleted successfully.";
+            return $"Airport with ID {airportId} deleted successfully.";
         }
+
+        
     }
 }

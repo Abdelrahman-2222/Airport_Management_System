@@ -1,4 +1,4 @@
-﻿namespace Airplane_API.DTOs.AirlineCore.AirportDTOs
+﻿namespace Airplane_UI.DTOs.AirlineCore.AirportDTOs
 {
     /// <summary>
     /// Represents a (DTO) used when creating a new airport record.
