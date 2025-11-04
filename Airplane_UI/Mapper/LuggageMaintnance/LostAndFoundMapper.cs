@@ -4,7 +4,10 @@ using Airplane_UI.Entities.LuggageMaintnance;
 using Airplane_UI.Enums;
 
 namespace Airplane_UI.Mapper.LuggageMaintnance;
-
+/// <summary>
+/// Provides mapping extension methods for converting between
+/// LostAndFoundMapper entities and their corresponding DTOs.
+/// </summary>
 public static class LostAndFoundMapper
 {
     /// <summary>
