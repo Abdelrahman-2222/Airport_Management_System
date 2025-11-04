@@ -19,12 +19,15 @@
 
   <ItemGroup>
     <Folder Include="Contracts\GateAssignments\" />
+<<<<<<< HEAD
     <Folder Include="Contracts/Gate/CreateGateContract" />
     <Folder Include="DTOs\GateAssignments\GroundCrewTeamDTOs\" />
     <Folder Include="DTOs\GateAssignments\RunwayScheduleDTOs\" />
     <Folder Include="DTOs\GateAssignments\RunwayDTOs\" />
 
     <Folder Include="Mapper\" />
+=======
+>>>>>>> Service/BaggageClaim/Refactor/ChangeBaggageClaimService
     <Folder Include="Services\AirlineCore\" />
     <Folder Include="Services\SecurityGates\" />
   </ItemGroup>
