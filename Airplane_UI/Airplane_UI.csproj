@@ -20,7 +20,6 @@
   <ItemGroup>
     <Folder Include="Contracts\GateAssignments\" />
     <Folder Include="Contracts/Gate/CreateGateContract" />
-    <Folder Include="Contracts\SecurityGates\" />
     <Folder Include="DTOs\GateAssignments\GroundCrewTeamDTOs\" />
     <Folder Include="DTOs\GateAssignments\RunwayScheduleDTOs\" />
     <Folder Include="DTOs\GateAssignments\RunwayDTOs\" />
