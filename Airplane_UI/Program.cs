@@ -1,6 +1,8 @@
 using Airplane_UI.Data;
 using Airplane_UI.Components;
 using Microsoft.EntityFrameworkCore;
+using Airplane_UI.Contracts.GateAssignments;
+using Airplane_UI.Services.GateAssignments;
 using Airplane_UI.Contracts.LuggageMaintnance;
 using Airplane_UI.Services.LuggageMaintnance;
 
@@ -10,6 +12,7 @@ namespace Airplane_UI
     {
         public static void Main(string[] args)
         {
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -24,6 +27,9 @@ namespace Airplane_UI
             // Add Db context config
             builder.Services.AddDbContext<AirplaneManagementSystemContext>(opt => opt.UseSqlServer(
                 builder.Configuration.GetConnectionString("DefaultConnection")));
+            #region GateAssignments Services
+            builder.Services.AddScoped<IGateService, GateService>(); 
+            #endregion
 
             // Inject Services
             builder.Services.AddScoped<IBaggageClaimService, BaggageClaimService>();
