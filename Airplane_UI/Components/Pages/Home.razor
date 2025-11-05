@@ -1,7 +1,23 @@
-﻿@page "/"
+﻿@using MudBlazor
+@page "/"
 
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, world!</h1>
 
+<MudBlazor.MudTextField T="string" Variant="MudBlazor.Variant.Filled"></MudBlazor.MudTextField>
+
 Welcome to your new app.
+
+<MudCard>
+    <MudCardMedia Image="" Height="200" />
+    <MudCardContent>
+        <MudText Typo="Typo.h5">Old Paint</MudText>
+        <MudText Typo="Typo.body2">Old paint found on a stone house door.</MudText>
+        <MudText Typo="Typo.body2">This photo was taken in a small village in Istra Croatia.</MudText>
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton Variant="Variant.Text" Color="Color.Primary">Share</MudButton>
+        <MudButton Variant="Variant.Text" Color="Color.Primary">Learn more</MudButton>
+    </MudCardActions>
+</MudCard>
