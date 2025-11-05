@@ -1,12 +1,9 @@
-﻿using Airplane_UI.Entities.Base;
-using System.Collections.Generic;
-
-namespace Airplane_UI.Entities.AirlineCore
+﻿namespace Airplane_UI.DTOs.AirlineCore.PassengerDTOs
 {
     /// <summary>
-    /// Represents a passenger who travels on one or more flights within the system.
+    /// Represents (DTO) for retrieving passenger details.
     /// </summary>
-    public class Passenger : IBaseEntity
+    public class GetPassengerDTO
     {
         /// <summary>
         /// Gets or sets the unique identifier of the passenger.
@@ -27,10 +24,5 @@ namespace Airplane_UI.Entities.AirlineCore
         /// Gets or sets the passport number of the passenger.
         /// </summary>
         public string PassportNumber { get; set; }
-
-        /// <summary>
-        /// Gets or sets the collection of flight manifests associated with this passenger.
-        /// </summary>
-        public virtual ICollection<FlightManifest> FlightManifests { get; set; } = new HashSet<FlightManifest>();
     }
 }
