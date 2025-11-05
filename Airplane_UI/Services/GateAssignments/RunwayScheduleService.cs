@@ -61,16 +61,16 @@ namespace Airplane_UI.Services.GateAssignments
             await _context.RunwaySchedules.AddAsync(runwaySchedule);
             await _context.SaveChangesAsync();
 
-            var createdRunwaySchedule = new GetAllDetailsRunwayScheduleDTO
+            var result = await _context.RunwaySchedules.Where(rs => rs.Id == runwaySchedule.Id).Select(rs => new GetAllDetailsRunwayScheduleDTO
             {
-                Id = runwaySchedule.Id,
-                ScheduledTime = runwaySchedule.ScheduledTime,
-                Type = runwaySchedule.Type.ToString(),
-                FlightNumber = runwaySchedule.Flight.FlightNumber,
-                RunwayName = runwaySchedule.Runway.Name
-            };
+                Id = rs.Id,
+                ScheduledTime = rs.ScheduledTime,
+                Type = rs.Type.ToString(),
+                FlightNumber = rs.Flight.FlightNumber,
+                RunwayName = rs.Runway.Name
+            }).SingleOrDefaultAsync();
 
-            return createdRunwaySchedule;
+            return result;
         }
         public async Task<GetRunwayScheduleDTO> UpdateAsync(int runwayScheduleId, CreateAndUpdateRunwayScheduleDTO runwayScheduleDto)
         {

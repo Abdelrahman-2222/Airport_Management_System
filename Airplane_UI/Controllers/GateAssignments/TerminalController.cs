@@ -38,7 +38,7 @@ namespace Airplane_UI.Controllers.GateAssignments
         }
         // Create
         [HttpPost]
-        public async Task<ActionResult<GetAllDetailsTerminalDTO>> Create([FromBody] CreateAndUpdateTerminalDTO createTerminalDTO)
+        public async Task<ActionResult<GetTerminalDTO>> Create([FromBody] CreateAndUpdateTerminalDTO createTerminalDTO)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 

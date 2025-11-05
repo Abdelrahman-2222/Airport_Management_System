@@ -29,7 +29,7 @@ namespace Airplane_UI.Controllers.GateAssignments
         }
         // GetById
         [HttpGet("{id}")]
-        public async Task<ActionResult<GetRunwayScheduleDTO>> GetByIdAsync(int id)
+        public async Task<ActionResult<GetRunwayScheduleDTO>> GetById(int id)
         {
             var runwaySchedule = await _service.GetByIdAsync(id);
             if (runwaySchedule is null) return NotFound();
@@ -37,12 +37,12 @@ namespace Airplane_UI.Controllers.GateAssignments
         }
         // Create
         [HttpPost]
-        public async Task<ActionResult<GetAllDetailsRunwayScheduleDTO>> CreateAsync([FromBody] CreateAndUpdateRunwayScheduleDTO createRunwayScheduleDTO)
+        public async Task<ActionResult<GetAllDetailsRunwayScheduleDTO>> Create([FromBody] CreateAndUpdateRunwayScheduleDTO createRunwayScheduleDTO)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var createdRunwaySchedule = await _service.CreateAsync(createRunwayScheduleDTO);
             if (createdRunwaySchedule is null) return NotFound();
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = createdRunwaySchedule.Id }, createdRunwaySchedule);
+            return CreatedAtAction(nameof(GetById), new { id = createdRunwaySchedule.Id }, createdRunwaySchedule);
         }
         // Update
         [HttpPut("{id}")]
