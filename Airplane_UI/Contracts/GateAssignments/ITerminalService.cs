@@ -13,7 +13,7 @@ namespace Airplane_UI.Contracts.GateAssignments
         // GET by Id
         Task<GetTerminalDTO> GetByIdAsync(int terminalId);
         // CREATE
-        Task<GetAllDetailsTerminalDTO> CreateAsync(CreateAndUpdateTerminalDTO terminalDto);
+        Task<GetTerminalDTO> CreateAsync(CreateAndUpdateTerminalDTO terminalDto);
         // UPDATE
         Task<GetTerminalDTO> UpdateAsync(int terminalId, CreateAndUpdateTerminalDTO terminalDto);
         // DELETE

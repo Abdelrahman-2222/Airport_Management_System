@@ -23,36 +23,19 @@ public class CateringFacilitiesService : ICateringFacilitiesService
     {
         _context = context;
     }
-    /// <summary>
-    /// Retrieves all catering facilities from the database.
-    /// </summary>
-    /// <returns>
-    /// A task that represents the asynchronous operation. The task result contains a list of GetCateringFacilitiesDTO objects.
-    /// </returns>
+    /// <inheritdoc/>
     public async Task<IList<GetCateringFacilitiesDTO>> GetAllAsync()
     {
         var result = await _context.CateringFacilities.Select(b => b.ToDto()).ToListAsync();
         return result;
     }
-    /// <summary>
-    /// Retrieves a specific catering facility by its unique identifier.
-    /// </summary>
-    /// <param name="cateringFacilitieId">The unique identifier of the catering facility to retrieve.</param>
-    /// <returns>
-    /// A task that represents the asynchronous operation. The task result contains the corresponding GetCateringFacilitiesDTO
-    /// </returns>
+    /// <inheritdoc/>
     public async Task<GetCateringFacilitiesDTO> GetByIdAsync(int cateringFacilitieId)
     {
         var result = await _context.CateringFacilities.Where(b => b.Id == cateringFacilitieId).Select(b => b.ToDto()).SingleOrDefaultAsync();
         return result;
     }
-    /// <summary>
-    /// Creates a new catering facility in the database.
-    /// </summary>
-    /// <param name="dto">The data transfer object containing the information for the new catering facility.</param>
-    /// <returns>
-    /// A task that represents the asynchronous operation. The task result contains the created GetCateringFacilitiesDTO object
-    /// </returns>
+    /// <inheritdoc/>
     public async Task<GetCateringFacilitiesDTO> CreateAsync(CreateAndUpdateCateringFacilitiesDTO dto)
     {
         var cateringFacilitiesEntity = dto.ToEntity();
@@ -67,14 +50,7 @@ public class CateringFacilitiesService : ICateringFacilitiesService
         var result = cateringFacilitiesEntity.ToDto();
         return result;
     }
-    /// <summary>
-    /// Updates an existing catering facility in the database.
-    /// </summary>
-    /// <param name="cateringFacilitieId">The unique identifier of the catering facility to update.</param>
-    /// <param name="dto">The data transfer object containing the updated information for the catering facility.</param>
-    /// <returns>
-    /// A task that represents the asynchronous operation. The task result contains the updated GetCateringFacilitiesDTO object,
-    /// </returns>
+    /// <inheritdoc/>
     public async Task<GetCateringFacilitiesDTO> UpdateAsync(int cateringFacilitieId, CreateAndUpdateCateringFacilitiesDTO dto)
     {
         if (cateringFacilitieId < 0)
@@ -97,13 +73,7 @@ public class CateringFacilitiesService : ICateringFacilitiesService
 
         return existingCateringFacilitie.ToDto();
     }
-    /// <summary>
-    /// Deletes a catering facility from the database by its unique identifier.
-    /// </summary>
-    /// <param name="cateringFacilitieId">The unique identifier of the catering facility to delete.</param>
-    /// <returns>
-    /// A task that represents the asynchronous operation. The task result contains a success message if the deletion is successful
-    /// </returns>
+    /// <inheritdoc/>
     public async Task<string> DeleteAsync(int cateringFacilitieId)
     {
         if (cateringFacilitieId < 0)

@@ -1,4 +1,5 @@
-﻿using Airplane_UI.Data;
+﻿using Airplane_UI.Contracts.SecurityGates;
+using Airplane_UI.Data;
 using Airplane_UI.DTOs.SecurityGates.AirportStaff;
 using Airplane_UI.Entities.SecurityGates;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,7 @@ namespace Airplane_UI.Services.SecurityGates
     /// Provides functionality for managing Airport Staff, including
     /// retrieving, creating, updating, and deleting staff records.
     /// </summary>
-    public class AirportStaffService
+    public class AirportStaffService:IAirportStaffService
     {
         private readonly AirplaneManagementSystemContext _context;
 

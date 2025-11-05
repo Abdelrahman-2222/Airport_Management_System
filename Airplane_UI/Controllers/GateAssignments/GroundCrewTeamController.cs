@@ -21,10 +21,10 @@ namespace Airplane_UI.Controllers.GateAssignments
             var groundCrewTeams = await _service.GetAllAsync();
             return Ok(groundCrewTeams);
         }
-        [HttpGet("{Id}")]
-        public async Task<ActionResult<GetGroundCrewTeamDTO>> GetByIdAsync(int Id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<GetGroundCrewTeamDTO>> GetByIdAsync(int id)
         {
-            var groundCrewTeam = await _service.GetByIdAsync(Id);
+            var groundCrewTeam = await _service.GetByIdAsync(id);
             if (groundCrewTeam == null)
             {
                 return NotFound();
@@ -39,7 +39,7 @@ namespace Airplane_UI.Controllers.GateAssignments
             {
                 return BadRequest(ModelState);
             }
-            return CreatedAtAction(nameof(GetByIdAsync), new { Id = createdGroundCrewTeam.Id }, createdGroundCrewTeam);
+            return CreatedAtAction(nameof(GetByIdAsync), new { id = createdGroundCrewTeam.Id }, createdGroundCrewTeam);
         }
         [HttpPut("{Id}")]
         public async Task<ActionResult<GetGroundCrewTeamDTO>> UpdateAsync(int Id, CreateAndUpdateGroundCrewTeamDTO groundCrewTeamDto)

@@ -47,7 +47,7 @@ namespace Airplane_UI.Controllers.AirlineCore
         [HttpGet("{airlineId}")]
         public async Task<ActionResult> GetById(int airlineId)
         {
-            var airline = await _service.GetyByIdAsync(airlineId);
+            var airline = await _service.GetByIdAsync(airlineId);
             return Ok(airline);
         }
 

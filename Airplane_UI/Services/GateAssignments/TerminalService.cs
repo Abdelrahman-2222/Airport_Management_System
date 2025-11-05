@@ -1,8 +1,10 @@
 ﻿using Airplane_UI.Contracts.GateAssignments;
 using Airplane_UI.Data;
+using Airplane_UI.DTOs.GateAssignments.GateDTOs;
 using Airplane_UI.DTOs.GateAssignments.TerminalDTOs;
 using Airplane_UI.DTOs.LuggageMaintnance.BaggageClaim;
 using Airplane_UI.DTOs.SecurityGates.CustomsDesk;
+using Airplane_UI.DTOs.SecurityGates.SecurityCheckpoint;
 using Airplane_UI.Entities.GateAssignments;
 using Microsoft.EntityFrameworkCore;
 
@@ -48,6 +50,13 @@ namespace Airplane_UI.Services.GateAssignments
                 {
                     Id = t.Id,
                     Name = t.Name,
+                    Gates = t.Gates.Select(g => new GetGateDTO
+                    {
+                        Id = g.Id,
+                        GateNumber = g.GateNumber,
+                        Status = g.Status.ToString(),
+                        TerminalName = g.Terminal.Name
+                    }).ToList(),
                     BaggageClaims = t.BaggageClaims
                         .Select(bc => new GetBaggageClaimDto
                         {
@@ -60,12 +69,7 @@ namespace Airplane_UI.Services.GateAssignments
                         Id = cd.Id,
                         DeskNumber = cd.DeskNumber
                     }).ToList(),
-                    Gates = t.Gates.Select(g => new DTOs.GateAssignments.GateDTOs.GetGateDTO
-                    {
-                        Id = g.Id,
-                        GateNumber = g.GateNumber
-                    }).ToList(),
-                    SecurityCheckpoints = t.SecurityCheckpoints.Select(sc => new DTOs.SecurityGates.SecurityCheckpoint.GetSecurityCheckpointDto
+                    SecurityCheckpoints = t.SecurityCheckpoints.Select(sc => new GetSecurityCheckpointDto
                     {
                         Id = sc.Id,
                         Name = sc.Name,
@@ -75,7 +79,7 @@ namespace Airplane_UI.Services.GateAssignments
                 .ToListAsync();
             return terminals;
         }
-        public async Task<GetAllDetailsTerminalDTO> CreateAsync(CreateAndUpdateTerminalDTO terminalDto)
+        public async Task<GetTerminalDTO> CreateAsync(CreateAndUpdateTerminalDTO terminalDto)
         {
             var terminal = new Terminal
             {
@@ -87,35 +91,11 @@ namespace Airplane_UI.Services.GateAssignments
 
             var result = await _context.Terminals
                 .Where(t => t.Id == terminal.Id)
-                .Select(t => new GetAllDetailsTerminalDTO
+                .Select(t => new GetTerminalDTO
                 {
                     Id = t.Id,
-                    Name = t.Name,
-                    BaggageClaims = t.BaggageClaims
-                        .Select(bc => new GetBaggageClaimDto
-                        {
-                            CarouselNumber = bc.CarouselNumber,
-                            Status = bc.Status.ToString(),
-                            TerminalName = t.Name
-                        }).ToList(),
-                    CustomsDesks = t.CustomsDesks.Select(cd => new GetCustomsDeskDto
-                    {
-                        Id = cd.Id,
-                        DeskNumber = cd.DeskNumber
-                    }).ToList(),
-                    Gates = t.Gates.Select(g => new DTOs.GateAssignments.GateDTOs.GetGateDTO
-                    {
-                        Id = g.Id,
-                        GateNumber = g.GateNumber
-                    }).ToList(),
-                    SecurityCheckpoints = t.SecurityCheckpoints.Select(sc => new DTOs.SecurityGates.SecurityCheckpoint.GetSecurityCheckpointDto
-                    {
-                        Id = sc.Id,
-                        Name = sc.Name,
-                        Status = sc.Status,
-                    }).ToList()
-                })
-                .SingleOrDefaultAsync();
+                    Name = t.Name
+                }).SingleOrDefaultAsync();
 
             return result;
         }

@@ -23,36 +23,19 @@ public class MaintenanceLogService : IMaintenanceLogService
     {
         _context = context;
     }
-    /// <summary>
-    /// Retrieves all maintenance log records asynchronously.
-    /// </summary>
-    /// <returns>
-    /// A task representing the asynchronous operation that returns a collection of maintenance log DTOs.
-    /// </returns>
+    ///<inheritdoc/>
     public async Task<IList<GetMaintenanceLogDTO>> GetAllAsync()
     {
         var result = await _context.MaintenanceLogs.Select(b => b.ToDto()).ToListAsync();
         return result;
     }
-    /// <summary>
-    /// Retrieves a maintenance log record by its unique identifier.
-    /// </summary>
-    /// <param name="maintenanceLogId">The unique identifier of the maintenance log.</param>
-    /// <returns>
-    /// A task representing the asynchronous operation that returns the maintenance log DTO if found; otherwise, null.
-    /// </returns>
+    ///<inheritdoc/>
     public async Task<GetMaintenanceLogDTO> GetByIdAsync(int maintenanceLogId)
     {
         var result = await _context.MaintenanceLogs.Where(b => b.Id == maintenanceLogId).Select(b => b.ToDto()).SingleOrDefaultAsync();
         return result;
     }
-    /// <summary>
-    /// Creates a new maintenance log record.
-    /// </summary>
-    /// <param name="dto">The data transfer object containing maintenance log details.</param>
-    /// <returns>
-    /// A task representing the asynchronous operation that returns the created maintenance log DTO.
-    /// </returns>
+    ///<inheritdoc/>
     public async Task<GetMaintenanceLogDTO> CreateAsync(CreateAndUpdateMaintenanceLogDTO dto)
     {
         var maintenanceLogEntity = dto.ToEntity();
@@ -67,14 +50,7 @@ public class MaintenanceLogService : IMaintenanceLogService
         var result = maintenanceLogEntity.ToDto();
         return result;
     }
-    /// <summary>
-    /// Updates an existing maintenance log record.
-    /// </summary>
-    /// <param name="maintenanceLogId">The unique identifier of the maintenance log to update.</param>
-    /// <param name="dto">The data transfer object containing updated maintenance log details.</param>
-    /// <returns>
-    /// A task representing the asynchronous operation that returns the updated maintenance log DTO if successful; otherwise, null.
-    /// </returns>
+    ///<inheritdoc/>
     public async Task<GetMaintenanceLogDTO> UpdateAsync(int maintenanceLogId, CreateAndUpdateMaintenanceLogDTO dto)
     {
         if (maintenanceLogId < 0)
@@ -94,13 +70,7 @@ public class MaintenanceLogService : IMaintenanceLogService
         var result = existingMaintenanceLog.ToDto();
         return result;
     }
-    /// <summary>
-    /// Deletes a maintenance log record by its unique identifier.
-    /// </summary>
-    /// <param name="maintenanceLogId">The unique identifier of the maintenance log to delete.</param>
-    /// <returns>
-    /// A task representing the asynchronous operation that returns a confirmation message if deleted successfully; otherwise, null or an error message.
-    /// </returns>
+    ///<inheritdoc/>
     public async Task<string> DeleteAsync(int maintenanceLogId)
     {
         if (maintenanceLogId < 0)

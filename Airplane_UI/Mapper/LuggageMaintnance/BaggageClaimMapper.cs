@@ -1,6 +1,8 @@
-﻿using Airplane_UI.DTOs.LuggageMaintnance.BaggageClaim;
+﻿using Airplane_UI.DTOs.GateAssignments.TerminalDTOs;
+using Airplane_UI.DTOs.LuggageMaintnance.BaggageClaim;
 using Airplane_UI.Entities.LuggageMaintnance;
 using Airplane_UI.Enums;
+using System.Linq.Expressions;
 using System.Net.WebSockets;
 
 namespace Airplane_UI.Mapper.LuggageMaintnance;
@@ -17,15 +19,24 @@ public static class BaggageClaimMapper
     {
         var result = new GetBaggageClaimDto
         {
+            Id = claims.Id,
             CarouselNumber = claims.CarouselNumber,
             Status = claims.Status.ToString(),
-            //TerminalName = new TerminlDTO
-            //{
-            //    Name = claims.Te
-            //},
+            TerminalName = claims.Terminal.Name
         };
         return result;
     }
+
+    //public static Expression<Func<BaggageClaim, GetBaggageClaimDto>> ToDto()
+    //{
+    //    return claims => new GetBaggageClaimDto
+    //    {
+    //        Id = claims.Id,
+    //        CarouselNumber = claims.CarouselNumber,
+    //        Status = claims.Status.ToString(),
+    //        TerminalName = claims.Terminal.Name
+    //    };
+    //}
 
     /// <summary>
     /// Projects a BaggageClaim entity (with Terminal navigation) directly to a GetBaggageClaimDto.
