@@ -11,7 +11,7 @@ namespace Airplane_UI.Contracts.SecurityGates
         /// Retrieves all checkpoint logs from the system.
         /// </summary>
         /// <returns>A list of <see cref="GetCheckpointLogDto"/> representing all checkpoint logs.</returns>
-        Task<IList<GetCheckpointLogDto>> GetAllAsync();
+        Task<List<GetCheckpointLogDto>> GetAllAsync();
 
         /// <summary>
         /// Retrieves a single checkpoint log by its unique identifier.

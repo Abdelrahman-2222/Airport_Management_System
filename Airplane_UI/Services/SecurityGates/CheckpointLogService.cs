@@ -1,7 +1,6 @@
 ﻿using Airplane_UI.Contracts.SecurityGates;
 using Airplane_UI.Data;
-using Airplane_UI.DTOs.CheckpointLog;
-using Airplane_UI.DTOs.SecurityGates;
+using Airplane_UI.DTOs.SecurityGates.CheckpointLog;
 using Airplane_UI.Entities.SecurityGates;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,7 +27,7 @@ namespace Airplane_UI.Services.SecurityGates
         /// Retrieves all checkpoint logs from the system.
         /// </summary>
         /// <returns>A list of <see cref="GetCheckpointLogDto"/> representing all checkpoint logs.</returns>
-        public async Task<IList<GetCheckpointLogDto>> GetAllAsync()
+        public async Task<List<GetCheckpointLogDto>> GetAllAsync()
         {
             return await _context.CheckpointLogs
                 .Select(cl => new GetCheckpointLogDto
@@ -129,5 +128,6 @@ namespace Airplane_UI.Services.SecurityGates
             await _context.SaveChangesAsync();
             return $"CheckpointLog {CheckpointId} deleted successfully";
         }
+
     }
 }
