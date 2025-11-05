@@ -12,7 +12,6 @@ namespace Airplane_UI.Services.LuggageMaintnance;
 /// <summary>
 /// Provides implementation for baggage claim service operations such as retrieving,
 /// creating, updating, and deleting baggage claim records.
-/// 
 /// </summary>
 public class BaggageClaimService : IBaggageClaimService
 {
@@ -30,31 +29,20 @@ public class BaggageClaimService : IBaggageClaimService
         _context = context;
         //_mapper = mapper;
     }
-    /// <summary>
-    /// Retrieves all baggage claim records asynchronously.
-    /// </summary>
-    /// <returns>A task representing the asynchronous operation that returns a list of baggage claim DTOs.</returns>
+    /// <inheritdoc/>
     public async Task<IList<GetBaggageClaimDto>> GetAllAsync()
     {
         //var result = await _context.BaggageClaims.Select(_mapper.ToDto()).ToListAsync();
         var result = await _context.BaggageClaims.Include(b => b.Terminal).Select(b => b.ToDto()).ToListAsync();
         return result;
     }
-    /// <summary>
-    /// Retrieves a baggage claim record by its unique identifier.
-    /// </summary>
-    /// <param name="BaggageId">The unique identifier of the baggage claim.</param>
-    /// <returns>A task representing the asynchronous operation that returns a baggage claim DTO if found; otherwise, null.</returns>
+    /// <inheritdoc/>
     public async Task<GetBaggageClaimDto> GetByIdAsync(int BaggageId)
     {
         var result = await _context.BaggageClaims.Where(b => b.Id == BaggageId).Select(b => b.ToDto()).SingleOrDefaultAsync();
         return result;
     }
-    /// <summary>
-    /// Creates a new baggage claim record asynchronously.
-    /// </summary>
-    /// <param name="dto">The data transfer object containing details for the new baggage claim.</param>
-    /// <returns>A task representing the asynchronous operation that returns the created baggage claim DTO.</returns>
+    /// <inheritdoc/>
     public async Task<GetBaggageClaimDto> CreateAsync(CreateAndUpdateBaggageClaimDto dto)
     {
         var baggageClaimEntity = dto.ToEntity();
@@ -69,12 +57,7 @@ public class BaggageClaimService : IBaggageClaimService
         var result = baggageClaimEntity.ToDto();
         return result;
     }
-    /// <summary>
-    /// Updates an existing baggage claim record asynchronously.
-    /// </summary>
-    /// <param name="BaggageId">The unique identifier of the baggage claim to update.</param>
-    /// <param name="dto">The data transfer object containing updated baggage claim details.</param>
-    /// <returns>A task representing the asynchronous operation that returns the updated baggage claim DTO if successful; otherwise, null.</returns>
+    /// <inheritdoc/>
     public async Task<GetBaggageClaimDto> UpdateAsync(int BaggageId, CreateAndUpdateBaggageClaimDto dto)
     {
         if (BaggageId < 0)
@@ -94,14 +77,7 @@ public class BaggageClaimService : IBaggageClaimService
         var result = existingClaim.ToDto();
         return result;
     }
-    /// <summary>
-    /// Deletes a baggage claim record asynchronously by its unique identifier.
-    /// </summary>
-    /// <param name="BaggageId">The unique identifier of the baggage claim to delete.</param>
-    /// <returns>
-    /// A task representing the asynchronous operation that returns a message confirming deletion,
-    /// or null if the operation fails.
-    /// </returns>
+    /// <inheritdoc/>
     public async Task<string> DeleteAsync(int BaggageId)
     {
         if (BaggageId < 0)

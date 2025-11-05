@@ -9,6 +9,7 @@ public class CreateAndUpdateBaggageClaimDto
     /// <summary>
     /// Gets or sets the Carousel Number of the Baggage Claim.
     /// </summary>
+    /// <inheritdoc/>
     public string CarouselNumber { get; set; }
     /// <summary>
     /// Gets or sets the Status of the Baggage Claim.

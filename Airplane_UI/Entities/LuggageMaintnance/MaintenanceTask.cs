@@ -7,6 +7,9 @@ namespace Airplane_UI.Entities.LuggageMaintnance;
 /// </summary>
 public class MaintenanceTask : INamedBaseEntity , IBaseEntity
 {
+    /// <summary>
+    /// Gets or sets the unique identifier for the entity.
+    /// </summary>
     public int Id { get; set; }
     /// <summary>
     /// The name of the maintenance task.
