@@ -41,6 +41,8 @@ namespace Airplane_UI
             builder.Services.AddScoped<IGateAssignmentService, GateAssignmentService>();
             builder.Services.AddScoped<ITerminalService, TerminalService>();
             builder.Services.AddScoped<IGroundCrewTeamService, GroundCrewTeamService>();
+            builder.Services.AddScoped<IRunwayService, RunwayService>();
+            builder.Services.AddScoped<IRunwayScheduleService, RunwayScheduleService>();
             #endregion
 
             #region AirlineCore Services
