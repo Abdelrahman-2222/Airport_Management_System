@@ -1,4 +1,4 @@
-﻿using Airplane_UI.DTOs.CheckpointLog;
+﻿using Airplane_UI.DTOs.SecurityGates.CheckpointLog;
 
 namespace Airplane_UI.Contracts.SecurityGates
 {

@@ -1,9 +1,9 @@
-﻿namespace Airplane_UI.DTOs.CheckpointLog
+﻿namespace Airplane_UI.DTOs.SecurityGates.CheckpointLog
 {
     /// <summary>
-    /// Data Transfer Object for retrieving basic information of a CheckpointLog.
+    /// DTO for retrieving detailed information of a CheckpointLog including related checkpoint information.
     /// </summary>
-    public class GetCheckpointLogDto
+    public class GetCheckpointLogDetailsDto
     {
         /// <summary>
         /// Unique identifier of the checkpoint log.
@@ -14,6 +14,11 @@
         /// Identifier of the related checkpoint.
         /// </summary>
         public int CheckpointID { get; set; }
+
+        /// <summary>
+        /// Name of the checkpoint.
+        /// </summary>
+        public string CheckpointName { get; set; }
 
         /// <summary>
         /// The timestamp when the log was recorded.

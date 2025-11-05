@@ -1,4 +1,4 @@
-﻿namespace Airplane_UI.DTOs.CheckpointLog
+﻿namespace Airplane_UI.DTOs.SecurityGates.CheckpointLog
 {
     /// <summary>
     /// DTO for creating a new CheckpointLog.
