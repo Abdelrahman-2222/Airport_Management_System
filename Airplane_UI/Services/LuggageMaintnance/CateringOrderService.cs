@@ -22,35 +22,19 @@ public class CateringOrderService : ICateringOrderService
     {
         _context = context;
     }
-    /// <summary>
-    /// Retrieves all catering orders asynchronously.
-    /// </summary>
-    /// <returns>A list of GetCateringOrderDTO objects representing all catering orders.</returns>
+    ///<inheritdoc/>
     public async Task<IList<GetCateringOrderDTO>> GetAllAsync()
     {
         var result = await _context.CateringOrders.Select(b => b.ToDto()).ToListAsync();
         return result;
     }
-    /// <summary>
-    /// Retrieves a specific catering order by its ID asynchronously.
-    /// </summary>
-    /// <param name="cateringOrderId">The unique identifier of the catering order.</param>
-    /// <returns>
-    /// A GetCateringOrderDTO representing the catering order,
-    /// </returns>
+    ///<inheritdoc/>
     public async Task<GetCateringOrderDTO> GetByIdAsync(int cateringOrderId)
     {
         var result = await _context.CateringOrders.Where(b => b.Id == cateringOrderId).Select(b => b.ToDto()).SingleOrDefaultAsync();
         return result;
     }
-    /// <summary>
-    /// Creates a new catering order asynchronously.
-    /// </summary>
-    /// <param name="dto">The data transfer object containing information for the new catering order.</param>
-    /// <returns>
-    /// A task that represents the asynchronous operation.
-    /// The task result contains a GetCateringOrderDTO representing the created catering order,
-    /// </returns>
+    ///<inheritdoc/>
     public async Task<GetCateringOrderDTO> CreateAsync(CreateAndUpdateCateringOrderDTO dto)
     {
         var cateringOrderEntity = dto.ToEntity();
@@ -66,15 +50,7 @@ public class CateringOrderService : ICateringOrderService
         return result;
     }
 
-    /// <summary>
-    /// Updates an existing catering order asynchronously.
-    /// </summary>
-    /// <param name="cateringOrderId">The unique identifier of the catering order to update.</param>
-    /// <param name="dto">The data transfer object containing the updated information.</param>
-    /// <returns>
-    /// A task that represents the asynchronous operation.
-    /// The task result contains a GetCateringOrderDTO representing the updated catering order,
-    /// </returns>
+    ///<inheritdoc/>
     public async Task<GetCateringOrderDTO> UpdateAsync(int cateringOrderId, CreateAndUpdateCateringOrderDTO dto)
     {
         if (cateringOrderId < 0)
@@ -94,14 +70,7 @@ public class CateringOrderService : ICateringOrderService
         var result = existingCateringOrder.ToDto();
         return result;
     }
-    /// <summary>
-    /// Deletes an existing catering order asynchronously by its unique identifier.
-    /// </summary>
-    /// <param name="cateringOrderId">The unique identifier of the catering order to delete.</param>
-    /// <returns>
-    /// A task that represents the asynchronous operation.
-    /// The task result contains a string message indicating whether the deletion was successful.
-    /// </returns>
+    ///<inheritdoc/>
     public async Task<string> DeleteAsync(int cateringOrderId)
     {
         if (cateringOrderId < 0)

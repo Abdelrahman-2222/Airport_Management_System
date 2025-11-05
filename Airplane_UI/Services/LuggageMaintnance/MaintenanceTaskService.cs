@@ -25,36 +25,19 @@ public class MaintenanceTaskService : IMaintenanceTaskService
     {
         _context = context;
     }
-    /// <summary>
-    /// Retrieves all maintenance task records asynchronously.
-    /// </summary>
-    /// <returns>
-    /// A task representing the asynchronous operation that returns a collection of maintenance task DTOs.
-    /// </returns>
+    ///<inheritdoc/>
     public async Task<IList<GetMaintenanceTaskDTO>> GetAllAsync()
     {
         var result = await _context.MaintenanceTasks.Select(b => b.ToDto()).ToListAsync();
         return result;
     }
-    /// <summary>
-    /// Retrieves a specific maintenance task record by its unique identifier.
-    /// </summary>
-    /// <param name="maintenanceTaskId">The unique identifier of the maintenance task.</param>
-    /// <returns>
-    /// A task representing the asynchronous operation that returns the maintenance task DTO if found; otherwise, null.
-    /// </returns>
+    ///<inheritdoc/>
     public async Task<GetMaintenanceTaskDTO> GetByIdAsync(int maintenanceTaskId)
     {
         var result = await _context.MaintenanceTasks.Where(b => b.Id == maintenanceTaskId).Select(b => b.ToDto()).SingleOrDefaultAsync();
         return result;
     }
-    /// <summary>
-    /// Creates a new maintenance task record asynchronously.
-    /// </summary>
-    /// <param name="dto">The data transfer object containing maintenance task details.</param>
-    /// <returns>
-    /// A task representing the asynchronous operation that returns the created maintenance task DTO.
-    /// </returns>
+    ///<inheritdoc/>
     public async Task<GetMaintenanceTaskDTO> CreateAsync(CreateAndUpdateMaintenanceTaskDTO dto)
     {
         var maintenanceTaskEntity = dto.ToEntity();
@@ -69,15 +52,7 @@ public class MaintenanceTaskService : IMaintenanceTaskService
         var result = maintenanceTaskEntity.ToDto();
         return result;
     }
-
-    /// <summary>
-    /// Updates an existing maintenance task record asynchronously.
-    /// </summary>
-    /// <param name="maintenanceTaskId">The unique identifier of the maintenance task to update.</param>
-    /// <param name="dto">The data transfer object containing updated maintenance task details.</param>
-    /// <returns>
-    /// A task representing the asynchronous operation that returns the updated maintenance task DTO if successful; otherwise, null.
-    /// </returns>
+    ///<inheritdoc/>
     public async Task<GetMaintenanceTaskDTO> UpdateAsync(int maintenanceTaskId, CreateAndUpdateMaintenanceTaskDTO dto)
     {
         if (maintenanceTaskId < 0)
@@ -97,13 +72,7 @@ public class MaintenanceTaskService : IMaintenanceTaskService
         var result = existingMaintenanceTask.ToDto();
         return result;
     }
-    /// <summary>
-    /// Deletes a maintenance task record by its unique identifier asynchronously.
-    /// </summary>
-    /// <param name="maintenanceTaskId">The unique identifier of the maintenance task to delete.</param>
-    /// <returns>
-    /// A task representing the asynchronous operation that returns a confirmation message if deleted successfully; otherwise, null or an error message.
-    /// </returns>
+    ///<inheritdoc/>
     public async Task<string> DeleteAsync(int maintenanceTaskId)
     {
         if (maintenanceTaskId < 0)
