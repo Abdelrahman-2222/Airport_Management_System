@@ -3,6 +3,8 @@ using Airplane_UI.Components;
 using Microsoft.EntityFrameworkCore;
 using Airplane_UI.Contracts.LuggageMaintnance;
 using Airplane_UI.Services.LuggageMaintnance;
+using Airplane_UI.Contracts.GateAssignments;
+using Airplane_UI.Services.GateAssignments;
 
 namespace Airplane_UI
 {
@@ -24,6 +26,11 @@ namespace Airplane_UI
             // Add Db context config
             builder.Services.AddDbContext<AirplaneManagementSystemContext>(opt => opt.UseSqlServer(
                 builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            #region GateAssignments Services
+            builder.Services.AddScoped<IGateService, GateService>(); 
+            builder.Services.AddScoped<IGateAssignmentService, GateAssignmentService>();
+            #endregion
 
             // Inject Services
             builder.Services.AddScoped<IBaggageClaimService, BaggageClaimService>();
