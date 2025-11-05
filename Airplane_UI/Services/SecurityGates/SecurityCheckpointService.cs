@@ -7,124 +7,131 @@ using System;
 
 namespace Airplane_UI.Services.SecurityGates
 {
+    /// <summary>
+    /// Provides implementation for managing security checkpoints and related data.
+    /// </summary>
+    public class SecurityCheckpointService : ISecurityCheckpointService
+    {
+        private readonly AirplaneManagementSystemContext _context;
+
         /// <summary>
-        /// Provides implementation for managing security checkpoints and related data.
+        /// Initializes a new instance of <see cref="SecurityCheckpointService"/>.
         /// </summary>
-        public class SecurityCheckpointService : ISecurityCheckpointService
+        /// <param name="context">The database context instance used for data access.</param>
+        public SecurityCheckpointService(AirplaneManagementSystemContext context)
         {
-            private readonly AirplaneManagementSystemContext _context;
+            _context = context;
+        }
 
-            /// <summary>
-            /// Initializes a new instance of <see cref="SecurityCheckpointService"/>.
-            /// </summary>
-            /// <param name="context">The database context instance used for data access.</param>
-            public SecurityCheckpointService(AirplaneManagementSystemContext context)
-            {
-                _context = context;
-            }
+        /// <summary>
+        /// Retrieves all security checkpoints.
+        /// </summary>
+        /// <returns>A list of all security checkpoints.</returns>
+        public async Task<List<GetSecurityCheckpointDto>> GetAllAsync()
+        {
+            return await _context.SecurityCheckpoints
+                .AsNoTracking()
+                .Select(sc => new GetSecurityCheckpointDto
+                {
+                    Id = sc.Id,
+                    Name = sc.Name,
+                    TerminalID = sc.TerminalID,
+                    Status = sc.Status
+                })
+                .ToListAsync();
+        }
 
-            /// <summary>
-            /// Retrieves all security checkpoints.
-            /// </summary>
-            /// <returns>A list of all security checkpoints.</returns>
-            public async Task<List<GetSecurityCheckpointDto>> GetAllAsync()
-            {
-                return await _context.SecurityCheckpoints
-                    .AsNoTracking()
-                    .Select(sc => new GetSecurityCheckpointDto
-                    {
-                        Id = sc.Id,
-                        Name = sc.Name,
-                        TerminalID = sc.TerminalID,
-                        Status = sc.Status
-                    })
-                    .ToListAsync();
-            }
+        /// <summary>
+        /// Retrieves a security checkpoint by ID.
+        /// </summary>
+        /// <param name="id">The unique identifier of the security checkpoint.</param>
+        /// <returns>The matching checkpoint if found; otherwise, null.</returns>
+        public async Task<GetSecurityCheckpointDto?> GetByIdAsync(int id)
+        {
+            return await _context.SecurityCheckpoints
+                .AsNoTracking()
+                .Where(sc => sc.Id == id)
+                .Select(sc => new GetSecurityCheckpointDto
+                {
+                    Id = sc.Id,
+                    Name = sc.Name,
+                    TerminalID = sc.TerminalID,
+                    Status = sc.Status
+                })
+                .FirstOrDefaultAsync();
+        }
 
-            /// <summary>
-            /// Retrieves a security checkpoint by ID.
-            /// </summary>
-            /// <param name="id">The unique identifier of the security checkpoint.</param>
-            /// <returns>The matching checkpoint if found; otherwise, null.</returns>
-            public async Task<GetSecurityCheckpointDto?> GetByIdAsync(int id)
-            {
-                return await _context.SecurityCheckpoints
-                    .AsNoTracking()
-                    .Where(sc => sc.Id == id)
-                    .Select(sc => new GetSecurityCheckpointDto
-                    {
-                        Id = sc.Id,
-                        Name = sc.Name,
-                        TerminalID = sc.TerminalID,
-                        Status = sc.Status
-                    })
-                    .FirstOrDefaultAsync();
-            }
+        /// <summary>
+        /// Retrieves detailed information about a checkpoint including logs and assignments.
+        /// </summary>
+        /// <param name="id">The ID of the security checkpoint.</param>
+        /// <returns>Detailed checkpoint data, or null if not found.</returns>
+        public async Task<GetSecurityCheckpointDetailsDto?> GetDetailsAsync(int id)
+        {
+            var checkpoint = await _context.SecurityCheckpoints
+                .AsNoTracking()
+                .Where(sc => sc.Id == id)
+                .Include(sc => sc.CheckpointLogs)
+                .Include(sc => sc.AssignedShifts)
+                .FirstOrDefaultAsync();
 
-            /// <summary>
-            /// Retrieves detailed information about a checkpoint including logs and assignments.
-            /// </summary>
-            /// <param name="id">The ID of the security checkpoint.</param>
-            /// <returns>Detailed checkpoint data, or null if not found.</returns>
-            public async Task<GetSecurityCheckpointDetailsDto?> GetDetailsAsync(int id)
-            {
-                return await _context.SecurityCheckpoints
-                    .AsNoTracking()
-                    .Where(sc => sc.Id == id)
-                    .Select(sc => new GetSecurityCheckpointDetailsDto
-                    {
-                        Id = sc.Id,
-                        Name = sc.Name,
-                        TerminalID = sc.TerminalID,
-                        Status = sc.Status,
-                        LogCount = sc.CheckpointLogs.Count,
-                        ActiveShifts = sc.AssignedShifts.Count(ss => ss.EndTime > DateTime.UtcNow),
-                        AverageWaitTime = sc.CheckpointLogs.Count > 0
-                            ? TimeSpan.FromTicks((long)sc.CheckpointLogs.Average(cl => cl.ReportedWaitTime.Ticks))
-                            : (TimeSpan?)null
-                    })
-                    .FirstOrDefaultAsync();
-            }
+            if (checkpoint == null) return null;
 
-            /// <summary>
-            /// Retrieves all checkpoints in a specific terminal.
-            /// </summary>
-            /// <param name="terminalId">The terminal ID to filter checkpoints by.</param>
-            /// <returns>A collection of checkpoints within the given terminal.</returns>
-            public async Task<List<GetSecurityCheckpointDto>> GetByTerminalAsync(int terminalId)
-            {
-                return await _context.SecurityCheckpoints
-                    .AsNoTracking()
-                    .Where(sc => sc.TerminalID == terminalId)
-                    .Select(sc => new GetSecurityCheckpointDto
-                    {
-                        Id = sc.Id,
-                        Name = sc.Name,
-                        TerminalID = sc.TerminalID,
-                        Status = sc.Status
-                    })
-                    .ToListAsync();
-            }
+            var averageWaitTime = checkpoint.CheckpointLogs.Any()
+                ? TimeSpan.FromTicks((long)checkpoint.CheckpointLogs.Average(cl => cl.ReportedWaitTime.Ticks))
+                : (TimeSpan?)null;
 
-            /// <summary>
-            /// Retrieves checkpoints with a specific operational status.
-            /// </summary>
-            /// <param name="status">The status to filter checkpoints by.</param>
-            /// <returns>A collection of checkpoints matching the specified status.</returns>
-            public async Task<List<GetSecurityCheckpointDto>> GetByStatusAsync(string status)
+            return new GetSecurityCheckpointDetailsDto
             {
-                return await _context.SecurityCheckpoints
-                    .AsNoTracking()
-                    .Where(sc => sc.Status == status)
-                    .Select(sc => new GetSecurityCheckpointDto
-                    {
-                        Id = sc.Id,
-                        Name = sc.Name,
-                        TerminalID = sc.TerminalID,
-                        Status = sc.Status
-                    })
-                    .ToListAsync();
-            }
+                Id = checkpoint.Id,
+                Name = checkpoint.Name,
+                TerminalID = checkpoint.TerminalID,
+                Status = checkpoint.Status,
+                LogCount = checkpoint.CheckpointLogs.Count,
+                ActiveShifts = checkpoint.AssignedShifts.Count(ss => ss.EndTime > DateTime.UtcNow),
+                AverageWaitTime = averageWaitTime
+            };
+        }
+
+        /// <summary>
+        /// Retrieves all checkpoints in a specific terminal.
+        /// </summary>
+        /// <param name="terminalId">The terminal ID to filter checkpoints by.</param>
+        /// <returns>A collection of checkpoints within the given terminal.</returns>
+        public async Task<List<GetSecurityCheckpointDto>> GetByTerminalAsync(int terminalId)
+        {
+            return await _context.SecurityCheckpoints
+                .AsNoTracking()
+                .Where(sc => sc.TerminalID == terminalId)
+                .Select(sc => new GetSecurityCheckpointDto
+                {
+                    Id = sc.Id,
+                    Name = sc.Name,
+                    TerminalID = sc.TerminalID,
+                    Status = sc.Status
+                })
+                .ToListAsync();
+        }
+
+        /// <summary>
+        /// Retrieves checkpoints with a specific operational status.
+        /// </summary>
+        /// <param name="status">The status to filter checkpoints by.</param>
+        /// <returns>A collection of checkpoints matching the specified status.</returns>
+        public async Task<List<GetSecurityCheckpointDto>> GetByStatusAsync(string status)
+        {
+            return await _context.SecurityCheckpoints
+                .AsNoTracking()
+                .Where(sc => sc.Status == status)
+                .Select(sc => new GetSecurityCheckpointDto
+                {
+                    Id = sc.Id,
+                    Name = sc.Name,
+                    TerminalID = sc.TerminalID,
+                    Status = sc.Status
+                })
+                .ToListAsync();
+        }
 
         /// <summary>
         /// Creates a new security checkpoint and saves it to the database.
@@ -178,24 +185,24 @@ namespace Airplane_UI.Services.SecurityGates
         /// <param name="updateDto">The updated checkpoint data.</param>
         /// <returns>The updated checkpoint DTO, or null if not found.</returns>
         public async Task<GetSecurityCheckpointDto?> UpdateAsync(int id, UpdateSecurityCheckpointDto updateDto)
+        {
+            var checkpoint = await _context.SecurityCheckpoints.FirstOrDefaultAsync(sc => sc.Id == id);
+            if (checkpoint == null)
+                return null;
+
+            checkpoint.Name = updateDto.Name;
+            checkpoint.Status = updateDto.Status;
+
+            await _context.SaveChangesAsync();
+
+            return new GetSecurityCheckpointDto
             {
-                var checkpoint = await _context.SecurityCheckpoints.FirstOrDefaultAsync(sc => sc.Id == id);
-                if (checkpoint == null)
-                    return null;
-
-                checkpoint.Name = updateDto.Name;
-                checkpoint.Status = updateDto.Status;
-
-                await _context.SaveChangesAsync();
-
-                return new GetSecurityCheckpointDto
-                {
-                    Id = checkpoint.Id,
-                    Name = checkpoint.Name,
-                    TerminalID = checkpoint.TerminalID,
-                    Status = checkpoint.Status
-                };
-            }
+                Id = checkpoint.Id,
+                Name = checkpoint.Name,
+                TerminalID = checkpoint.TerminalID,
+                Status = checkpoint.Status
+            };
+        }
 
         /// <summary>
         /// Deletes a security checkpoint by ID.
@@ -218,13 +225,13 @@ namespace Airplane_UI.Services.SecurityGates
         /// <param name="id">The checkpoint ID.</param>
         /// <param name="status">The new status value.</param>
         public async Task UpdateStatusAsync(int id, string status)
-            {
-                var checkpoint = await _context.SecurityCheckpoints.FirstOrDefaultAsync(sc => sc.Id == id);
-                if (checkpoint == null)
-                    return;
+        {
+            var checkpoint = await _context.SecurityCheckpoints.FirstOrDefaultAsync(sc => sc.Id == id);
+            if (checkpoint == null)
+                return;
 
-                checkpoint.Status = status;
-                await _context.SaveChangesAsync();
-            }
+            checkpoint.Status = status;
+            await _context.SaveChangesAsync();
+        }
     }
-    }
+}
