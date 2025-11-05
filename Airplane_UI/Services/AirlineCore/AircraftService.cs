@@ -38,7 +38,7 @@ namespace Airplane_UI.Services.AirlineCore
         /// <summary>
         /// Retrieves a specific aircraft by its unique identifier.
         /// </summary>
-        public async Task<GetAircraftDTO> GetyByIdAsync(int aircraftId)
+        public async Task<GetAircraftDTO> GetByIdAsync(int aircraftId)
         {
             var aircraft = await _context.Aircrafts
                 .Where(a => a.Id == aircraftId)

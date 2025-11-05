@@ -1,8 +1,11 @@
 using Airplane_UI.Data;
 using Airplane_UI.Components;
-using Microsoft.EntityFrameworkCore;
+using Airplane_UI.Contracts.GateAssignments;
 using Airplane_UI.Contracts.LuggageMaintnance;
+using Airplane_UI.Services.GateAssignments;
 using Airplane_UI.Services.LuggageMaintnance;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Airplane_UI
 {
@@ -17,13 +20,26 @@ namespace Airplane_UI
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
+            });
             builder.Services.AddRazorComponents()
                             .AddInteractiveServerComponents();
+
 
             // Add Db context config
             builder.Services.AddDbContext<AirplaneManagementSystemContext>(opt => opt.UseSqlServer(
                 builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            #region GateAssignments Services
+            builder.Services.AddScoped<IGateService, GateService>(); 
+            builder.Services.AddScoped<IGateAssignmentService, GateAssignmentService>();
+            builder.Services.AddScoped<ITerminalService, TerminalService>();
+            builder.Services.AddScoped<IGroundCrewTeamService, GroundCrewTeamService>();
+            #endregion
 
             // Inject Services
             builder.Services.AddScoped<IBaggageClaimService, BaggageClaimService>();
