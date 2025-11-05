@@ -1,36 +1,4 @@
-﻿@* @page "/airline"
-@using Airplane_UI.Contracts.AirlineCore
-@using Airplane_UI.DTOs.AirlineCore.AirlineDTOs
-@using MudBlazor
-@rendermode InteractiveServer
-@using System.Net.Http.Json
-@inject IAirlineService AirlineService
-
-<PageTitle>Airline</PageTitle>
-
-<MudTable Items="@Airlines" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
-    <HeaderContent>
-        <MudTh>Id</MudTh>
-        <MudTh>Name</MudTh>
-        <MudTh>IATA Code</MudTh>
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Id">@context.Id</MudTd>
-        <MudTd DataLabel="Name">@context.Name</MudTd>
-        <MudTd DataLabel="IATA Code">@context.IATA_Code</MudTd>
-    </RowTemplate>
-</MudTable>
-
-<MudSwitch @bind-Value="_loading" Color="Color.Primary">Show Loading</MudSwitch>
-
-@if (!string.IsNullOrEmpty(_errorMessage))
-{
-    <MudAlert Severity="Severity.Error" Class="mt-4">
-        @_errorMessage
-    </MudAlert>
-} *@
-
-@page "/airline"
+﻿@page "/airline"
 @using Airplane_UI.Contracts.AirlineCore
 @using Airplane_UI.DTOs.AirlineCore.AirlineDTOs
 @using MudBlazor
@@ -42,6 +10,11 @@
 <PageTitle>Airline</PageTitle>
 
 <MudTable Items="@Airlines" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+    <ToolBarContent>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => Navigation.NavigateTo("/airline/create"))" Class="mb-3">
+            Create New Airline
+        </MudButton>
+    </ToolBarContent>
     <HeaderContent>
         <MudTh>Id</MudTh>
         <MudTh>Name</MudTh>
@@ -53,13 +26,12 @@
         <MudTd DataLabel="Name">@context.Name</MudTd>
         <MudTd DataLabel="IATA Code">@context.IATA_Code</MudTd>
         <MudTd DataLabel="Actions">
-            <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="() => NavigateToDetails(context.Id)">
+            <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(() => NavigateToDetails(context.Id))">
                 View Details
             </MudButton>
         </MudTd>
     </RowTemplate>
 </MudTable>
-
 
 @if (!string.IsNullOrEmpty(_errorMessage))
 {
