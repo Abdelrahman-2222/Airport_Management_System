@@ -69,26 +69,27 @@ namespace Airplane_UI.Services.SecurityGates
         /// <returns>The detailed Customs Desk DTO if found; otherwise, null.</returns>
         public async Task<GetCustomsDeskDetailsDto?> GetDetailsAsync(int id)
         {
-            return await _context.CustomsDesks
-                .AsNoTracking()
-                .Where(d => d.Id == id)
-                .Select(d => new GetCustomsDeskDetailsDto
-                {
-                    Id = d.Id,
-                    TerminalID = d.TerminalID,
-                    DeskNumber = d.DeskNumber,
-                    Status = d.Status,
-                    AssignedShifts = d.AssignedShifts
-                        .Select(s => new StaffShiftDto
-                        {
-                            Id = s.Id,
-                            StaffName = s.Staff.Name,
-                            Role = s.Staff.Role,
-                            StartTime = s.StartTime,
-                            EndTime = s.EndTime
-                        }).ToList()
-                })
-                .FirstOrDefaultAsync();
+            //return await _context.CustomsDesks
+            //    .AsNoTracking()
+            //    .Where(d => d.Id == id)
+            //    .Select(d => new GetCustomsDeskDetailsDto
+            //    {
+            //        Id = d.Id,
+            //        TerminalID = d.TerminalID,
+            //        DeskNumber = d.DeskNumber,
+            //        Status = d.Status,
+            //        AssignedShifts = d.AssignedShifts
+            //            .Select(s => new StaffShiftDto
+            //            {
+            //                Id = s.Id,
+            //                StaffName = s.Staff.Name,
+            //                Role = s.Staff.Role,
+            //                StartTime = s.StartTime,
+            //                EndTime = s.EndTime
+            //            }).ToList()
+            //    })
+            //    .FirstOrDefaultAsync();
+            return null;
         }
 
         /// <summary>

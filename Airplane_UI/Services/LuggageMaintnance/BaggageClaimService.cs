@@ -1,7 +1,6 @@
 ﻿using Airplane_UI.Contracts.LuggageMaintnance;
 using Airplane_UI.Data;
 using Airplane_UI.DTOs.LuggageMaintnance.BaggageClaim;
-using Airplane_UI.Entities.LuggageMaintnance;
 using Airplane_UI.Mapper.LuggageMaintnance;
 using Microsoft.EntityFrameworkCore;
 
@@ -77,7 +76,7 @@ public class BaggageClaimService : IBaggageClaimService
             return null;
         }
         var existingClaim = await _context.BaggageClaims.FindAsync(BaggageId);
-        if (existingClaim == null || existingClaim.Terminal.Id != dto.TerminalId)
+        if (existingClaim == null )
         {
             return null;
         }

@@ -1,13 +1,12 @@
 ﻿using Airplane_UI.Entities.AirlineCore;
-using Airplane_UI.Entities.Base;
+using Airplane_UI.Entities.LuggageMaintnance;
 using Airplane_UI.Enums;
 
-namespace Airplane_UI.Entities.LuggageMaintnance;
-
+namespace Airplane_UI.DTOs.LuggageMaintnance.MaintenanceLogDTOs;
 /// <summary>
-/// Represents a maintenance log entry that records details about maintenance activities, 
+/// Data Transfer Object (DTO) used for creating or updating maintenance log records.
 /// </summary>
-public class MaintenanceLog : IBaseEntity
+public class CreateAndUpdateMaintenanceLogDTO
 {
     /// <summary>
     /// Gets or sets the unique identifier for the entity.
@@ -30,15 +29,7 @@ public class MaintenanceLog : IBaseEntity
     /// </summary>
     public int AircraftId { get; set; }
     /// <summary>
-    /// The aircraft associated with this maintenance log.
-    /// </summary>
-    public virtual Aircraft Aircraft { get; set; }
-    /// <summary>
     /// The identifier of the related maintenance task.
     /// </summary>
     public int MaintenanceTaskId { get; set; }
-    /// <summary>
-    /// The maintenance task linked to this log entry.
-    /// </summary>
-    public virtual MaintenanceTask MaintenanceTask { get; set; }
 }

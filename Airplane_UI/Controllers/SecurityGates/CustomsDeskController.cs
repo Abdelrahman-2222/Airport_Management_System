@@ -1,26 +1,27 @@
-﻿//using Airplane_UI.DTOs.SecurityGates.CustomsDesk;
-//using Airplane_UI.Services.SecurityGates;
-//using Microsoft.AspNetCore.Mvc;
+﻿using Airplane_UI.Contracts.SecurityGates;
+using Airplane_UI.DTOs.SecurityGates.CustomsDesk;
+using Airplane_UI.Services.SecurityGates;
+using Microsoft.AspNetCore.Mvc;
 
-//namespace Airplane_UI.Controllers.SecurityGates
-//{
-//    ///<summary>
-//    /// API controller responsible for managing Customs Desks operations.
-//    ///</summary>
-//    [Route("api/[controller]")]
-//    [ApiController]
-//    public class CustomsDeskController : ControllerBase
-//    {
-//        private readonly CustomsDeskService _customsDeskService;
+namespace Airplane_UI.Controllers.SecurityGates
+{
+    ///<summary>
+    /// API controller responsible for managing Customs Desks operations.
+    ///</summary>
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CustomsDeskController : ControllerBase
+    {
+        private readonly ICustomsDeskService _customsDeskService;
 
-//        /// <summary>
-//        /// Initializes a new instance of the <see cref="CustomsDeskController"/>.
-//        /// </summary>
-//        /// <param name="customsDeskService">Injected service for Customs Desk operations.</param>
-//        public CustomsDeskController(CustomsDeskService customsDeskService)
-//        {
-//            _customsDeskService = customsDeskService;
-//        }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CustomsDeskController"/>.
+        /// </summary>
+        /// <param name="customsDeskService">Injected service for Customs Desk operations.</param>
+        public CustomsDeskController(ICustomsDeskService customsDeskService)
+        {
+            _customsDeskService = customsDeskService;
+        }
 
 //        /// <summary>
 //        /// Retrieves all Customs Desks.

@@ -11,7 +11,7 @@ namespace Airplane_UI.Entities.GateAssignments
         public GateStatus Status { get; set; }
 
         public int TerminalId { get; set; }
-        public virtual Terminal Terminal { get; set; }
+        public virtual Terminal? Terminal { get; set; }
 
         public virtual ICollection<GateAssignment> GateAssignments { get; set; } = new HashSet<GateAssignment>();
     }
