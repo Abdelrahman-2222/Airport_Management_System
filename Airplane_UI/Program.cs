@@ -29,6 +29,7 @@ namespace Airplane_UI
                 builder.Configuration.GetConnectionString("DefaultConnection")));
             #region GateAssignments Services
             builder.Services.AddScoped<IGateService, GateService>(); 
+            builder.Services.AddScoped<IGateAssignmentService, GateAssignmentService>();
             #endregion
 
             // Inject Services
