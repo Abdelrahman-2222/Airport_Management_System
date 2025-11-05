@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using Airplane_UI.Contracts.AirlineCore;
 using Airplane_UI.Services.AirlineCore;
+using Airplane_UI.Contracts.SecurityGates;
+using Airplane_UI.Services.SecurityGates;
 
 namespace Airplane_UI
 {
@@ -88,6 +90,46 @@ namespace Airplane_UI
             builder.Services.AddScoped<IMaintenanceTaskService, MaintenanceTaskService>();
             builder.Services.AddScoped<ICateringFacilitiesService, CateringFacilitiesService>();
             builder.Services.AddScoped<ICateringOrderService, CateringOrderService>();
+            #endregion
+
+            #region SecurityGates Services
+
+            /// <summary>
+            /// Registers the service responsible for managing security checkpoints in the airport system.
+            /// Handles CRUD operations and retrieval of checkpoint data.
+            /// </summary>
+            builder.Services.AddScoped<ISecurityCheckpointService, SecurityCheckpointService>();
+
+            /// <summary>
+            /// Registers the service responsible for managing checkpoint logs.
+            /// Handles creation, retrieval, update, and deletion of logs for security checkpoints.
+            /// </summary>
+            builder.Services.AddScoped<ICheckpointLogService, CheckpointLogService>();
+
+            /// <summary>
+            /// Registers the service responsible for managing airport staff data.
+            /// Handles CRUD operations for airport staff and their assignments.
+            /// </summary>
+            builder.Services.AddScoped<IAirportStaffService, AirportStaffService>();
+
+            /// <summary>
+            /// Registers the service responsible for managing security incidents in the airport system.
+            /// Handles creation, update, retrieval, deletion, and staff assignment for incidents.
+            /// </summary>
+            builder.Services.AddScoped<ISecurityIncidentService, SecurityIncidentService>();
+
+            /// <summary>
+            /// Registers the service responsible for managing customs desks.
+            /// Handles CRUD operations and assignment of staff to desks.
+            /// </summary>
+            builder.Services.AddScoped<ICustomsDeskService, CustomsDeskService>();
+
+            /// <summary>
+            /// Registers the service responsible for managing staff shifts at security checkpoints and customs desks.
+            /// Handles creation, update, retrieval, and deletion of shifts.
+            /// </summary>
+            builder.Services.AddScoped<IStaffShiftService, StaffShiftService>();
+
             #endregion
 
             var app = builder.Build();
