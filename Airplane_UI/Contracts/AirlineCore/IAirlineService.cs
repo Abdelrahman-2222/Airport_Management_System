@@ -24,7 +24,7 @@ namespace Airplane_UI.Contracts.AirlineCore
         /// <returns>
         /// The task result contains the AirlineDTOs if found; otherwise, null.
         /// </returns>
-        Task<GetAirlineDTO> GetyByIdAsync(int airlineId);
+        Task<GetAirlineDTO> GetByIdAsync(int airlineId);
 
         /// <summary>
         /// Creates a new airline record in the system.

@@ -10,6 +10,7 @@ using Airplane_UI.Contracts.AirlineCore;
 using Airplane_UI.Services.AirlineCore;
 using Airplane_UI.Contracts.SecurityGates;
 using Airplane_UI.Services.SecurityGates;
+using MudBlazor.Services;
 
 namespace Airplane_UI
 {
@@ -130,6 +131,7 @@ namespace Airplane_UI
             builder.Services.AddScoped<IStaffShiftService, StaffShiftService>();
 
             #endregion
+            builder.Services.AddMudServices();
 
             var app = builder.Build();
 
