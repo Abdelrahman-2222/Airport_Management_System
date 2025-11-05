@@ -23,7 +23,7 @@ namespace Airplane_UI.Contracts.AirlineCore
         /// <returns>
         /// The task result contains the AircraftDTOs if found; otherwise, null.
         /// </returns>
-        Task<GetAircraftDTO> GetyByIdAsync(int aircraftId);
+        Task<GetAircraftDTO> GetByIdAsync(int aircraftId);
 
         /// <summary>
         /// Creates a new aircraft record in the system.
