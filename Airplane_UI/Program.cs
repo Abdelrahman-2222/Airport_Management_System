@@ -6,6 +6,8 @@ using Airplane_UI.Services.GateAssignments;
 using Airplane_UI.Services.LuggageMaintnance;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using Airplane_UI.Contracts.AirlineCore;
+using Airplane_UI.Services.AirlineCore;
 
 namespace Airplane_UI
 {
@@ -40,6 +42,17 @@ namespace Airplane_UI
             builder.Services.AddScoped<ITerminalService, TerminalService>();
             builder.Services.AddScoped<IGroundCrewTeamService, GroundCrewTeamService>();
             #endregion
+
+            #region AirlineCore Services
+
+            builder.Services.AddScoped<IAirportService, AirportService>();
+            builder.Services.AddScoped<IAirlineService, AirlineService>();
+            builder.Services.AddScoped<IAircraftService, AircraftService>();
+            builder.Services.AddScoped<IFlightService, FlightService>();
+            builder.Services.AddScoped<IPassengerService, PassengerService>();
+
+            #endregion
+
 
             // Inject Services
             builder.Services.AddScoped<IBaggageClaimService, BaggageClaimService>();
