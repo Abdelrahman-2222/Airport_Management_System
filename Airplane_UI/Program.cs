@@ -1,6 +1,8 @@
 using Airplane_UI.Data;
 using Airplane_UI.Components;
 using Microsoft.EntityFrameworkCore;
+using Airplane_UI.Contracts.LuggageMaintnance;
+using Airplane_UI.Services.LuggageMaintnance;
 
 namespace Airplane_UI
 {
@@ -22,6 +24,9 @@ namespace Airplane_UI
             // Add Db context config
             builder.Services.AddDbContext<AirplaneManagementSystemContext>(opt => opt.UseSqlServer(
                 builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            // Inject Services
+            builder.Services.AddScoped<IBaggageClaimService, BaggageClaimService>();
 
             var app = builder.Build();
 
