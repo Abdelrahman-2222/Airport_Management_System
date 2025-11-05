@@ -62,7 +62,7 @@ namespace Airplane_UI.Contracts.SecurityGates
         /// </summary>
         /// <param name="id">The unique identifier of the checkpoint to delete.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
-        Task DeleteAsync(int id);
+        Task<string> DeleteAsync(int id);
 
         /// <summary>
         /// Updates only the operational status of a specific checkpoint (e.g., from Active to Maintenance).
