@@ -226,15 +226,5 @@ namespace Airplane_UI.Services.SecurityGates
                 checkpoint.Status = status;
                 await _context.SaveChangesAsync();
             }
-
-        Task ISecurityCheckpointService.DeleteAsync(int id)
-        {
-            return DeleteAsync(id);
-        }
-
-        Task<string> ISecurityCheckpointService.UpdateStatusAsync(int id, string status)
-        {
-            throw new NotImplementedException();
-        }
     }
     }
