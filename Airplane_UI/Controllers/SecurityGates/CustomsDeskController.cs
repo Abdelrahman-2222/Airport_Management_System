@@ -22,8 +22,6 @@ namespace Airplane_UI.Controllers.SecurityGates
         {
             _customsDeskService = customsDeskService;
         }
-    }
-}
 
         /// <summary>
         /// Retrieves all Customs Desks.
