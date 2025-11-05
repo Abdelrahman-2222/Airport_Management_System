@@ -30,6 +30,6 @@ namespace Airplane_UI.Contracts.SecurityGates
         /// <summary>
         /// Deletes a security incident record by its ID.
         /// </summary>
-        Task<string> DeleteAsync(int id);
+        Task<string> DeleteAsync(int SecurityIncidentId);
     }
 }
