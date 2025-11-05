@@ -43,8 +43,14 @@ namespace Airplane_UI
             builder.Services.AddScoped<IRunwayScheduleService, RunwayScheduleService>();
             #endregion
 
-            // Inject Services
+            #region LuggageMaintnance Service
             builder.Services.AddScoped<IBaggageClaimService, BaggageClaimService>();
+            builder.Services.AddScoped<ILostAndFoundService, LostAndFoundService>();
+            builder.Services.AddScoped<IMaintenanceLogService, MaintenanceLogService>();
+            builder.Services.AddScoped<IMaintenanceTaskService, MaintenanceTaskService>();
+            builder.Services.AddScoped<ICateringFacilitiesService, CateringFacilitiesService>();
+            builder.Services.AddScoped<ICateringOrderService, CateringOrderService>();
+            #endregion
 
             var app = builder.Build();
 

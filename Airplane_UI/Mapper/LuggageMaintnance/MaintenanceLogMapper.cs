@@ -60,7 +60,6 @@ public static class MaintenanceLogMapper
     {
         return new MaintenanceLog
         {
-            Id = dto.Id,
             AircraftId = dto.AircraftId,
             Date = dto.Date,
             Description = dto.Description,

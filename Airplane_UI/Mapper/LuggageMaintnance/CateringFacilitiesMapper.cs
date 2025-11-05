@@ -8,6 +8,22 @@ namespace Airplane_UI.Mapper.LuggageMaintnance;
 public static class CateringFacilitiesMapper
 {
     /// <summary>
+    /// Converts a CreateAndUpdateCateringFacilitiesDTO entity into a GetCateringFacilitiesDTO
+    /// </summary>
+    /// <param name="claims">The CreateAndUpdateCateringFacilitiesDTO entity to convert.</param>
+    /// <returns>
+    /// A new GetCateringFacilitiesDTO object containing the mapped data.
+    /// </returns>
+    public static GetCateringFacilitiesDTO ToDto(this CreateAndUpdateCateringFacilitiesDTO claims)
+    {
+        var result = new GetCateringFacilitiesDTO
+        {
+            ContactInfo = claims.ContactInfo,
+            Name = claims.Name,
+        };
+        return result;
+    }
+    /// <summary>
     /// Converts a CateringFacilities entity into a GetCateringFacilitiesDTO
     /// </summary>
     /// <param name="claims">The CateringFacilities entity to convert.</param>
@@ -25,21 +41,39 @@ public static class CateringFacilitiesMapper
         return result;
     }
     /// <summary>
+    /// Converts a CateringFacilities entity into a GetCateringFacilitiesDTO
+    /// </summary>
+    /// <param name="claims">The CateringFacilities entity to convert.</param>
+    /// <returns>
+    /// A new GetCateringFacilitiesDTO object containing the mapped data.
+    /// </returns>
+    public static GetCateringFacilitiesDTO ToEntity(this CateringFacilities claims)
+    {
+        var result = new GetCateringFacilitiesDTO
+        {
+            ContactInfo = claims.ContactInfo,
+            Id = claims.Id,
+            Name = claims.Name,
+        };
+        return result;
+    }
+    /// <summary>
     /// Converts a GetCateringFacilitiesDTO back into a CateringFacilities entity.
     /// </summary>
     /// <param name="claims">The GetCateringFacilitiesDTO to convert.</param>
     /// <returns>
     /// A new CateringFacilities entity populated with data from the DTO.
     /// </returns>
-    public static CateringFacilities ToEntity(this GetCateringFacilitiesDTO claims)
+    public static CateringFacilities ToEntity(this GetCateringFacilitiesDTO dto)
     {
-        var result = new CateringFacilities
+        if (dto == null) return null;
+
+        return new CateringFacilities
         {
-            Name = claims.Name,
-            ContactInfo = claims.ContactInfo,
-            Id = claims.Id,
+            Id = dto.Id,
+            Name = dto.Name,
+            ContactInfo = dto.ContactInfo
         };
-        return result;
     }
     /// <summary>
     /// Converts a CreateAndUpdateCateringFacilitiesDTO into a CateringFacilities entity.
@@ -55,5 +89,13 @@ public static class CateringFacilitiesMapper
             Name = dto.Name,
             ContactInfo = dto.ContactInfo,
         };
+    }
+
+    public static void UpdateEntity(this CateringFacilities entity, CreateAndUpdateCateringFacilitiesDTO dto)
+    {
+        if (entity == null || dto == null) return;
+
+        entity.Name = dto.Name;
+        entity.ContactInfo = dto.ContactInfo;
     }
 }

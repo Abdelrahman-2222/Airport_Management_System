@@ -9,10 +9,6 @@ namespace Airplane_UI.DTOs.LuggageMaintnance.MaintenanceLogDTOs;
 public class CreateAndUpdateMaintenanceLogDTO
 {
     /// <summary>
-    /// Gets or sets the unique identifier for the entity.
-    /// </summary>
-    public int Id { get; set; }
-    /// <summary>
     /// Description of the maintenance activity performed.
     /// </summary>
     public string Description { get; set; }

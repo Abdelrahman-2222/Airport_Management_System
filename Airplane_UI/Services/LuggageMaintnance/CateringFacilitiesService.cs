@@ -86,13 +86,16 @@ public class CateringFacilitiesService : ICateringFacilitiesService
         {
             return null;
         }
-        var updateBaggageClaimEntity = dto.ToEntity();
+        var updateBaggageClaimEntity = existingCateringFacilitie.ToEntity();
         if (updateBaggageClaimEntity == null)
         {
             return null;
         }
-        var result = existingCateringFacilitie.ToDto();
-        return result;
+
+        existingCateringFacilitie.UpdateEntity(dto);
+        await _context.SaveChangesAsync();
+
+        return existingCateringFacilitie.ToDto();
     }
     /// <summary>
     /// Deletes a catering facility from the database by its unique identifier.
