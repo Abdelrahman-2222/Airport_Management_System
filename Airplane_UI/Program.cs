@@ -6,6 +6,8 @@ using Airplane_UI.Services.GateAssignments;
 using Airplane_UI.Services.LuggageMaintnance;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using Airplane_UI.Contracts.AirlineCore;
+using Airplane_UI.Services.AirlineCore;
 
 namespace Airplane_UI
 {
@@ -42,6 +44,37 @@ namespace Airplane_UI
             builder.Services.AddScoped<IRunwayService, RunwayService>();
             builder.Services.AddScoped<IRunwayScheduleService, RunwayScheduleService>();
             #endregion
+
+            #region AirlineCore Services
+
+            /// <summary>
+            /// Registers the application services with the dependency injection (DI) container.
+            /// </summary>
+            builder.Services.AddScoped<IAirportService, AirportService>();
+
+            /// <summary>
+            /// Registers the airline management service used for handling airline operations.
+            /// </summary>
+            builder.Services.AddScoped<IAirlineService, AirlineService>();
+
+            /// <summary>
+            /// Registers the aircraft management service responsible for aircraft-related data operations.
+            /// </summary>
+            builder.Services.AddScoped<IAircraftService, AircraftService>();
+
+            /// <summary>
+            /// Registers the flight management service that manages scheduling, status, and flight data.
+            /// </summary>
+            builder.Services.AddScoped<IFlightService, FlightService>();
+
+            /// <summary>
+            /// Registers the passenger management service used for handling passenger data and operations.
+            /// </summary>
+            builder.Services.AddScoped<IPassengerService, PassengerService>();
+
+
+            #endregion
+
 
             // Inject Services
             builder.Services.AddScoped<IBaggageClaimService, BaggageClaimService>();
