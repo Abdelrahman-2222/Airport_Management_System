@@ -57,5 +57,12 @@ namespace Airplane_UI.Mapper.AirlineCore
                 IATA_Code = dto.IATA_Code
             };
         }
+        public static void UpdateEntity(this Airline entity, CreateAndUpdateAirlineDTO dto)
+        {
+            if (entity == null || dto == null) return;
+
+            entity.Name = dto.Name;
+            entity.IATA_Code = dto.IATA_Code;
+        }
     }
 }

@@ -2,6 +2,7 @@
 using Airplane_UI.Data;
 using Airplane_UI.DTOs.AirlineCore.AirlineDTOs;
 using Airplane_UI.DTOs.AirlineCore.AirportDTOs;
+using Airplane_UI.Entities.LuggageMaintnance;
 using Airplane_UI.Mapper.AirlineCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -71,17 +72,24 @@ namespace Airplane_UI.Services.AirlineCore
         /// <returns>
         /// The task result contains the updated GetAirlineDTO object if the update succeeded. otherwise, null if the airline was not found.
         /// </returns>
-        public async Task<GetAirlineDTO> UpdateAsync(int id, CreateAndUpdateAirlineDTO dto)
+        public async Task<GetAirlineDTO> UpdateAsync(int airlineId, CreateAndUpdateAirlineDTO dto)
         {
-            var airline = await _context.Airlines.FindAsync(id);
-            if (airline == null) return null;
+            var existingAirline = await _context.Airlines.FindAsync(airlineId);
+            if (existingAirline == null)
+            {
+                return null;
+            }
 
-            dto.ToEntity();
+            var updateAirline = dto.ToEntity();
+            if (updateAirline == null)
+            {
+                return null;
+            }
 
-            _context.Airlines.Update(airline);
+            existingAirline.UpdateEntity(dto);
             await _context.SaveChangesAsync();
 
-            return airline.ToDto();
+            return existingAirline.ToDto();
         }
 
         /// <summary>
