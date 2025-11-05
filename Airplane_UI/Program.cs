@@ -45,43 +45,7 @@ namespace Airplane_UI
             builder.Services.AddScoped<IRunwayScheduleService, RunwayScheduleService>();
             #endregion
 
-            
-            #region AirlineCore Services
-
-            /// <summary>
-            /// Registers the application services with the dependency injection (DI) container.
-            /// </summary>
-            builder.Services.AddScoped<IAirportService, AirportService>();
-
-            /// <summary>
-            /// Registers the airline management service used for handling airline operations.
-            /// </summary>
-            builder.Services.AddScoped<IAirlineService, AirlineService>();
-
-            /// <summary>
-            /// Registers the aircraft management service responsible for aircraft-related data operations.
-            /// </summary>
-            builder.Services.AddScoped<IAircraftService, AircraftService>();
-
-            /// <summary>
-            /// Registers the flight management service that manages scheduling, status, and flight data.
-            /// </summary>
-            builder.Services.AddScoped<IFlightService, FlightService>();
-
-            /// <summary>
-            /// Registers the passenger management service used for handling passenger data and operations.
-            /// </summary>
-            builder.Services.AddScoped<IPassengerService, PassengerService>();
-
-            /// <summary>
-            /// Registers the Flight Manifest service used for handling Flight Manifest data and operations.
-            /// </summary>
-            builder.Services.AddScoped<IFlightManifestService, FlightManifestService>();
-
-
-            #endregion
-
-            #region LuggageMaintnance Service
+            // Inject Services
             builder.Services.AddScoped<IBaggageClaimService, BaggageClaimService>();
             builder.Services.AddScoped<ILostAndFoundService, LostAndFoundService>();
             builder.Services.AddScoped<IMaintenanceLogService, MaintenanceLogService>();
