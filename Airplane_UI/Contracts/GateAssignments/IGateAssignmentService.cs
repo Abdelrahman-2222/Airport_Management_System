@@ -7,8 +7,6 @@ namespace Airplane_UI.Contracts.GateAssignments
         // CRUD operations for GateAssignment entity
         // GETALL
         Task<IList<GetGateAssignmentDTO>> GetAllAsync();
-        // GET All Details
-        Task<IList<GetAllDetailsGateAssignmentDTO>> GetDetailsAsync();
         // GET by Id
         Task<GetGateAssignmentDTO> GetByIdAsync(int gateAssignmentId);
         // CREATE
