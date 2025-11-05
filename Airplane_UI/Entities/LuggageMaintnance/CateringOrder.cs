@@ -8,6 +8,9 @@ namespace Airplane_UI.Entities.LuggageMaintnance;
 /// </summary>
 public class CateringOrder : IBaseEntity
 {
+    /// <summary>
+    /// Initializes a new instance of the CateringOrder class and sets up the CateringOrders collection.
+    /// </summary>
     public int Id { get; set; }
     /// <summary>
     /// The number of meals included in the catering order.

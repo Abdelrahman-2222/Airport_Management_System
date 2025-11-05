@@ -7,6 +7,10 @@ namespace Airplane_UI.DTOs.LuggageMaintnance.BaggageClaim;
 public class GetBaggageClaimDto
 {
     /// <summary>
+    /// Initializes a new instance of the GetBaggageClaimDto class and sets up the CateringOrders collection.
+    /// </summary>
+    public int Id { get; set; } 
+    /// <summary>
     /// The number of the baggage carousel.
     /// </summary>
     public string CarouselNumber { get; set; }
