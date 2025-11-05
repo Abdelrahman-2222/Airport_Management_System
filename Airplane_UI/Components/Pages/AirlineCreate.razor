@@ -1,0 +1,48 @@
+﻿@page "/airline/create"
+@using Airplane_UI.Contracts.AirlineCore
+@using Airplane_UI.DTOs.AirlineCore.AirlineDTOs
+@using System.ComponentModel.DataAnnotations
+@inject IAirlineService AirlineService
+@inject NavigationManager Navigation
+
+@rendermode InteractiveServer
+
+<h3>Create New Airline</h3>
+
+<EditForm Model="@airlineModel" OnValidSubmit="HandleCreateAsync">
+
+    <DataAnnotationsValidator />
+
+    <div class="mb-3">
+        <label class="form-label">Airline Name</label>
+        <InputText class="form-control" @bind-Value="airlineModel.Name" />
+        <ValidationMessage For="@(() => airlineModel.Name)" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">IATA Code</label>
+        <InputText class="form-control" @bind-Value="airlineModel.IATA_Code" />
+        <ValidationMessage For="@(() => airlineModel.IATA_Code)" />
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @errorMessage
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary" disabled="@isSaving">
+        @if (isSaving)
+        {
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <text>Saving...</text>
+        }
+        else
+        {
+            <text>Save</text>
+        }
+    </button>
+    <button type="button" class="btn btn-secondary" @onclick="GoBack">Cancel</button>
+
+</EditForm>
