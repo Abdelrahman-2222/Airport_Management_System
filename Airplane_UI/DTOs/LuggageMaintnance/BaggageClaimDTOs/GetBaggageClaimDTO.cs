@@ -4,19 +4,18 @@ namespace Airplane_UI.DTOs.LuggageMaintnance.BaggageClaim;
 /// <summary>
 /// Data transfer object for retrieving baggage claim information,
 /// </summary>
-public class CreateBaggageClaimDto
+public class GetBaggageClaimDto
 {
     /// <summary>
-    /// Gets or sets the Carousel Number of the Baggage Claim.
+    /// The number of the baggage carousel.
     /// </summary>
     public string CarouselNumber { get; set; }
     /// <summary>
-    /// Gets or sets the Status of the Baggage Claim.
+    /// The current status of the baggage claim.
     /// </summary>
-    public BaggageClaimStatus Status { get; set; }
-
+    public string Status { get; set; }
     /// <summary>
-    /// The ID of the Terminal that Terminaled the Baggage Claim.
+    /// The name or identifier of the terminal associated with the baggage claim.
     /// </summary>
-    public int TerminalId { get; set; }
+    public string TerminalName { get; set; }
 }

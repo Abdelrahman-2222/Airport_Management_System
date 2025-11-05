@@ -23,7 +23,7 @@ namespace Airplane_UI.Contracts.AirlineCore
         /// <returns>
         /// The task result contains the AirportDTOs if found; otherwise, null.
         /// </returns>
-        Task<GetAirportDTO> GetyByIdAsync(int id);
+        Task<GetAirportDTO> GetyByIdAsync(int airportId);
 
         /// <summary>
         /// Creates a new airport record in the system.
@@ -51,6 +51,6 @@ namespace Airplane_UI.Contracts.AirlineCore
         /// <returns>
         /// The task result indicates whether the delete operation was successful.
         /// </returns>
-        Task<string> DeleteAsync(int id);
+        Task<string> DeleteAsync(int airportId);
     }
 }
