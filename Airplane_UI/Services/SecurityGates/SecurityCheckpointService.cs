@@ -197,26 +197,27 @@ namespace Airplane_UI.Services.SecurityGates
                 };
             }
 
-            /// <summary>
-            /// Deletes a security checkpoint by ID.
-            /// </summary>
-            /// <param name="id">The ID of the checkpoint to delete.</param>
-            public async Task DeleteAsync(int id)
-            {
-                var checkpoint = await _context.SecurityCheckpoints.FirstOrDefaultAsync(sc => sc.Id == id);
-                if (checkpoint == null)
-                    return;
+        /// <summary>
+        /// Deletes a security checkpoint by ID.
+        /// </summary>
+        /// <param name="id">The ID of the checkpoint to delete.</param>
+        public async Task<string> DeleteAsync(int id)
+        {
+            var checkpoint = await _context.SecurityCheckpoints.FindAsync(id);
+            if (checkpoint == null) return $"SecurityCheckpoint {id} not found";
 
-                _context.SecurityCheckpoints.Remove(checkpoint);
-                await _context.SaveChangesAsync();
-            }
 
-            /// <summary>
-            /// Updates the operational status of a checkpoint.
-            /// </summary>
-            /// <param name="id">The checkpoint ID.</param>
-            /// <param name="status">The new status value.</param>
-            public async Task UpdateStatusAsync(int id, string status)
+            _context.SecurityCheckpoints.Remove(checkpoint);
+            await _context.SaveChangesAsync();
+            return $"Checkpoint {id} deleted successfully";
+        }
+
+        /// <summary>
+        /// Updates the operational status of a checkpoint.
+        /// </summary>
+        /// <param name="id">The checkpoint ID.</param>
+        /// <param name="status">The new status value.</param>
+        public async Task UpdateStatusAsync(int id, string status)
             {
                 var checkpoint = await _context.SecurityCheckpoints.FirstOrDefaultAsync(sc => sc.Id == id);
                 if (checkpoint == null)
@@ -225,5 +226,15 @@ namespace Airplane_UI.Services.SecurityGates
                 checkpoint.Status = status;
                 await _context.SaveChangesAsync();
             }
+
+        Task ISecurityCheckpointService.DeleteAsync(int id)
+        {
+            return DeleteAsync(id);
+        }
+
+        Task<string> ISecurityCheckpointService.UpdateStatusAsync(int id, string status)
+        {
+            throw new NotImplementedException();
+        }
     }
     }
