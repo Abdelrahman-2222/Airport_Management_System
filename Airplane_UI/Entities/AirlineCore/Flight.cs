@@ -10,17 +10,14 @@ namespace Airplane_UI.Entities.AirlineCore
     /// </summary>
     public class Flight : IBaseEntity
     {
-        public int Id { get; set; }
         /// <summary>
-        /// Initializes a new instance of the Flight class.
-        /// The constructor initializes related entity collections to prevent null reference exceptions 
-        /// when adding or modifying relationships.
+        /// Gets or sets the unique identifier of the flight.
         /// </summary>
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets the unique flight number assigned by the airline.
         /// </summary>
-        /// <example>Example: "AA102", "BA453", "EK231"</example>
         public string FlightNumber { get; set; }
 
         /// <summary>

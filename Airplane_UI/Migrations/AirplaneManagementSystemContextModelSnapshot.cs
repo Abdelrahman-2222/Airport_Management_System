@@ -49,7 +49,7 @@ namespace Airplane_API.Migrations
                     b.HasIndex("TailNumber")
                         .IsUnique();
 
-                    b.ToTable("Aircrafts");
+                    b.ToTable("Aircrafts", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.AirlineCore.Airline", b =>
@@ -76,7 +76,7 @@ namespace Airplane_API.Migrations
                     b.HasIndex("IATA_Code")
                         .IsUnique();
 
-                    b.ToTable("Airlines");
+                    b.ToTable("Airlines", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.AirlineCore.Airport", b =>
@@ -103,7 +103,7 @@ namespace Airplane_API.Migrations
                     b.HasIndex("IATA_Code")
                         .IsUnique();
 
-                    b.ToTable("Airports");
+                    b.ToTable("Airports", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.AirlineCore.Flight", b =>
@@ -151,7 +151,7 @@ namespace Airplane_API.Migrations
 
                     b.HasIndex("OriginAirportId");
 
-                    b.ToTable("Flights");
+                    b.ToTable("Flights", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.AirlineCore.FlightManifest", b =>
@@ -179,7 +179,7 @@ namespace Airplane_API.Migrations
 
                     b.HasIndex("PassengerId");
 
-                    b.ToTable("FlightManifests");
+                    b.ToTable("FlightManifests", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.AirlineCore.Passenger", b =>
@@ -207,7 +207,7 @@ namespace Airplane_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Passengers");
+                    b.ToTable("Passengers", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.GateAssignments.Gate", b =>
@@ -234,7 +234,7 @@ namespace Airplane_API.Migrations
 
                     b.HasIndex("TerminalId");
 
-                    b.ToTable("Gates");
+                    b.ToTable("Gates", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.GateAssignments.GateAssignment", b =>
@@ -263,7 +263,7 @@ namespace Airplane_API.Migrations
 
                     b.HasIndex("GateId");
 
-                    b.ToTable("GateAssignments");
+                    b.ToTable("GateAssignments", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.GateAssignments.GroundCrewTeam", b =>
@@ -282,7 +282,7 @@ namespace Airplane_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GroundCrewTeams");
+                    b.ToTable("GroundCrewTeams", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.GateAssignments.Runway", b =>
@@ -304,7 +304,7 @@ namespace Airplane_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Runways");
+                    b.ToTable("Runways", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.GateAssignments.RunwaySchedule", b =>
@@ -334,7 +334,7 @@ namespace Airplane_API.Migrations
 
                     b.HasIndex("RunwayId");
 
-                    b.ToTable("RunwaySchedules");
+                    b.ToTable("RunwaySchedules", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.GateAssignments.Terminal", b =>
@@ -352,7 +352,7 @@ namespace Airplane_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Terminals");
+                    b.ToTable("Terminals", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.LuggageMaintnance.BaggageClaim", b =>
@@ -379,7 +379,7 @@ namespace Airplane_API.Migrations
 
                     b.HasIndex("TerminalId");
 
-                    b.ToTable("BaggageClaims");
+                    b.ToTable("BaggageClaims", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.LuggageMaintnance.CateringFacilities", b =>
@@ -402,7 +402,7 @@ namespace Airplane_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CateringFacilities");
+                    b.ToTable("CateringFacilities", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.LuggageMaintnance.CateringOrder", b =>
@@ -433,7 +433,7 @@ namespace Airplane_API.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("CateringOrders");
+                    b.ToTable("CateringOrders", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.LuggageMaintnance.LostAndFound", b =>
@@ -457,7 +457,7 @@ namespace Airplane_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LostAndFounds");
+                    b.ToTable("LostAndFounds", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.LuggageMaintnance.MaintenanceLog", b =>
@@ -491,7 +491,7 @@ namespace Airplane_API.Migrations
 
                     b.HasIndex("MaintenanceTaskId");
 
-                    b.ToTable("MaintenanceLogs");
+                    b.ToTable("MaintenanceLogs", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.LuggageMaintnance.MaintenanceTask", b =>
@@ -514,7 +514,7 @@ namespace Airplane_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MaintenanceTasks");
+                    b.ToTable("MaintenanceTasks", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.SecurityGates.AirportStaff", b =>
@@ -537,7 +537,7 @@ namespace Airplane_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AirportStaffs");
+                    b.ToTable("AirportStaffs", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.SecurityGates.CheckpointLog", b =>
@@ -561,7 +561,7 @@ namespace Airplane_API.Migrations
 
                     b.HasIndex("CheckpointID");
 
-                    b.ToTable("CheckpointLogs");
+                    b.ToTable("CheckpointLogs", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.SecurityGates.CustomsDesk", b =>
@@ -589,7 +589,7 @@ namespace Airplane_API.Migrations
 
                     b.HasIndex("TerminalID");
 
-                    b.ToTable("CustomsDesks");
+                    b.ToTable("CustomsDesks", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.SecurityGates.SecurityCheckpoint", b =>
@@ -617,7 +617,7 @@ namespace Airplane_API.Migrations
 
                     b.HasIndex("TerminalID");
 
-                    b.ToTable("SecurityCheckpoints");
+                    b.ToTable("SecurityCheckpoints", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.SecurityGates.SecurityIncident", b =>
@@ -652,7 +652,7 @@ namespace Airplane_API.Migrations
 
                     b.HasIndex("AssignedStaffID");
 
-                    b.ToTable("SecurityIncidents");
+                    b.ToTable("SecurityIncidents", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.SecurityGates.StaffShift", b =>
@@ -686,7 +686,7 @@ namespace Airplane_API.Migrations
 
                     b.HasIndex("StaffID");
 
-                    b.ToTable("StaffShifts");
+                    b.ToTable("StaffShifts", (string)null);
                 });
 
             modelBuilder.Entity("Airplane_API.Entities.AirlineCore.Aircraft", b =>

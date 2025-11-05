@@ -9,7 +9,7 @@ namespace Airplane_UI.DTOs.GateAssignments.GateDTOs
     {
         public int Id { get; set; }
         public string GateNumber { get; set; }
-        public GateStatus Status { get; set; }
+        public string Status { get; set; }
         public string TerminalName { get; set; }
     }
 }

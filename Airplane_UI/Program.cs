@@ -1,6 +1,13 @@
 using Airplane_UI.Data;
 using Airplane_UI.Components;
+using Airplane_UI.Contracts.GateAssignments;
+using Airplane_UI.Contracts.LuggageMaintnance;
+using Airplane_UI.Services.GateAssignments;
+using Airplane_UI.Services.LuggageMaintnance;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+using Airplane_UI.Contracts.AirlineCore;
+using Airplane_UI.Services.AirlineCore;
 
 namespace Airplane_UI
 {
@@ -15,13 +22,67 @@ namespace Airplane_UI
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
+            });
             builder.Services.AddRazorComponents()
                             .AddInteractiveServerComponents();
+
 
             // Add Db context config
             builder.Services.AddDbContext<AirplaneManagementSystemContext>(opt => opt.UseSqlServer(
                 builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            #region GateAssignments Services
+            builder.Services.AddScoped<IGateService, GateService>(); 
+            builder.Services.AddScoped<IGateAssignmentService, GateAssignmentService>();
+            builder.Services.AddScoped<ITerminalService, TerminalService>();
+            builder.Services.AddScoped<IGroundCrewTeamService, GroundCrewTeamService>();
+            builder.Services.AddScoped<IRunwayService, RunwayService>();
+            builder.Services.AddScoped<IRunwayScheduleService, RunwayScheduleService>();
+            #endregion
+
+            #region AirlineCore Services
+
+            /// <summary>
+            /// Registers the application services with the dependency injection (DI) container.
+            /// </summary>
+            builder.Services.AddScoped<IAirportService, AirportService>();
+
+            /// <summary>
+            /// Registers the airline management service used for handling airline operations.
+            /// </summary>
+            builder.Services.AddScoped<IAirlineService, AirlineService>();
+
+            /// <summary>
+            /// Registers the aircraft management service responsible for aircraft-related data operations.
+            /// </summary>
+            builder.Services.AddScoped<IAircraftService, AircraftService>();
+
+            /// <summary>
+            /// Registers the flight management service that manages scheduling, status, and flight data.
+            /// </summary>
+            builder.Services.AddScoped<IFlightService, FlightService>();
+
+            /// <summary>
+            /// Registers the passenger management service used for handling passenger data and operations.
+            /// </summary>
+            builder.Services.AddScoped<IPassengerService, PassengerService>();
+
+            /// <summary>
+            /// Registers the Flight Manifest service used for handling Flight Manifest data and operations.
+            /// </summary>
+            builder.Services.AddScoped<IFlightManifestService, FlightManifestService>();
+
+
+            #endregion
+
+
+            // Inject Services
+            builder.Services.AddScoped<IBaggageClaimService, BaggageClaimService>();
 
             var app = builder.Build();
 
