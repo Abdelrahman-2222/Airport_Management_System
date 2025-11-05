@@ -72,6 +72,11 @@ namespace Airplane_UI
             /// </summary>
             builder.Services.AddScoped<IPassengerService, PassengerService>();
 
+            /// <summary>
+            /// Registers the Flight Manifest service used for handling Flight Manifest data and operations.
+            /// </summary>
+            builder.Services.AddScoped<IFlightManifestService, FlightManifestService>();
+
 
             #endregion
 
