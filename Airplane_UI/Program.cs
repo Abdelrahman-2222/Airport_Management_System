@@ -32,14 +32,13 @@ namespace Airplane_UI
             });
             builder.Services.AddRazorComponents()
                             .AddInteractiveServerComponents();
-
-
+            //builder.Services.AddMapping();
             // Add Db context config
             builder.Services.AddDbContext<AirplaneManagementSystemContext>(opt => opt.UseSqlServer(
                 builder.Configuration.GetConnectionString("DefaultConnection")));
 
             #region GateAssignments Services
-            builder.Services.AddScoped<IGateService, GateService>(); 
+            builder.Services.AddScoped<IGateService, GateService>();
             builder.Services.AddScoped<IGateAssignmentService, GateAssignmentService>();
             builder.Services.AddScoped<ITerminalService, TerminalService>();
             builder.Services.AddScoped<IGroundCrewTeamService, GroundCrewTeamService>();
@@ -47,7 +46,7 @@ namespace Airplane_UI
             builder.Services.AddScoped<IRunwayScheduleService, RunwayScheduleService>();
             #endregion
 
-            
+
             #region AirlineCore Services
 
             /// <summary>
