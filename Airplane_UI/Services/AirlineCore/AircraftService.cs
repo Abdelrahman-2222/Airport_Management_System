@@ -1,7 +1,9 @@
 ﻿using Airplane_UI.Contracts.AirlineCore;
 using Airplane_UI.Data;
 using Airplane_UI.DTOs.AirlineCore.AircraftDTOs;
+using Airplane_UI.DTOs.LuggageMaintnance.LostAndFoundDTOs;
 using Airplane_UI.Mapper.AirlineCore;
+using Airplane_UI.Mapper.LuggageMaintnance;
 using Microsoft.EntityFrameworkCore;
 
 namespace Airplane_UI.Services.AirlineCore
@@ -94,8 +96,10 @@ namespace Airplane_UI.Services.AirlineCore
                 return null;
             }
 
+            dto.UpdateEntity(existingAircraft);
             await _context.SaveChangesAsync();
-            return updatedAircraft.ToDto();
+
+            return existingAircraft.ToDto();
         }
 
         /// <summary>

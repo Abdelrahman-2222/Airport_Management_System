@@ -1,4 +1,5 @@
 ﻿using Airplane_UI.DTOs.AirlineCore.AircraftDTOs;
+using Airplane_UI.DTOs.LuggageMaintnance.LostAndFoundDTOs;
 using Airplane_UI.Entities.AirlineCore;
 
 namespace Airplane_UI.Mapper.AirlineCore
@@ -26,23 +27,6 @@ namespace Airplane_UI.Mapper.AirlineCore
             };
         }
 
-        /// <summary>
-        /// Converts a GetAircraftDTO into an aircraft entity.
-        /// </summary>
-        /// <param name="aircraftDto">The dto representing an aircraft.</param>
-        /// <returns>
-        /// An Aircraft entity containing the mapped data from the provided DTO.
-        /// </returns>
-        public static Aircraft ToEntity(this GetAircraftDTO aircraftDto)
-        {
-            return new Aircraft
-            {
-                Id = aircraftDto.Id,
-                TailNumber = aircraftDto.TailNumber,
-                Model = aircraftDto.Model,
-                AirlineId = aircraftDto.AirlineId
-            };
-        }
 
         /// <summary>
         /// Converts a CreateAndUpdateAircraftDTO into an Aircraft entity.
@@ -59,6 +43,20 @@ namespace Airplane_UI.Mapper.AirlineCore
                 Model = dto.Model,
                 AirlineId = dto.AirlineId
             };
+        }
+
+        /// <summary>
+        /// Converts a CreateAndUpdateAircraftDTO into a Aircraft entity.
+        /// </summary>
+        /// <param name="dto">The CreateAndUpdateAircraftDTO containing data for creation or update.</param>
+        /// <param name="entity">The Aircraft entity to convert.</param>
+        public static void UpdateEntity(this CreateAndUpdateAircraftDTO dto, Aircraft entity)
+        {
+            if (entity == null || dto == null) return;
+
+            entity.TailNumber = dto.TailNumber;
+            entity.Model = dto.Model;
+            entity.AirlineId = dto.AirlineId;
         }
     }
 }
