@@ -1,0 +1,40 @@
+﻿@page "/cateringfacilities"
+@using Airplane_UI.Contracts.LuggageMaintnance
+@using MudBlazor
+@rendermode InteractiveServer
+@using System.Net.Http.Json
+@inject ICateringFacilitiesService CateringFacilitiesService
+@inject NavigationManager Navigation
+
+<PageTitle>CateringFacilities</PageTitle>
+
+<MudTable Items="@Facilities" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+    <ToolBarContent>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => Navigation.NavigateTo("/cateringfacilities/create"))" Class="mb-3">
+            Create New Airline
+        </MudButton>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>Name</MudTh>
+        <MudTh>ContactInfo</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="IATA Code">@context.ContactInfo</MudTd>
+        <MudTd DataLabel="Actions">
+            <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(() => NavigateToDetails(context.Id))">
+                View Details
+            </MudButton>
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+
+@if (!string.IsNullOrEmpty(_errorMessage))
+{
+    <MudAlert Severity="Severity.Error" Class="mt-4">
+        @_errorMessage
+    </MudAlert>
+}
+

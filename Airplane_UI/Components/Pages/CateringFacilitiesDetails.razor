@@ -1,0 +1,101 @@
+﻿@page "/cateringfacilities/details/{id:int}"
+@using Airplane_UI.Contracts.LuggageMaintnance
+@using Airplane_UI.DTOs.AirlineCore.AirlineDTOs
+@using Airplane_UI.Entities.AirlineCore
+@using Airplane_UI.Services.AirlineCore
+@inject ICateringFacilitiesService FacilitiesService
+@inject NavigationManager Navigation
+
+@rendermode InteractiveServer
+
+<h3>CateringFacilitiesDetails</h3>
+
+@if (isLoading)
+{
+    <p>Loading...</p>
+}
+else if (facilitiesDetails == null)
+{
+    <p>Airline not found.</p>
+}
+else
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">
+                @if (isEditing)
+                {
+                    <input type="text" class="form-control" @bind="editModel.Name" />
+                }
+                else
+                {
+                    @facilitiesDetails.Name
+                }
+            </h5>
+            <p class="card-text">
+                <strong>Code:</strong>
+                @if (isEditing)
+                {
+                    <input type="text" class="form-control" @bind="editModel.ContactInfo" />
+                }
+                else
+                {
+                    @facilitiesDetails.ContactInfo
+                }
+            </p>
+        </div>
+        <div class="card-footer">
+            @if (isEditing)
+            {
+                <button class="btn btn-success me-2" @onclick="SaveAsync" disabled="@isSaving">
+                    @if (isSaving)
+                    {
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <text>Saving...</text>
+                    }
+                    else
+                    {
+                        <text>Save</text>
+                    }
+                </button>
+                <button class="btn btn-secondary" @onclick="CancelEdit">Cancel</button>
+            }
+            else
+            {
+                <button class="btn btn-primary me-2" @onclick="StartEdit">Update</button>
+                <button class="btn btn-danger" @onclick="ShowDeleteConfirmation">Delete</button>
+            }
+        </div>
+    </div>
+
+    @if (showDeleteConfirmation)
+    {
+        <div class="modal d-block" style="background-color: rgba(0,0,0,0.5);">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm Delete</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete the airline "<strong>@facilitiesDetails.Name</strong>"?</p>
+                        <p>This action cannot be undone.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" @onclick="DeleteAsync" disabled="@isDeleting">
+                            @if (isDeleting)
+                            {
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                <text>Deleting...</text>
+                            }
+                            else
+                            {
+                                <text>Delete</text>
+                            }
+                        </button>
+                        <button type="button" class="btn btn-secondary" @onclick="CancelDelete">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
