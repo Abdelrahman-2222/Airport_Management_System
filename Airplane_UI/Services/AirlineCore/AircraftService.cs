@@ -1,7 +1,6 @@
 ﻿using Airplane_UI.Contracts.AirlineCore;
 using Airplane_UI.Data;
 using Airplane_UI.DTOs.AirlineCore.AircraftDTOs;
-using Airplane_UI.Entities.AirlineCore;
 using Airplane_UI.Mapper.AirlineCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +26,9 @@ namespace Airplane_UI.Services.AirlineCore
         /// <summary>
         /// Retrieves all aircrafts asynchronously.
         /// </summary>
+        /// <returns>
+        /// A task that represents the asynchronous operation. The task result contains the aircraft DTO if found; otherwise, null.
+        /// </returns>
         public async Task<IList<GetAircraftDTO>> GetAllAsync()
         {
             var aircrafts = await _context.Aircrafts
@@ -35,9 +37,14 @@ namespace Airplane_UI.Services.AirlineCore
 
             return aircrafts;
         }
+
         /// <summary>
-        /// Retrieves a specific aircraft by its unique identifier.
+        /// Retrieves a specific aircraft by its unique identifier asynchronously.
         /// </summary>
+        /// <param name="aircraftId">The unique identifier of the aircraft to retrieve.</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation. The task result contains the aircraft DTO if found; otherwise, null.
+        /// </returns>
         public async Task<GetAircraftDTO> GetByIdAsync(int aircraftId)
         {
             var aircraft = await _context.Aircrafts
@@ -56,7 +63,7 @@ namespace Airplane_UI.Services.AirlineCore
         {
             var aircraftEntity = dto.ToEntity();
 
-            _context.Aircrafts.Add(aircraftEntity);
+            await _context.Aircrafts.AddAsync(aircraftEntity);
             await _context.SaveChangesAsync();
 
             return aircraftEntity.ToDto();
@@ -64,7 +71,7 @@ namespace Airplane_UI.Services.AirlineCore
         /// <summary>
         /// Updates an existing aircraft record by ID.
         /// </summary>
-        /// <param name="id">The unique identifier of the aircraft to update.</param>
+        /// <param name="aircraftId">The unique identifier of the aircraft to update.</param>
         /// <param name="dto">The DTO containing updated aircraft details.</param>
         /// <returns> The task result contains the updated GetAircraftDTO object if the update succeeded. otherwise, null if the aircraft was not found.</returns>
         public async Task<GetAircraftDTO> UpdateAsync(int aircraftId, CreateAndUpdateAircraftDTO dto)
@@ -77,7 +84,7 @@ namespace Airplane_UI.Services.AirlineCore
             await _context.SaveChangesAsync();
             return updatedAircraft.ToDto();
         }
-        // <summary>
+        /// <summary>
         /// Deletes an aircraft record by ID asynchronously.
         /// </summary>
         /// <param name="aircraftId">The unique identifier of the aircraft to delete.</param>
