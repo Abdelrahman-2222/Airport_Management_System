@@ -54,7 +54,7 @@ namespace Airplane_UI.Services.SecurityGates
             if (staff == null)
                 return null;
 
-            AirportStaffMapper.UpdateEntity(staff, dto);
+            dto.UpdateEntity(staff);
             await _context.SaveChangesAsync();
             return AirportStaffMapper.ToDto(staff);
         }

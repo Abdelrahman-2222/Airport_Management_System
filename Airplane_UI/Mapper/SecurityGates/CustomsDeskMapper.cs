@@ -49,11 +49,15 @@ namespace Airplane_UI.Mappers.SecurityGates
         /// </summary>
         /// <param name="entity">The entity to update.</param>
         /// <param name="dto">The DTO containing updated data.</param>
-        public static void UpdateEntity(this CustomsDesk entity, UpdateCustomsDeskDto dto)
+        public static GetCustomsDeskDto UpdateEntity(this UpdateCustomsDeskDto dto, CustomsDesk entity)
         {
-            entity.DeskNumber = dto.DeskNumber;
-            entity.Status = dto.Status;
+            return new GetCustomsDeskDto
+            {
+                DeskNumber = dto.DeskNumber,
+                Status = dto.Status
+            };
         }
+
 
         /// <summary>
         /// Converts a CustomsDesk entity with related staff shifts into a GetCustomsDeskDetailsDto.

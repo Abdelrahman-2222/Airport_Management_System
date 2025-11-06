@@ -102,7 +102,7 @@ namespace Airplane_UI.Services.SecurityGates
             if (desk == null)
                 return null;
 
-            desk.UpdateEntity(dto);
+            dto.UpdateEntity(desk);
             await _context.SaveChangesAsync();
 
             return desk.ToGetDto();

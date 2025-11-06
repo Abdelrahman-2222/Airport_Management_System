@@ -25,30 +25,30 @@ namespace Airplane_UI.Services.SecurityGates
         }
 
         ///<inheritdoc/>
-        public async Task<List<GetSecurityIncidentDto>> GetAllAsync() 
-        { 
+        public async Task<List<GetSecurityIncidentDto>> GetAllAsync()
+        {
             var incidents = await _context.SecurityIncidents
                 .Include(si => si.AssignedStaff)
-                .ToListAsync(); 
-            return incidents.Select(si => si.ToGetDto()).ToList(); 
+                .ToListAsync();
+            return incidents.Select(si => si.ToGetDto()).ToList();
         }
 
         /// <inheritdoc/>
-        public async Task<GetSecurityIncidentDto?> GetByIdAsync(int SecurityIncidentId) 
+        public async Task<GetSecurityIncidentDto?> GetByIdAsync(int SecurityIncidentId)
         {
             var incident = await _context.SecurityIncidents
                 .Include(si => si.AssignedStaff)
-                .FirstOrDefaultAsync(si => si.Id == SecurityIncidentId); 
-            return incident?.ToGetDto(); 
+                .FirstOrDefaultAsync(si => si.Id == SecurityIncidentId);
+            return incident?.ToGetDto();
         }
 
         /// <inheritdoc/>
-        public async Task<GetSecurityIncidentDto> CreateAsync(CreateSecurityIncidentDto dto) 
-        { 
+        public async Task<GetSecurityIncidentDto> CreateAsync(CreateSecurityIncidentDto dto)
+        {
             var incident = dto.ToEntity();
             _context.SecurityIncidents.Add(incident);
-            await _context.SaveChangesAsync(); 
-            return incident.ToGetDto(); 
+            await _context.SaveChangesAsync();
+            return incident.ToGetDto();
         }
 
         /// <inheritdoc/>
@@ -56,9 +56,9 @@ namespace Airplane_UI.Services.SecurityGates
         {
             var incident = await _context.SecurityIncidents
                 .FirstOrDefaultAsync(si => si.Id == SecurityIncidentId);
-            if (incident == null) 
+            if (incident == null)
                 return null;
-            incident.UpdateEntity(dto);
+            dto.UpdateEntity(incident);
             await _context.SaveChangesAsync();
             return incident.ToGetDto();
         }
