@@ -28,14 +28,14 @@ namespace Airplane_UI.Services.SecurityGates
         public async Task<List<GetSecurityCheckpointDto>> GetAllAsync()
         {
             var checkpoints = await _context.SecurityCheckpoints.AsNoTracking().ToListAsync();
-            return checkpoints.Select(SecurityCheckpointMapper.ToGetDto).ToList();
+            return checkpoints.Select(SecurityCheckpointMapper.ToDTO).ToList();
         }
 
         /// <inheritdoc/>
         public async Task<GetSecurityCheckpointDto?> GetByIdAsync(int id)
         {
             var checkpoint = await _context.SecurityCheckpoints.AsNoTracking().FirstOrDefaultAsync(sc => sc.Id == id);
-            return checkpoint?.ToGetDto();
+            return checkpoint?.ToDTO();
         }
 
         /// <inheritdoc/>
@@ -47,7 +47,7 @@ namespace Airplane_UI.Services.SecurityGates
                 .AsNoTracking()
                 .FirstOrDefaultAsync(sc => sc.Id == id);
 
-            return checkpoint?.ToDetailsDto();
+            return checkpoint?.ToDetailsDTO();
         }
 
         /// <inheritdoc/>
@@ -58,7 +58,7 @@ namespace Airplane_UI.Services.SecurityGates
                 .Where(sc => sc.TerminalID == terminalId)
                 .ToListAsync();
 
-            return checkpoints.Select(SecurityCheckpointMapper.ToGetDto).ToList();
+            return checkpoints.Select(SecurityCheckpointMapper.ToDTO).ToList();
         }
 
         /// <inheritdoc/>
@@ -69,7 +69,7 @@ namespace Airplane_UI.Services.SecurityGates
                 .Where(sc => sc.Status == status)
                 .ToListAsync();
 
-            return checkpoints.Select(SecurityCheckpointMapper.ToGetDto).ToList();
+            return checkpoints.Select(SecurityCheckpointMapper.ToDTO).ToList();
         }
 
         /// <inheritdoc/>
@@ -90,7 +90,7 @@ namespace Airplane_UI.Services.SecurityGates
             _context.SecurityCheckpoints.Add(checkpoint);
             await _context.SaveChangesAsync();
 
-            return checkpoint.ToGetDto();
+            return checkpoint.ToDTO();
         }
 
         /// <inheritdoc/>
@@ -103,7 +103,7 @@ namespace Airplane_UI.Services.SecurityGates
             SecurityCheckpointMapper.UpdateEntity(checkpoint, dto);
             await _context.SaveChangesAsync();
 
-            return checkpoint.ToGetDto();
+            return checkpoint.ToDTO();
         }
 
         /// <inheritdoc/>

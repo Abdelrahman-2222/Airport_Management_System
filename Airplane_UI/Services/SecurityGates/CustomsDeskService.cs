@@ -46,7 +46,7 @@ namespace Airplane_UI.Services.SecurityGates
                 .AsNoTracking()
                 .FirstOrDefaultAsync(d => d.Id == id);
 
-            return desk?.ToDetailsDto();
+            return desk?.ToDTO();
         }
 
         /// <inheritdoc/>

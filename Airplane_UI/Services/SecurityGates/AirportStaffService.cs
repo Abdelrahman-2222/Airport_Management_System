@@ -28,14 +28,14 @@ namespace Airplane_UI.Services.SecurityGates
         public async Task<List<GetAirportStaffDto>> GetAllAsync()
         {
             var staffList = await _context.AirportStaffs.AsNoTracking().ToListAsync();
-            return staffList.Select(AirportStaffMapper.ToGetDto).ToList();
+            return staffList.Select(AirportStaffMapper.ToDto).ToList();
         }
 
         /// <inheritdoc/>
         public async Task<GetAirportStaffDto?> GetByIdAsync(int id)
         {
             var staff = await _context.AirportStaffs.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id);
-            return staff == null ? null : AirportStaffMapper.ToGetDto(staff);
+            return staff == null ? null : AirportStaffMapper.ToDto(staff);
         }
 
         /// <inheritdoc/>
@@ -44,7 +44,7 @@ namespace Airplane_UI.Services.SecurityGates
             var staff = AirportStaffMapper.ToEntity(dto);
             _context.AirportStaffs.Add(staff);
             await _context.SaveChangesAsync();
-            return AirportStaffMapper.ToGetDto(staff);
+            return AirportStaffMapper.ToDto(staff);
         }
 
         /// <inheritdoc/>
@@ -56,7 +56,7 @@ namespace Airplane_UI.Services.SecurityGates
 
             AirportStaffMapper.UpdateEntity(staff, dto);
             await _context.SaveChangesAsync();
-            return AirportStaffMapper.ToGetDto(staff);
+            return AirportStaffMapper.ToDto(staff);
         }
 
         /// <inheritdoc/>
