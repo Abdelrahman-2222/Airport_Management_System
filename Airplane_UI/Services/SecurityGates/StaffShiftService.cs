@@ -57,7 +57,7 @@ namespace Airplane_UI.Services.SecurityGates
             var shift = await _context.StaffShifts.FindAsync(id);
             if (shift == null)
                 return null;
-            shift.UpdateEntity(updateDto);
+            updateDto.UpdateEntity(shift);
             await _context.SaveChangesAsync();
             return shift.ToGetDto();
         }
