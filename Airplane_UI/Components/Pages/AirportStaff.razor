@@ -1,0 +1,43 @@
+@page "/airport-staff"
+@using Airplane_UI.Contracts.SecurityGates
+@using Airplane_UI.DTOs.SecurityGates.AirportStaff
+@using MudBlazor
+@rendermode InteractiveServer
+@inject IAirportStaffService AirportStaffService
+@inject NavigationManager Navigation
+
+<PageTitle>Airport Staff</PageTitle>
+
+<MudTable Items="@AirportStaffs" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+    <ToolBarContent>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => Navigation.NavigateTo("/airport-staff/create"))" Class="mb-3">
+            Create New Airport Staff
+        </MudButton>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>Name</MudTh>
+        <MudTh>Role</MudTh>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="Role">@context.Role</MudTd>
+        <MudTd DataLabel="Actions">
+            <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(() => NavigateToDetails(context.Id))">
+                View Details
+            </MudButton>
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+
+@if (!string.IsNullOrEmpty(_errorMessage))
+{
+    <MudAlert Severity="Severity.Error" Class="mt-4">
+        @_errorMessage
+    </MudAlert>
+}
+
+
+
