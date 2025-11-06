@@ -1,5 +1,6 @@
 ﻿using Airplane_UI.DTOs.AirlineCore.AircraftDTOs;
-using Airplane_UI.DTOs.AirlineCore.AirlineDTOs;
+using Airplane_UI.DTOs.LuggageMaintnance.CateringFacilitiesDTOs;
+using Airplane_UI.Services.AirlineCore;
 using Microsoft.AspNetCore.Components;
 
 namespace Airplane_UI.Components.Pages
@@ -7,11 +8,10 @@ namespace Airplane_UI.Components.Pages
     public partial class AircraftDetails
     {
         [Parameter]
-        public int id { get; set; }
+        public int Id { get; set; }
 
         private GetAircraftDTO? aircraftDetails;
 
-        // This model will be bound to the inputs when editing
         private GetAircraftDTO editModel = new();
 
         private bool isLoading = true;
@@ -24,11 +24,11 @@ namespace Airplane_UI.Components.Pages
         {
             try
             {
-                aircraftDetails = await AircraftService.GetByIdAsync(id);
+                aircraftDetails = await AircraftService.GetByIdAsync(Id);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error loading airline details: {ex.Message}");
+                Console.WriteLine($"Error loading aircraft details: {ex.Message}");
             }
             finally
             {
@@ -40,12 +40,12 @@ namespace Airplane_UI.Components.Pages
         {
             if (aircraftDetails != null)
             {
-                // Clone the details into the edit model to avoid changing the original data
                 editModel = new GetAircraftDTO
                 {
                     Id = aircraftDetails.Id,
                     TailNumber = aircraftDetails.TailNumber,
-                    Model = aircraftDetails.Model
+                    Model = aircraftDetails.Model,
+                    AirlineId = aircraftDetails.AirlineId,
                 };
                 isEditing = true;
             }
@@ -65,17 +65,14 @@ namespace Airplane_UI.Components.Pages
 
             try
             {
-                // 1. Create the DTO to send to the service
                 var updateDto = new CreateAndUpdateAircraftDTO
                 {
                     TailNumber = editModel.TailNumber,
-                    Model = editModel.Model
+                    Model = editModel.Model,
                 };
 
-                // 2. Call the service with the populated DTO
-                var updatedAircraft = await AircraftService.UpdateAsync(id, updateDto);
+                var updatedAircraft = await AircraftService.UpdateAsync(Id, updateDto);
 
-                // 3. Update the main display object with the confirmed data from the server
                 if (updatedAircraft != null)
                 {
                     aircraftDetails = updatedAircraft;
@@ -112,8 +109,8 @@ namespace Airplane_UI.Components.Pages
             isDeleting = true;
             try
             {
-                await AircraftService.DeleteAsync(id);
-                Navigation.NavigateTo("/aircrafts"); // Navigate back to aircrafts list
+                await AircraftService.DeleteAsync(Id);
+                Navigation.NavigateTo("/aircraft");
             }
             catch (Exception ex)
             {
