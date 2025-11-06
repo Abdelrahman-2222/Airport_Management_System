@@ -1,29 +1,29 @@
-using Airplane_UI.DTOs.SecurityGates.CheckpointLog;
+using Airplane_UI.DTOs.SecurityGates.CustomsDesk;
 
 namespace Airplane_UI.Components.Pages
 {
-    public partial class CheckpointLog
+    public partial class CustomsDesk
     {
-        private IList<GetCheckpointLogDto> CheckpointLogs = new List<GetCheckpointLogDto>();
+        private IList<GetCustomsDeskDto> CustomsDesks = new List<GetCustomsDeskDto>();
         private bool _loading = false;
         private string _errorMessage = string.Empty;
 
         protected override async Task OnInitializedAsync()
         {
-            await LoadCheckpointLogsAsync();
+            await LoadCustomsDesksAsync();
         }
 
-        private async Task LoadCheckpointLogsAsync()
+        private async Task LoadCustomsDesksAsync()
         {
             try
             {
                 _loading = true;
                 _errorMessage = string.Empty;
-                CheckpointLogs = await CheckpointLogService.GetAllAsync();
+                CustomsDesks = await CustomsDeskService.GetAllAsync();
             }
             catch (Exception ex)
             {
-                _errorMessage = $"Error loading checkpoint logs: {ex.Message}";
+                _errorMessage = $"Error loading customs desks: {ex.Message}";
             }
             finally
             {
@@ -33,7 +33,7 @@ namespace Airplane_UI.Components.Pages
 
         private void NavigateToDetails(int id)
         {
-            Navigation.NavigateTo($"/checkpoint-log/details/{id}");
+            Navigation.NavigateTo($"/customs-desk/details/{id}");
         }
     }
 }

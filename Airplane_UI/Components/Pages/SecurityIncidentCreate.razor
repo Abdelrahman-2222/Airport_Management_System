@@ -31,9 +31,19 @@
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Assigned Staff ID (Optional)</label>
-        <InputNumber class="form-control" Value="@incidentModel.AssignedStaffID" ValueChanged="@((int? value) => incidentModel.AssignedStaffID = value)" ValueExpression="@(() => incidentModel.AssignedStaffID)" />
+        <label class="form-label">Assigned Staff (Optional)</label>
+        <select class="form-select" @bind="incidentModel.AssignedStaffID">
+            <option value="">-- None --</option>
+            @foreach (var s in staffOptions)
+            {
+                <option value="@s.Id">@s.Name</option>
+            }
+        </select>
         <ValidationMessage For="@(() => incidentModel.AssignedStaffID)" />
+        @if (!string.IsNullOrEmpty(staffLoadError))
+        {
+            <div class="text-danger mt-1">@staffLoadError</div>
+        }
     </div>
 
     @if (!string.IsNullOrEmpty(errorMessage))

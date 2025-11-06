@@ -1,0 +1,45 @@
+@page "/customs-desk"
+@using Airplane_UI.Contracts.SecurityGates
+@using Airplane_UI.DTOs.SecurityGates.CustomsDesk
+@using MudBlazor
+@rendermode InteractiveServer
+@inject ICustomsDeskService CustomsDeskService
+@inject NavigationManager Navigation
+
+<PageTitle>Customs Desk</PageTitle>
+
+<MudTable Items="@CustomsDesks" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+    <ToolBarContent>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => Navigation.NavigateTo("/customs-desk/create"))" Class="mb-3">
+            Create New Customs Desk
+        </MudButton>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>Terminal ID</MudTh>
+        <MudTh>Desk Number</MudTh>
+        <MudTh>Status</MudTh>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Terminal ID">@context.TerminalID</MudTd>
+        <MudTd DataLabel="Desk Number">@context.DeskNumber</MudTd>
+        <MudTd DataLabel="Status">@context.Status</MudTd>
+        <MudTd DataLabel="Actions">
+            <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(() => NavigateToDetails(context.Id))">
+                View Details
+            </MudButton>
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+
+@if (!string.IsNullOrEmpty(_errorMessage))
+{
+    <MudAlert Severity="Severity.Error" Class="mt-4">
+        @_errorMessage
+    </MudAlert>
+}
+
+
+

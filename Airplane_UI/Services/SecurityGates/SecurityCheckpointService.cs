@@ -100,7 +100,7 @@ namespace Airplane_UI.Services.SecurityGates
             if (checkpoint == null)
                 return null;
 
-            SecurityCheckpointMapper.UpdateEntity(checkpoint, dto);
+            dto.UpdateEntity(checkpoint);
             await _context.SaveChangesAsync();
 
             return checkpoint.ToDTO();
