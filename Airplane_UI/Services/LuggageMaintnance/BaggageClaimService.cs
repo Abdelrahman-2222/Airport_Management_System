@@ -32,7 +32,6 @@ public class BaggageClaimService : IBaggageClaimService
     /// <inheritdoc/>
     public async Task<IList<GetBaggageClaimDto>> GetAllAsync()
     {
-        //var result = await _context.BaggageClaims.Select(_mapper.ToDto()).ToListAsync();
         var result = await _context.BaggageClaims.Include(b => b.Terminal).Select(b => b.ToDto()).ToListAsync();
         return result;
     }

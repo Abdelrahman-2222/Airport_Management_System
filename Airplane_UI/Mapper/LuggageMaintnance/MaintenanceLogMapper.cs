@@ -21,11 +21,11 @@ public static class MaintenanceLogMapper
     {
         var result = new GetMaintenanceLogDTO
         {
-            Status = claims.Status,
-            //MaintenanceTask = claims.MaintenanceTask,
-            //Aircraft = claims.Aircraft,
+            Id = claims.Id,
+            MaintenanceTask = claims.MaintenanceTask?.Name,
+            Aircraft = claims.Aircraft?.TailNumber,
             Date = claims.Date,
-            Description = claims.Description
+            Description = claims.Description,
         };
         return result;
     }
@@ -43,8 +43,14 @@ public static class MaintenanceLogMapper
             Status = claims.Status,
             Description = claims.Description,
             Date = claims.Date,
-            //Aircraft = claims.Aircraft,
-            //MaintenanceTask = claims.MaintenanceTask,
+            MaintenanceTask = new MaintenanceTask
+            {
+                 Description = claims.Description,
+            },
+            Aircraft = new Entities.AirlineCore.Aircraft
+            {
+                Model = claims.Aircraft,
+            },
             
         };
         return result;

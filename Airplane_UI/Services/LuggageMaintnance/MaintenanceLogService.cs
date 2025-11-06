@@ -26,13 +26,17 @@ public class MaintenanceLogService : IMaintenanceLogService
     ///<inheritdoc/>
     public async Task<IList<GetMaintenanceLogDTO>> GetAllAsync()
     {
-        var result = await _context.MaintenanceLogs.Select(b => b.ToDto()).ToListAsync();
+        var result = await _context.MaintenanceLogs
+            .Include(b => b.Aircraft)
+            .Include(b => b.MaintenanceTask)
+            .Select(b => b.ToDto()).ToListAsync();
         return result;
     }
     ///<inheritdoc/>
     public async Task<GetMaintenanceLogDTO> GetByIdAsync(int maintenanceLogId)
     {
-        var result = await _context.MaintenanceLogs.Where(b => b.Id == maintenanceLogId).Select(b => b.ToDto()).SingleOrDefaultAsync();
+        var result = await _context.MaintenanceLogs.Where(b => b.Id == maintenanceLogId)
+            .Select(b => b.ToDto()).SingleOrDefaultAsync();
         return result;
     }
     ///<inheritdoc/>

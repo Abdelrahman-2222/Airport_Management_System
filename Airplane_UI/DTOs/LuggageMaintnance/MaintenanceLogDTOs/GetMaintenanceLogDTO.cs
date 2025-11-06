@@ -9,6 +9,10 @@ namespace Airplane_UI.DTOs.LuggageMaintnance.MaintenanceLogDTOs;
 public class GetMaintenanceLogDTO
 {
     /// <summary>
+    /// uniqe id.
+    /// </summary>
+    public int Id { get; set; }
+    /// <summary>
     /// Description of the maintenance activity performed.
     /// </summary>
     public string Description { get; set; }
