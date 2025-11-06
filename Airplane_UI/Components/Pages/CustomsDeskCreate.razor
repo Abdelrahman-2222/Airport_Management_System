@@ -1,0 +1,67 @@
+@page "/customs-desk/create"
+@using Airplane_UI.Contracts.SecurityGates
+@using Airplane_UI.Contracts.GateAssignments
+@using Airplane_UI.DTOs.SecurityGates.CustomsDesk
+@inject ICustomsDeskService CustomsDeskService
+@inject NavigationManager Navigation
+
+@rendermode InteractiveServer
+
+<h3>Create New Customs Desk</h3>
+
+<EditForm Model="@deskModel" OnValidSubmit="HandleCreateAsync">
+
+    <DataAnnotationsValidator />
+
+<div class="mb-3">
+    <label class="form-label">Terminal</label>
+    <select class="form-select" @bind="deskModel.TerminalID">
+        <option value="0">-- Select Terminal --</option>
+        @foreach (var t in terminalOptions)
+        {
+            <option value="@t.Id">@t.Name</option>
+        }
+    </select>
+    <ValidationMessage For="@(() => deskModel.TerminalID)" />
+    @if (!string.IsNullOrEmpty(terminalLoadError))
+    {
+        <div class="text-danger mt-1">@terminalLoadError</div>
+    }
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Desk Number</label>
+        <InputText class="form-control" @bind-Value="deskModel.DeskNumber" />
+        <ValidationMessage For="@(() => deskModel.DeskNumber)" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Status</label>
+        <InputText class="form-control" @bind-Value="deskModel.Status" />
+        <ValidationMessage For="@(() => deskModel.Status)" />
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @errorMessage
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary" disabled="@isSaving">
+        @if (isSaving)
+        {
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <text>Saving...</text>
+        }
+        else
+        {
+            <text>Save</text>
+        }
+    </button>
+    <button type="button" class="btn btn-secondary" @onclick="GoBack">Cancel</button>
+
+</EditForm>
+
+
+
