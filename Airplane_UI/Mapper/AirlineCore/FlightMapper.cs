@@ -1,4 +1,5 @@
 ﻿using Airplane_UI.DTOs.AirlineCore.FlightDTOs;
+using Airplane_UI.DTOs.AirlineCore.FlightManifestDTOS;
 using Airplane_UI.Entities.AirlineCore;
 using Airplane_UI.Enums;
 
@@ -32,28 +33,6 @@ namespace Airplane_UI.Mapper.AirlineCore
         }
 
         /// <summary>
-        /// Converts a GetFlightDTO into a Fligh entity.
-        /// </summary>
-        /// <param name="dto">The dto representing a Flight.</param>
-        /// <returns> A Flight entity containing the mapped data from the provided DTO. </returns>
-        public static Flight ToEntity(this GetFlightDTO dto)
-        {
-            if (dto == null) return null;
-            return new Flight
-            {
-                Id = dto.Id,
-                FlightNumber = dto.FlightNumber,
-                ScheduledDeparture = dto.ScheduledDeparture,
-                ScheduledArrival = dto.ScheduledArrival,
-                Status = Enum.Parse<FlightStatus>(dto.Status),
-                AirlineId = dto.AirlineId,
-                AircraftId = dto.AircraftId,
-                OriginAirportId = dto.OriginAirportId,
-                DestinationAirportId = dto.DestinationAirportId
-            };
-        }
-
-        /// <summary>
         /// Converts a CreateAndUpdateFlightDTO into a Flight entity.
         /// </summary>
         /// <param name="dto">The dto used for creating or updating a flight.</param>
@@ -72,6 +51,25 @@ namespace Airplane_UI.Mapper.AirlineCore
                 OriginAirportId = dto.OriginAirportId,
                 DestinationAirportId = dto.DestinationAirportId
             };
+        }
+
+        /// <summary>
+        /// Converts a CreateAndUpdateFlightDTO into a Flight entity.
+        /// </summary>
+        /// <param name="dto">The CreateAndUpdateFlightDTO containing data for creation or update.</param>
+        /// <param name="entity">The Flight entity to convert.</param>
+        public static void UpdateEntity(this CreateAndUpdateFlightDTO dto, Flight entity)
+        {
+            if (entity == null || dto == null) return;
+
+            entity.FlightNumber = dto.FlightNumber;
+            entity.ScheduledDeparture = dto.ScheduledDeparture;
+            entity.ScheduledArrival = dto.ScheduledArrival;
+            entity.Status = Enum.Parse<FlightStatus>(dto.Status);
+            entity.AirlineId = dto.AirlineId;
+            entity.AircraftId = dto.AircraftId;
+            entity.OriginAirportId = dto.OriginAirportId;
+            entity.DestinationAirportId = dto.DestinationAirportId;
         }
     }
 }

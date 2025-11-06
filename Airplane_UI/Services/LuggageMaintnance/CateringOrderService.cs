@@ -67,8 +67,10 @@ public class CateringOrderService : ICateringOrderService
         {
             return null;
         }
-        var result = existingCateringOrder.ToDto();
-        return result;
+        dto.UpdateEntity(existingCateringOrder);
+        await _context.SaveChangesAsync();
+
+        return existingCateringOrder.ToDto();
     }
     ///<inheritdoc/>
     public async Task<string> DeleteAsync(int cateringOrderId)

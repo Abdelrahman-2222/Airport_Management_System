@@ -9,10 +9,12 @@ namespace Airplane_UI.Mapper.SecurityGates
     public static class CheckpointLogMapper
     {
         /// <summary>
-        /// Converts a <see cref="CheckpointLog"/> entity to a <see cref="GetCheckpointLogDto"/>.
+        /// Converts a CheckpointLog entity to a GetCheckpointLogDto.
         /// </summary>
-        /// <param name="entity">The <see cref="CheckpointLog"/> entity to convert.</param>
-        /// <returns>A <see cref="GetCheckpointLogDto"/> representing the mapped data.</returns>
+        /// <param name="entity">The CheckpointLog entity to convert.</param>
+        /// <returns>
+        /// A GetCheckpointLogDto representing the mapped data.
+        /// </returns>
         public static GetCheckpointLogDto ToDto(this CheckpointLog entity)
         {
             return new GetCheckpointLogDto
@@ -25,28 +27,12 @@ namespace Airplane_UI.Mapper.SecurityGates
         }
 
         /// <summary>
-        /// Converts a <see cref="CheckpointLog"/> entity to a <see cref="GetCheckpointLogDetailsDto"/>,
-        /// including related checkpoint information.
-        /// </summary>
-        /// <param name="entity">The <see cref="CheckpointLog"/> entity to convert.</param>
-        /// <returns>A <see cref="GetCheckpointLogDetailsDto"/> containing detailed information.</returns>
-        public static GetCheckpointLogDetailsDto ToDetailsDto(this CheckpointLog entity)
-        {
-            return new GetCheckpointLogDetailsDto
-            {
-                Id = entity.Id,
-                CheckpointID = entity.CheckpointID,
-                CheckpointName = entity.SecurityCheckpoint?.Name ?? "Unknown",
-                Timestamp = entity.Timestamp,
-                ReportedWaitTime = entity.ReportedWaitTime
-            };
-        }
-
-        /// <summary>
-        /// Converts a <see cref="CreateCheckpointLogDto"/> to a <see cref="CheckpointLog"/> entity.
+        /// Converts a CreateCheckpointLogDto to a CheckpointLog entity.
         /// </summary>
         /// <param name="dto">The DTO containing data for creating a new checkpoint log.</param>
-        /// <returns>A <see cref="CheckpointLog"/> entity instance.</returns>
+        /// <returns>
+        /// A CheckpointLog entity instance.
+        /// </returns>
         public static CheckpointLog ToEntity(this CreateCheckpointLogDto dto)
         {
             return new CheckpointLog
@@ -58,12 +44,14 @@ namespace Airplane_UI.Mapper.SecurityGates
         }
 
         /// <summary>
-        /// Updates the existing <see cref="CheckpointLog"/> entity based on an <see cref="UpdateCheckpointLogDto"/>.
+        /// Updates an existing CheckpointLog entity with values from an UpdateCheckpointLogDto.
         /// </summary>
-        /// <param name="entity">The entity to update.</param>
         /// <param name="dto">The DTO containing updated data.</param>
-        public static void UpdateEntity(this CheckpointLog entity, UpdateCheckpointLogDto dto)
+        /// <param name="entity">The CheckpointLog entity to update.</param>
+        public static void UpdateEntity(this UpdateCheckpointLogDto dto, CheckpointLog entity)
         {
+            if (entity == null || dto == null) return;
+
             entity.ReportedWaitTime = dto.ReportedWaitTime;
         }
     }

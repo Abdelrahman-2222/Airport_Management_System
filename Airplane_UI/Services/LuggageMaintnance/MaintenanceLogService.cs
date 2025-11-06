@@ -71,8 +71,10 @@ public class MaintenanceLogService : IMaintenanceLogService
         {
             return null;
         }
-        var result = existingMaintenanceLog.ToDto();
-        return result;
+        dto.UpdateEntity(existingMaintenanceLog);
+        await _context.SaveChangesAsync();
+
+        return existingMaintenanceLog.ToDto();
     }
     ///<inheritdoc/>
     public async Task<string> DeleteAsync(int maintenanceLogId)

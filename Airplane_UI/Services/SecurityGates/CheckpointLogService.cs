@@ -58,7 +58,7 @@ namespace Airplane_UI.Services.SecurityGates
             if (entity == null)
                 return null;
 
-            entity.UpdateEntity(dto);
+            dto.UpdateEntity(entity);
             _context.CheckpointLogs.Update(entity);
             await _context.SaveChangesAsync();
 

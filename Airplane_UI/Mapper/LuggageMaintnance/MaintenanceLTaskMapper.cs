@@ -34,31 +34,7 @@ public static class MaintenanceLTaskMapper
         };
         return result;
     }
-    /// <summary>
-    /// Converts a GetMaintenanceTaskDTO object to a MaintenanceTask entity.
-    /// </summary>
-    /// <param name="claims">The GetMaintenanceTaskDTO object to convert.</param>
-    /// <returns>
-    /// A MaintenanceTask entity populated with data from the DTO.
-    /// </returns>
-    public static MaintenanceTask ToEntity(this GetMaintenanceTaskDTO claims)
-    {
-        var result = new MaintenanceTask
-        {
-           Id = claims.Id,
-           Name = claims.Name,
-           Description = claims.Description,
-           MaintenanceLogs = claims.MaintenanceLogs
-            .Select(logDto => new MaintenanceLog
-            {
-                Id = logDto.Id,
-                Description = logDto.Description,
-                Date = logDto.Date,
-                Status = logDto.Status
-            }).ToList()
-        };
-        return result;
-    }
+
     /// <summary>
     /// Converts a CreateAndUpdateMaintenanceTaskDTO object to a MaintenanceTask entity.
     /// </summary>
@@ -73,5 +49,18 @@ public static class MaintenanceLTaskMapper
            Name = dto.Name,
            Description = dto.Description,
         };
+    }
+
+    /// <summary>
+    /// Converts a CreateAndUpdateMaintenanceTaskDTO into a MaintenanceTask entity.
+    /// </summary>
+    /// <param name="dto">The CreateAndUpdateMaintenanceTaskDTO containing data for creation or update.</param>
+    /// <param name="entity">The MaintenanceTask entity to convert.</param>
+    public static void UpdateEntity(this CreateAndUpdateMaintenanceTaskDTO dto, MaintenanceTask entity)
+    {
+        if (entity == null || dto == null) return;
+
+        entity.Name = dto.Name;
+        entity.Description = dto.Description;
     }
 }

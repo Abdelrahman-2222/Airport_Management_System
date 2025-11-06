@@ -1,18 +1,21 @@
 ﻿using Airplane_UI.DTOs.SecurityGates.SecurityIncident;
 using Airplane_UI.Entities.SecurityGates;
 using System;
-using System.Linq;
 
 namespace Airplane_UI.Mappers.SecurityGates
 {
-    ///
-    /// Provides mapping logic for SecurityIncident entity and its DTOs.
-    ///
+    /// <summary>
+    /// Provides mapping methods between SecurityIncident entities and their corresponding DTOs.
+    /// </summary>
     public static class SecurityIncidentMapper
     {
-        ///
-        /// Converts a SecurityIncident entity to its Get DTO.
-        ///
+        /// <summary>
+        /// Converts a SecurityIncident entity to a GetSecurityIncidentDto.
+        /// </summary>
+        /// <param name="incident">The SecurityIncident entity to convert.</param>
+        /// <returns>
+        /// A GetSecurityIncidentDto containing basic incident information.
+        /// </returns>
         public static GetSecurityIncidentDto ToGetDto(this SecurityIncident incident)
         {
             return new GetSecurityIncidentDto
@@ -27,9 +30,14 @@ namespace Airplane_UI.Mappers.SecurityGates
         }
 
         /// <summary>
-        /// Converts a SecurityIncident entity to a detailed DTO including staff info.
+        /// Converts a SecurityIncident entity to a GetSecurityIncidentDetailsDto,
+        /// including related staff information when available.
         /// </summary>
-        public static GetSecurityIncidentDetailsDto ToDetailsDto(this SecurityIncident incident)
+        /// <param name="incident">The SecurityIncident entity to convert.</param>
+        /// <returns>
+        /// A GetSecurityIncidentDetailsDto containing detailed incident information.
+        /// </returns>
+        public static GetSecurityIncidentDetailsDto ToDetailsDTO(this SecurityIncident incident)
         {
             return new GetSecurityIncidentDetailsDto
             {
@@ -46,8 +54,12 @@ namespace Airplane_UI.Mappers.SecurityGates
         }
 
         /// <summary>
-        /// Converts a CreateSecurityIncidentDto to a SecurityIncident entity.
+        /// Converts a CreateSecurityIncidentDto to a new SecurityIncident entity.
         /// </summary>
+        /// <param name="dto">The DTO containing data for creating a new incident record.</param>
+        /// <returns>
+        /// A new SecurityIncident entity populated with data from the DTO.
+        /// </returns>
         public static SecurityIncident ToEntity(this CreateSecurityIncidentDto dto)
         {
             return new SecurityIncident
@@ -61,14 +73,17 @@ namespace Airplane_UI.Mappers.SecurityGates
         }
 
         /// <summary>
-        /// Updates an existing SecurityIncident entity using Update DTO.
+        /// Updates an existing SecurityIncident entity using data from an UpdateSecurityIncidentDto.
         /// </summary>
-        public static void UpdateEntity(this SecurityIncident incident, UpdateSecurityIncidentDto dto)
+        /// <param name="dto">The DTO containing updated incident data.</param>
+        /// <param name="entity">The existing SecurityIncident entity to update.</param>
+        public static void UpdateEntity(this UpdateSecurityIncidentDto dto, SecurityIncident entity)
         {
-            incident.AssignedStaffID = dto.AssignedStaffID;
-            incident.ReportDetails = dto.ReportDetails;
-            incident.Severity = dto.Severity;
+            if (entity == null || dto == null) return;
+
+            entity.AssignedStaffID = dto.AssignedStaffID;
+            entity.ReportDetails = dto.ReportDetails;
+            entity.Severity = dto.Severity;
         }
     }
-
 }

@@ -73,8 +73,10 @@ public class BaggageClaimService : IBaggageClaimService
         {
             return null;
         }
-        var result = existingClaim.ToDto();
-        return result;
+        dto.UpdateEntity(existingClaim);
+        await _context.SaveChangesAsync();
+
+        return existingClaim.ToDto();
     }
     /// <inheritdoc/>
     public async Task<string> DeleteAsync(int BaggageId)

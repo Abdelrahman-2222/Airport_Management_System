@@ -1,4 +1,5 @@
 ﻿using Airplane_UI.DTOs.LuggageMaintnance.BaggageClaim;
+using Airplane_UI.DTOs.LuggageMaintnance.LostAndFoundDTOs;
 using Airplane_UI.DTOs.LuggageMaintnance.MaintenanceLogDTOs;
 using Airplane_UI.Entities.LuggageMaintnance;
 using Airplane_UI.Enums;
@@ -29,6 +30,7 @@ public static class MaintenanceLogMapper
         };
         return result;
     }
+
     /// <summary>
     /// Converts a GetMaintenanceLogDTO object to aMaintenanceLog entity.
     /// </summary>
@@ -55,6 +57,7 @@ public static class MaintenanceLogMapper
         };
         return result;
     }
+
     /// <summary>
     /// Converts a CreateAndUpdateMaintenanceLogDTO object to a MaintenanceLog entity.
     /// </summary>
@@ -72,5 +75,21 @@ public static class MaintenanceLogMapper
             MaintenanceTaskId = dto.MaintenanceTaskId,
             Status = dto.Status,
         };
+    }
+
+    /// <summary>
+    /// Converts a CreateAndUpdateMaintenanceLogDTO into a MaintenanceLog entity.
+    /// </summary>
+    /// <param name="dto">The CreateAndUpdateMaintenanceLogDTO containing data for creation or update.</param>
+    /// <param name="entity">The MaintenanceLog entity to convert.</param>
+    public static void UpdateEntity(this CreateAndUpdateMaintenanceLogDTO dto, MaintenanceLog entity)
+    {
+        if (entity == null || dto == null) return;
+
+        entity.AircraftId = dto.AircraftId;
+        entity.Date = dto.Date;
+        entity.Description = dto.Description;
+        entity.MaintenanceTaskId = dto.MaintenanceTaskId;
+        entity.Status = dto.Status;
     }
 }

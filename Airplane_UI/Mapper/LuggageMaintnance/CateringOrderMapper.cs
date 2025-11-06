@@ -1,4 +1,5 @@
-﻿using Airplane_UI.DTOs.LuggageMaintnance.CateringFacilitiesDTOs;
+﻿using Airplane_UI.DTOs.LuggageMaintnance.BaggageClaim;
+using Airplane_UI.DTOs.LuggageMaintnance.CateringFacilitiesDTOs;
 using Airplane_UI.DTOs.LuggageMaintnance.CateringOrderDTOs;
 using Airplane_UI.DTOs.LuggageMaintnance.MaintenanceLogDTOs;
 using Airplane_UI.Entities.LuggageMaintnance;
@@ -31,28 +32,7 @@ public static class CateringOrderMapper
         };
         return result;
     }
-    /// <summary>
-    /// Converts a GetCateringOrderDTO into a CateringOrder entity.
-    /// </summary>
-    /// <param name="claims">The DTO containing catering order information.</param>
-    /// <returns>A CateringOrder entity created from the DTO data.</returns>
-    public static CateringOrder ToEntity(this GetCateringOrderDTO claims)
-    {
-        var result = new CateringOrder
-        {
-            Id = claims.Id,
-            Status = claims.Status,
-            MealCount = claims.MealCount,
-            CateringFacilities = new CateringFacilities
-            {
-                Id = claims.CateringFacilitiesDTO.Id,
-                Name = claims.CateringFacilitiesDTO.Name,
-                ContactInfo = claims.CateringFacilitiesDTO.ContactInfo
-            }
-
-        };
-        return result;
-    }
+    
     /// <summary>
     /// Converts a CreateAndUpdateCateringOrderDTO into a CateringOrder entity for creation or update operations.
     /// </summary>
@@ -68,5 +48,20 @@ public static class CateringOrderMapper
             MealCount = dto.MealCount,
 
         };
+    }
+
+    /// <summary>
+    /// Updates an existing CateringOrder entity with data from a CreateAndUpdateCateringOrderDTO.
+    /// </summary>
+    /// <param name="dto">The DTO containing the updated CateringOrder data.</param>
+    /// <param name="entity">The existing CateringOrder entity to be updated.</param>
+    public static void UpdateEntity(this CreateAndUpdateCateringOrderDTO dto, CateringOrder entity)
+    {
+        if (entity == null || dto == null) return;
+
+        entity.FlightId = dto.FlightId;
+        entity.Status = dto.Status;
+        entity.ServiceId = dto.ServiceId;
+        entity.MealCount = dto.MealCount;
     }
 }

@@ -68,8 +68,10 @@ public class MaintenanceTaskService : IMaintenanceTaskService
         {
             return null;
         }
-        var result = existingMaintenanceTask.ToDto();
-        return result;
+        dto.UpdateEntity(existingMaintenanceTask);
+        await _context.SaveChangesAsync();
+
+        return existingMaintenanceTask.ToDto();
     }
     ///<inheritdoc/>
     public async Task<string> DeleteAsync(int maintenanceTaskId)

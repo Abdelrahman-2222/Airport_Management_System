@@ -1,13 +1,33 @@
 using Airplane_UI.DTOs.SecurityGates.SecurityIncident;
+using Airplane_UI.Contracts.SecurityGates;
+using Airplane_UI.DTOs.SecurityGates.AirportStaff;
+using Microsoft.AspNetCore.Components;
 
 namespace Airplane_UI.Components.Pages
 {
     public partial class SecurityIncidentCreate
     {
+        [Inject]
+        private IAirportStaffService AirportStaffService { get; set; }
+
         private CreateSecurityIncidentDto incidentModel = new();
 
         private bool isSaving = false;
         private string errorMessage = string.Empty;
+        private IList<GetAirportStaffDto> staffOptions = new List<GetAirportStaffDto>();
+        private string staffLoadError = string.Empty;
+
+        protected override async Task OnInitializedAsync()
+        {
+            try
+            {
+                staffOptions = await AirportStaffService.GetAllAsync();
+            }
+            catch (Exception ex)
+            {
+                staffLoadError = $"Failed to load staff: {ex.Message}";
+            }
+        }
 
         private async Task HandleCreateAsync()
         {
