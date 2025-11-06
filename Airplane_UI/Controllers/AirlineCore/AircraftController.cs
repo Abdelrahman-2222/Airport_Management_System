@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Airplane_UI.Controllers.AirlineCore
 {
     /// <summary>
-    /// API controller responsible for handling airline-related operations.
-    /// Provides endpoints for creating, retrieving, updating, and deleting airline records.
+    /// API controller responsible for handling aircraft-related operations.
+    /// Provides endpoints for creating, retrieving, updating, and deleting aircraft records.
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
@@ -15,9 +15,9 @@ namespace Airplane_UI.Controllers.AirlineCore
         private readonly IAircraftService _service;
 
         /// <summary>
-        /// Initializes a new instance of the AirlineController class.
+        /// Initializes a new instance of the AircraftController class.
         /// </summary>
-        /// <param name="service">The service responsible for airline data management.</param>
+        /// <param name="service">The service responsible for aircraft data management.</param>
         public AircraftController(IAircraftService service)
         {
             _service = service;
@@ -26,7 +26,9 @@ namespace Airplane_UI.Controllers.AirlineCore
         /// <summary>
         /// Retrieves all aircraftRecords.
         /// </summary>
-        /// <returns> Returns 200 OK if successful. </returns>
+        /// <returns>
+        /// Returns 200 OK if successful.
+        /// </returns>
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
@@ -38,7 +40,9 @@ namespace Airplane_UI.Controllers.AirlineCore
         /// Retrieves a specific aircraft by its unique identifier.
         /// </summary>
         /// <param name="aircraftId">The unique identifier of the aircraft to retrieve.</param>
-        /// <returns> Returns 200 OK if found; otherwise, may return 404 Not Found. </returns>
+        /// <returns>
+        /// Returns 200 OK if found; otherwise, return 404 Not Found.
+        /// </returns>
         [HttpGet("{aircraftId}")]
         public async Task<ActionResult<GetAircraftDTO>> GetById(int aircraftId)
         {
@@ -54,7 +58,9 @@ namespace Airplane_UI.Controllers.AirlineCore
         /// Creates a new aircraft record.
         /// </summary>
         /// <param name="dto">The dto containing the aircraft details to create.</param>
-        /// <returns> Returns 200 OK if creation is successful. </returns>
+        /// <returns> 
+        /// Returns 200 OK if creation is successful.
+        /// </returns>
         [HttpPost]
         public async Task<ActionResult<GetAircraftDTO>> Create([FromBody] CreateAndUpdateAircraftDTO dto)
         {
@@ -67,7 +73,9 @@ namespace Airplane_UI.Controllers.AirlineCore
         /// </summary>
         /// <param name="aircraftId">The unique identifier of the aircraft to update.</param>
         /// <param name="dto">The dto containing updated aircraft information.</param>
-        /// <returns> Returns 200 OK if the update succeeds, or null if the aircraft was not found.</returns>
+        /// <returns>
+        /// Returns 200 OK if the update succeeds, or null if the aircraft was not found.
+        /// </returns>
         [HttpPut("{aircraftId}")]
         public async Task<ActionResult<GetAircraftDTO>> Update(int aircraftId, [FromBody] CreateAndUpdateAircraftDTO dto)
         {
@@ -83,7 +91,9 @@ namespace Airplane_UI.Controllers.AirlineCore
         /// Deletes an existing aircraft record by its unique identifier.
         /// </summary>
         /// <param name="aircraftId">The unique identifier of the aircraft to delete.</param>
-        /// <returns> Returns 200 OK if deletion succeeds, or 400 Bad Request if it fails.</returns>
+        /// <returns>
+        /// Returns 200 OK if deletion succeeds, or 400 Bad Request if it fails.
+        /// </returns>
         [HttpDelete("{aircraftId}")]
         public async Task<ActionResult<string>> Delete(int aircraftId)
         {

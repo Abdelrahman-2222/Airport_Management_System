@@ -1,4 +1,5 @@
 ﻿using Airplane_UI.Contracts.AirlineCore;
+using Airplane_UI.DTOs.AirlineCore.AircraftDTOs;
 using Airplane_UI.DTOs.AirlineCore.AirlineDTOs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -45,9 +46,13 @@ namespace Airplane_UI.Controllers.AirlineCore
         /// Returns 200 OK if found; otherwise, may return 404 Not Found.
         /// </returns>
         [HttpGet("{airlineId}")]
-        public async Task<ActionResult> GetById(int airlineId)
+        public async Task<ActionResult<GetAirlineDTO>> GetById(int airlineId)
         {
             var airline = await _service.GetByIdAsync(airlineId);
+            if (airline == null)
+            {
+                return NotFound();
+            }
             return Ok(airline);
         }
 
@@ -59,10 +64,10 @@ namespace Airplane_UI.Controllers.AirlineCore
         /// Returns 200 OK if creation is successful.
         /// </returns>
         [HttpPost]
-        public async Task<ActionResult> Create([FromBody] CreateAndUpdateAirlineDTO dto)
+        public async Task<ActionResult<GetAirlineDTO>> Create([FromBody] CreateAndUpdateAirlineDTO dto)
         {
-            var created = await _service.CreateAsync(dto);
-            return Ok(created);
+            var createdAirline = await _service.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { airlineId = createdAirline.Id }, createdAirline);
         }
 
         /// <summary>
@@ -74,10 +79,14 @@ namespace Airplane_UI.Controllers.AirlineCore
         /// Returns 200 OK if the update succeeds, or null if the airline was not found.
         /// </returns>
         [HttpPut("{airlineId}")]
-        public async Task<ActionResult> Update(int airlineId, [FromBody] CreateAndUpdateAirlineDTO dto)
+        public async Task<ActionResult<GetAirlineDTO>> Update(int airlineId, [FromBody] CreateAndUpdateAirlineDTO dto)
         {
-            var isUpdated = await _service.UpdateAsync(airlineId, dto);
-            return isUpdated == null ? null : Ok(isUpdated);
+            var updatedAirline = await _service.UpdateAsync(airlineId, dto);
+            if(updatedAirline == null)
+            {
+                return NotFound();
+            }
+            return Ok(updatedAirline);
         }
 
         /// <summary>
@@ -90,8 +99,12 @@ namespace Airplane_UI.Controllers.AirlineCore
         [HttpDelete("{airlineId}")]
         public async Task<ActionResult> Delete(int airlineId)
         {
-            var isDeleted = await _service.DeleteAsync(airlineId);
-            return isDeleted == null ? BadRequest() : Ok(isDeleted);
+            var result = await _service.DeleteAsync(airlineId);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
         }
     }
 }

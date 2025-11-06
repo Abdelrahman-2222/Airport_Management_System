@@ -1,7 +1,6 @@
 ﻿using Airplane_UI.Contracts.AirlineCore;
 using Airplane_UI.Data;
 using Airplane_UI.DTOs.AirlineCore.PassengerDTOs;
-using Airplane_UI.Entities.AirlineCore;
 using Airplane_UI.Mapper.AirlineCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,7 +26,9 @@ namespace Airplane_UI.Services.AirlineCore
         /// <summary>
         /// Retrieves all passengers asynchronously.
         /// </summary>
-        /// <returns> A collection of GetPassengerDTO objects representing all passengers in the system.</returns>
+        /// <returns>
+        /// A collection of GetPassengerDTO objects representing all passengers in the system.
+        /// </returns>
         public async Task<IEnumerable<GetPassengerDTO>> GetAllAsync()
         {
             var passengers = await _context.Passengers
@@ -41,7 +42,9 @@ namespace Airplane_UI.Services.AirlineCore
         /// Retrieves a specific passenger by their unique identifier.
         /// </summary>
         /// <param name="passengerId">The unique identifier of the passenger to retrieve.</param>
-        /// <returns> A GetPassengerDTO object representing the passenger, or null if not found.</returns>
+        /// <returns>
+        /// A GetPassengerDTO object representing the passenger, or null if not found.
+        /// </returns>
         public async Task<GetPassengerDTO> GetByIdAsync(int passengerId)
         {
             var passenger = await _context.Passengers
@@ -56,15 +59,17 @@ namespace Airplane_UI.Services.AirlineCore
         /// Creates a new passenger record asynchronously.
         /// </summary>
         /// <param name="dto">The DTO containing passenger details to create.</param>
-        /// <returns> The newly created passenger as a GetPassengerDTO object.</returns>
+        /// <returns>
+        /// The newly created passenger as a GetPassengerDTO object.
+        /// </returns>
         public async Task<GetPassengerDTO> CreateAsync(CreateAndUpdatePassengerDTO dto)
         {
-            var passenger = dto.ToEntity();
+            var passengerEntity = dto.ToEntity();
 
-            _context.Passengers.Add(passenger);
+            _context.Passengers.Add(passengerEntity);
             await _context.SaveChangesAsync();
 
-            return passenger.ToDTO();
+            return passengerEntity.ToDTO();
         }
 
         /// <summary>
@@ -72,29 +77,41 @@ namespace Airplane_UI.Services.AirlineCore
         /// </summary>
         /// <param name="passengerId">The unique identifier of the passenger to update.</param>
         /// <param name="dto">The DTO containing updated passenger details.</param>
-        /// <returns> The updated GetPassengerDTO object if the update succeeded; otherwise, null if the passenger was not found.</returns>
+        /// <returns>
+        /// The updated GetPassengerDTO object if the update succeeded; otherwise, null if the passenger was not found.
+        /// </returns>
         public async Task<GetPassengerDTO> UpdateAsync(int passengerId, CreateAndUpdatePassengerDTO dto)
         {
-            var passenger = await _context.Passengers.FindAsync(passengerId);
-            if (passenger == null) return null;
+            var existingPassenger = await _context.Passengers.FindAsync(passengerId);
+            if (existingPassenger == null)
+            {
+                return null;
+            }
 
-            var updatedPassenger = dto.ToEntity();
+            var updatePassenger = dto.ToEntity();
+            if (updatePassenger == null)
+            {
+                return null;
+            }
 
-            _context.Passengers.Update(passenger);
             await _context.SaveChangesAsync();
-
-            return passenger.ToDTO();
+            return existingPassenger.ToDTO();
         }
 
         /// <summary>
         /// Deletes a passenger record by ID asynchronously.
         /// </summary>
         /// <param name="passengerId">The unique identifier of the passenger to delete.</param>
-        /// <returns>A message indicating the result of the delete operation, or null. </returns>
+        /// <returns>
+        /// A message indicating the result of the delete operation, or null.
+        /// </returns>
         public async Task<string> DeleteAsync(int passengerId)
         {
             var passenger = await _context.Passengers.FindAsync(passengerId);
-            if (passenger == null) return null;
+            if (passenger == null)
+            {
+                return null;
+            }
 
             _context.Passengers.Remove(passenger);
             await _context.SaveChangesAsync();
