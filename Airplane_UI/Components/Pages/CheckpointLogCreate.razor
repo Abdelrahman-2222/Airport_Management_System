@@ -1,0 +1,61 @@
+@page "/checkpoint-log/create"
+@using Airplane_UI.Contracts.SecurityGates
+@using Airplane_UI.DTOs.SecurityGates.CheckpointLog
+@inject ICheckpointLogService CheckpointLogService
+@inject NavigationManager Navigation
+
+@rendermode InteractiveServer
+
+<h3>Create New Checkpoint Log</h3>
+
+<EditForm Model="@logModel" OnValidSubmit="HandleCreateAsync">
+
+    <DataAnnotationsValidator />
+
+    <div class="mb-3">
+        <label class="form-label">Checkpoint ID</label>
+        <InputNumber class="form-control" @bind-Value="logModel.CheckpointID" />
+        <ValidationMessage For="@(() => logModel.CheckpointID)" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Reported Wait Time (Hours:Minutes:Seconds)</label>
+        <div class="row">
+            <div class="col-md-4">
+                <label class="form-label">Hours</label>
+                <InputNumber class="form-control" @bind-Value="hours" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Minutes</label>
+                <InputNumber class="form-control" @bind-Value="minutes" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Seconds</label>
+                <InputNumber class="form-control" @bind-Value="seconds" />
+            </div>
+        </div>
+        <ValidationMessage For="@(() => logModel.ReportedWaitTime)" />
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @errorMessage
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary" disabled="@isSaving">
+        @if (isSaving)
+        {
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <text>Saving...</text>
+        }
+        else
+        {
+            <text>Save</text>
+        }
+    </button>
+    <button type="button" class="btn btn-secondary" @onclick="GoBack">Cancel</button>
+
+</EditForm>
+
