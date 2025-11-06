@@ -26,23 +26,6 @@ namespace Airplane_UI.Mapper.AirlineCore
             };
         }
 
-        /// <summary>
-        /// Converts a GetAircraftDTO into an aircraft entity.
-        /// </summary>
-        /// <param name="aircraftDto">The dto representing an aircraft.</param>
-        /// <returns>
-        /// An Aircraft entity containing the mapped data from the provided DTO.
-        /// </returns>
-        public static Aircraft ToEntity(this GetAircraftDTO aircraftDto)
-        {
-            return new Aircraft
-            {
-                Id = aircraftDto.Id,
-                TailNumber = aircraftDto.TailNumber,
-                Model = aircraftDto.Model,
-                AirlineId = aircraftDto.AirlineId
-            };
-        }
 
         /// <summary>
         /// Converts a CreateAndUpdateAircraftDTO into an Aircraft entity.
@@ -60,5 +43,15 @@ namespace Airplane_UI.Mapper.AirlineCore
                 AirlineId = dto.AirlineId
             };
         }
+
+        public static void UpdateEntity(this Aircraft entity, CreateAndUpdateAircraftDTO dto)
+        {
+            if (entity == null || dto == null) return;
+
+            entity.TailNumber = dto.TailNumber;
+            entity.Model = dto.Model;
+            entity.AirlineId = dto.AirlineId;
+        }
+
     }
 }
