@@ -16,16 +16,16 @@ namespace Airplane_UI.Contracts.SecurityGates
         /// <summary>
         /// Retrieves detailed information about a customs desk including assigned staff and shift details.
         /// </summary>
-        /// <param name="id">The unique ID of the customs desk.</param>
+        /// <param name="customsDeskId">The unique ID of the customs desk.</param>
         /// <returns>A detailed customs desk DTO containing staff shift assignments.</returns>
-        Task<GetCustomsDeskDetailsDto?> GetDetailsAsync(int id);
+        Task<GetCustomsDeskDetailsDto> GetDetailsAsync(int customsDeskId);
 
         /// <summary>
         /// Retrieves a customs desk by its unique identifier.
         /// </summary>
-        /// <param name="id">The unique ID of the customs desk.</param>
+        /// <param name="customsDeskId">The unique ID of the customs desk.</param>
         /// <returns>A customs desk DTO if found; otherwise, null.</returns>
-        Task<GetCustomsDeskDto?> GetByIdAsync(int id);
+        Task<GetCustomsDeskDto> GetByIdAsync(int customsDeskId);
 
         /// <summary>
         /// Retrieves all customs desks located in a specific terminal.
@@ -46,27 +46,27 @@ namespace Airplane_UI.Contracts.SecurityGates
         /// </summary>
         /// <param name="createDto">The DTO containing the data for the new customs desk.</param>
         /// <returns>The created customs desk DTO.</returns>
-        Task<GetCustomsDeskDto?> CreateAsync(CreateCustomsDeskDto createDto);
+        Task<GetCustomsDeskDto> CreateAsync(CreateCustomsDeskDto createDto);
 
         /// <summary>
         /// Updates an existing customs desk with new information.
         /// </summary>
-        /// <param name="id">The ID of the customs desk to update.</param>
+        /// <param name="customsDeskId">The ID of the customs desk to update.</param>
         /// <param name="updateDto">The DTO containing updated desk data.</param>
         /// <returns>The updated customs desk DTO.</returns>
-        Task<GetCustomsDeskDto?> UpdateAsync(int id, UpdateCustomsDeskDto updateDto);
+        Task<GetCustomsDeskDto> UpdateAsync(int customsDeskId, UpdateCustomsDeskDto updateDto);
 
         /// <summary>
         /// Permanently deletes a customs desk from the database.
         /// </summary>
-        /// <param name="id">The ID of the customs desk to delete.</param>
-        Task<string> DeleteAsync(int id);
+        /// <param name="customsDeskId">The ID of the customs desk to delete.</param>
+        Task<string> DeleteAsync(int customsDeskId);
 
         /// <summary>
         /// Updates the operational status of an existing customs desk.
         /// </summary>
-        /// <param name="id">The ID of the customs desk.</param>
+        /// <param name="statusId">The ID of the customs desk.</param>
         /// <param name="status">The new operational status to assign.</param>
-        Task UpdateStatusAsync(int id, string status);
+        Task UpdateStatusAsync(int statusId, string status);
     }
 }

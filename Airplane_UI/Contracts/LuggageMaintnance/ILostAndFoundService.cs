@@ -1,5 +1,4 @@
-﻿
-using Airplane_UI.DTOs.LuggageMaintnance.LostAndFoundDTOs;
+﻿using Airplane_UI.DTOs.LuggageMaintnance.LostAndFoundDTOs;
 
 namespace Airplane_UI.Contracts.LuggageMaintnance;
 /// <summary>

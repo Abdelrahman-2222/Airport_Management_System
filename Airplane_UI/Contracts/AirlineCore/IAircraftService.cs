@@ -19,7 +19,7 @@ namespace Airplane_UI.Contracts.AirlineCore
         /// <summary>
         /// Retrieves a specific aircraft by its unique identifier.
         /// </summary>
-        /// <param name="id">The unique identifier of the aircraft to retrieve.</param>
+        /// <param name="aircraftId">The unique identifier of the aircraft to retrieve.</param>
         /// <returns>
         /// The task result contains the AircraftDTOs if found; otherwise, null.
         /// </returns>

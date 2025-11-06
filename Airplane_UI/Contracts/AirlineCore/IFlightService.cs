@@ -16,7 +16,7 @@ namespace Airplane_UI.Contracts.AirlineCore
         /// <summary>
         /// Retrieves a specific flight by its unique identifier.
         /// </summary>
-        /// <param name="id">The unique identifier of the flight to retrieve.</param>
+        /// <param name="flightId">The unique identifier of the flight to retrieve.</param>
         /// <returns> The task result contains the GetFlightDTO if found; otherwise, null. </returns>
         Task<GetFlightDTO> GetByIdAsync(int flightId);
         /// <summary>
@@ -28,14 +28,14 @@ namespace Airplane_UI.Contracts.AirlineCore
         /// <summary>
         /// Updates an existing flight record identified by its unique identifier.
         /// </summary>
-        /// <param name="id">The unique identifier of the flight to update.</param>
+        /// <param name="flightId">The unique identifier of the flight to update.</param>
         /// <param name="dto">The data transfer object containing updated flight details.</param>
         /// <returns> The task result indicates whether the update operation was successful.</returns>
-        Task<GetFlightDTO> UpdateAsync(int id, CreateAndUpdateFlightDTO dto);
+        Task<GetFlightDTO> UpdateAsync(int flightId, CreateAndUpdateFlightDTO dto);
         /// <summary>
         /// Deletes an existing flight record from the system.
         /// </summary>
-        /// <param name="id">The unique identifier of the flight to delete.</param>
+        /// <param name="flightId">The unique identifier of the flight to delete.</param>
         /// <returns> The task result indicates whether the delete operation was successful.</returns>
         Task<string> DeleteAsync(int flightId);
     }

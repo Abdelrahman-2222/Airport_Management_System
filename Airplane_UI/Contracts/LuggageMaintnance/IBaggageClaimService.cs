@@ -1,5 +1,4 @@
 ﻿using Airplane_UI.DTOs.LuggageMaintnance.BaggageClaim;
-using Airplane_UI.Entities.LuggageMaintnance;
 
 namespace Airplane_UI.Contracts.LuggageMaintnance;
 /// <summary>
@@ -16,7 +15,7 @@ public interface IBaggageClaimService
     /// <summary>
     /// Retrieves a specific baggage claim record by its unique identifier.
     /// </summary>
-    /// <param name="BaggageId">The unique identifier of the baggage claim.</param>
+    /// <param name="baggageId">The unique identifier of the baggage claim.</param>
     /// <returns>A task representing the asynchronous operation that returns the baggage claim DTO.</returns>
     Task<GetBaggageClaimDto> GetByIdAsync(int baggageId);
     /// <summary>
@@ -28,14 +27,14 @@ public interface IBaggageClaimService
     /// <summary>
     /// Updates an existing baggage claim record.
     /// </summary>
-    /// <param name="BaggageId">The unique identifier of the baggage claim to update.</param>
+    /// <param name="baggageId">The unique identifier of the baggage claim to update.</param>
     /// <param name="dto">The data transfer object containing updated baggage claim details.</param>
     /// <returns>A task representing the asynchronous operation that returns a GetBaggageClaimDto indicating success or failure.</returns>
     Task<GetBaggageClaimDto> UpdateAsync(int baggageId, CreateAndUpdateBaggageClaimDto dto);
     /// <summary>
     /// Deletes a baggage claim record by its unique identifier.
     /// </summary>
-    /// <param name="BaggageId">The unique identifier of the baggage claim to delete.</param>
+    /// <param name="baggageId">The unique identifier of the baggage claim to delete.</param>
     /// <returns>A task representing the asynchronous operation that returns a string indicating success or failure.</returns>
     Task<string> DeleteAsync(int baggageId);
 }

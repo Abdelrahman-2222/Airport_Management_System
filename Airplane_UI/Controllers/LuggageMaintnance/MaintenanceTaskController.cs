@@ -1,6 +1,5 @@
 ﻿using Airplane_UI.Contracts.LuggageMaintnance;
-using Airplane_UI.DTOs.LuggageMaintnance.MaintenanceTaskDTO;
-using Airplane_UI.DTOs.LuggageMaintnance.MaintinanceTaskDTOs;
+using Airplane_UI.DTOs.LuggageMaintnance.MaintenanceTaskDTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
