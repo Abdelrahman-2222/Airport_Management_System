@@ -68,7 +68,7 @@ public class CateringFacilitiesService : ICateringFacilitiesService
             return null;
         }
 
-        existingCateringFacilitie.UpdateEntity(dto);
+        dto.UpdateEntity(existingCateringFacilitie);
         await _context.SaveChangesAsync();
 
         return existingCateringFacilitie.ToDto();

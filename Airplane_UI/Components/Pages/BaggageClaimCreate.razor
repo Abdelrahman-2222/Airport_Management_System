@@ -10,11 +10,11 @@
 <h3>BaggageClaim Create</h3>
 
 <EditForm  OnValidSubmit="HandleCreateAsync">
-@* <EditForm Model="@baggagcelaimModel" OnValidSubmit="HandleCreateAsync"> *@
+@* <EditForm Model="@baggagcelaimModel" OnValidSubmit="HandleCreateAsync"> 
 
     <DataAnnotationsValidator />
 
-    @* <div class="mb-3">
+     <div class="mb-3">
         <label class="form-label">BaggageClaim CarouselNumber</label>
         <InputText class="form-control" @bind-Value="baggagcelaimModel.CarouselNumber" />
         <ValidationMessage For="@(() => baggagcelaimModel.CarouselNumber)" />
@@ -29,15 +29,15 @@
             }
         </InputSelect>
         <ValidationMessage For="@(() => baggagcelaimModel.Status)" />
-    </div>
+    </div> 
 
 
     <div class="mb-3">
         <label class="form-label">TerminalId</label>
         <InputText class="form-control" @bind-Value="baggagcelaimModel.TerminalId" />
         <ValidationMessage For="@(() => baggagcelaimModel.TerminalId)" />
-    </div> *@
-
+    </div>
+    *@
     @if (!string.IsNullOrEmpty(errorMessage))
     {
         <div class="alert alert-danger" role="alert">

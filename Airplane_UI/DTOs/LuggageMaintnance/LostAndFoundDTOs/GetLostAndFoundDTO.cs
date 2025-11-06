@@ -6,6 +6,7 @@ namespace Airplane_UI.DTOs.LuggageMaintnance.LostAndFoundDTOs;
 /// </summary>
 public class GetLostAndFoundDTO
 {
+    public int Id { get; set; }
     /// <summary>
     /// Description of the lost or found item.
     /// </summary>

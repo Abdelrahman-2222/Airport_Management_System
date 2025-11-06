@@ -1,27 +1,31 @@
-﻿@page "/cateringfacilities/create"
+﻿@page "/lostandfound/create"
 @using Airplane_UI.Contracts.LuggageMaintnance
 @using System.ComponentModel.DataAnnotations
-@inject ICateringFacilitiesService CateringFacilitiesService
+@using Airplane_UI.Enums
+@inject ILostAndFoundService LostAndFoundService
 @inject NavigationManager Navigation
 
-@rendermode InteractiveServer
+<h3>Create New LostAndFound</h3>
 
-<h3>Create New CateringFacilities</h3>
-
-<EditForm Model="@facilitiesModel" OnValidSubmit="HandleCreateAsync">
+<EditForm Model="@lostAndFoundModel" OnValidSubmit="HandleCreateAsync">
 
     <DataAnnotationsValidator />
 
     <div class="mb-3">
-        <label class="form-label">facilities Name</label>
-        <InputText class="form-control" @bind-Value="facilitiesModel.Name" />
-        <ValidationMessage For="@(() => facilitiesModel.Name)" />
+        <label class="form-label">ItemDescription</label>
+        <InputText class="form-control" @bind-Value="lostAndFoundModel.ItemDescription" />
+        <ValidationMessage For="@(() => lostAndFoundModel.ItemDescription)" />
     </div>
 
     <div class="mb-3">
-        <label class="form-label">ContactInfo</label>
-        <InputText class="form-control" @bind-Value="facilitiesModel.ContactInfo" />
-        <ValidationMessage For="@(() => facilitiesModel.ContactInfo)" />
+        <label class="form-label">Status</label>
+        <MudSelect @bind-Value="lostAndFoundModel.Status" >
+            @foreach(var val in Enum.GetValues<LostAndFoundStatus>()) 
+                {
+                    <MudSelectItem Value="@val">@val.ToString()</MudSelectItem>
+                }
+        </MudSelect>
+
     </div>
 
     @if (!string.IsNullOrEmpty(errorMessage))

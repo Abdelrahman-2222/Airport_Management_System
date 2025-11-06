@@ -67,8 +67,10 @@ public class LostAndFoundService : ILostAndFoundService
         {
             return null;
         }
-        var result = existingLostAndFound.ToDto();
-        return result;
+        dto.UpdateEntity(existingLostAndFound);
+        await _context.SaveChangesAsync();
+
+        return existingLostAndFound.ToDto();
     }
     ///<inheritdoc/>
     public async Task<string> DeleteAsync(int loadAndFoundId)

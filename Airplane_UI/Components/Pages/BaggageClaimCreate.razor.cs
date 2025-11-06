@@ -6,7 +6,7 @@ namespace Airplane_UI.Components.Pages;
 
 public partial class BaggageClaimCreate
 {
-    private CreateAndUpdateBaggageClaimDto baggageClaimModel = new();
+    public CreateAndUpdateBaggageClaimDto baggageClaimModel = new();
 
     private bool isSaving = false;
     private string errorMessage = string.Empty;

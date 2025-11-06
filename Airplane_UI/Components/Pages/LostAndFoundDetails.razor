@@ -1,19 +1,19 @@
-﻿@page "/cateringfacilities/details/{id:int}"
+﻿@page "/lostandfound/details/{id:int}"
 @using Airplane_UI.Contracts.LuggageMaintnance
-@inject ICateringFacilitiesService FacilitiesService
+@inject ILostAndFoundService LostAndFoundService
 @inject NavigationManager Navigation
 
 @rendermode InteractiveServer
 
-<h3>CateringFacilitiesDetails</h3>
+<h3>lostandfound Details</h3>
 
 @if (isLoading)
 {
     <p>Loading...</p>
 }
-else if (facilitiesDetails == null)
+else if (lostandfoundsDetails == null)
 {
-    <p>Airline not found.</p>
+    <p>lostandfounds not found.</p>
 }
 else
 {
@@ -22,22 +22,22 @@ else
             <h5 class="card-title">
                 @if (isEditing)
                 {
-                    <input type="text" class="form-control" @bind="editModel.Name" />
+                    <input type="text" class="form-control" @bind="editModel.ItemDescription" />
                 }
                 else
                 {
-                    @facilitiesDetails.Name
+                    @lostandfoundsDetails.ItemDescription
                 }
             </h5>
             <p class="card-text">
-                <strong>Code:</strong>
+                <strong>DateFound:</strong>
                 @if (isEditing)
                 {
-                    <input type="text" class="form-control" @bind="editModel.ContactInfo" />
+                    <input type="text" class="form-control" @bind="editModel.DateFound" />
                 }
                 else
                 {
-                    @facilitiesDetails.ContactInfo
+                    @lostandfoundsDetails.DateFound
                 }
             </p>
         </div>
@@ -74,7 +74,7 @@ else
                         <h5 class="modal-title">Confirm Delete</h5>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure you want to delete the airline "<strong>@facilitiesDetails.Name</strong>"?</p>
+                        <p>Are you sure you want to delete the airline "<strong>@lostandfoundsDetails.DateFound</strong>"?</p>
                         <p>This action cannot be undone.</p>
                     </div>
                     <div class="modal-footer">
