@@ -7,22 +7,7 @@ namespace Airplane_UI.Mapper.LuggageMaintnance;
 /// </summary>
 public static class CateringFacilitiesMapper
 {
-    /// <summary>
-    /// Converts a CreateAndUpdateCateringFacilitiesDTO entity into a GetCateringFacilitiesDTO
-    /// </summary>
-    /// <param name="claims">The CreateAndUpdateCateringFacilitiesDTO entity to convert.</param>
-    /// <returns>
-    /// A new GetCateringFacilitiesDTO object containing the mapped data.
-    /// </returns>
-    public static GetCateringFacilitiesDTO ToDto(this CreateAndUpdateCateringFacilitiesDTO claims)
-    {
-        var result = new GetCateringFacilitiesDTO
-        {
-            ContactInfo = claims.ContactInfo,
-            Name = claims.Name,
-        };
-        return result;
-    }
+
     /// <summary>
     /// Converts a CateringFacilities entity into a GetCateringFacilitiesDTO
     /// </summary>
@@ -57,24 +42,7 @@ public static class CateringFacilitiesMapper
         };
         return result;
     }
-    /// <summary>
-    /// Converts a GetCateringFacilitiesDTO back into a CateringFacilities entity.
-    /// </summary>
-    /// <param name="claims">The GetCateringFacilitiesDTO to convert.</param>
-    /// <returns>
-    /// A new CateringFacilities entity populated with data from the DTO.
-    /// </returns>
-    public static CateringFacilities ToEntity(this GetCateringFacilitiesDTO dto)
-    {
-        if (dto == null) return null;
 
-        return new CateringFacilities
-        {
-            Id = dto.Id,
-            Name = dto.Name,
-            ContactInfo = dto.ContactInfo
-        };
-    }
     /// <summary>
     /// Converts a CreateAndUpdateCateringFacilitiesDTO into a CateringFacilities entity.
     /// </summary>
@@ -90,8 +58,12 @@ public static class CateringFacilitiesMapper
             ContactInfo = dto.ContactInfo,
         };
     }
-
-    public static void UpdateEntity(this CateringFacilities entity, CreateAndUpdateCateringFacilitiesDTO dto)
+    /// <summary>
+    /// Converts a CreateAndUpdateCateringFacilitiesDTO into a CateringFacilities entity.
+    /// </summary>
+    /// <param name="dto">The CreateAndUpdateCateringFacilitiesDTO containing data for creation or update.</param>
+    /// <param name="entity">The CateringFacilities entity to convert.</param>
+    public static void UpdateEntity(this CreateAndUpdateCateringFacilitiesDTO dto, CateringFacilities entity)
     {
         if (entity == null || dto == null) return;
 

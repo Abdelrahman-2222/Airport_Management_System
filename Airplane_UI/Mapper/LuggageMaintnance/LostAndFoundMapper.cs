@@ -1,4 +1,5 @@
 ﻿using Airplane_UI.DTOs.LuggageMaintnance.BaggageClaim;
+using Airplane_UI.DTOs.LuggageMaintnance.CateringFacilitiesDTOs;
 using Airplane_UI.DTOs.LuggageMaintnance.LostAndFoundDTOs;
 using Airplane_UI.Entities.LuggageMaintnance;
 using Airplane_UI.Enums;
@@ -18,6 +19,7 @@ public static class LostAndFoundMapper
     {
         var result = new GetLostAndFoundDTO
         {
+            Id = claims.Id,
             DateFound = claims.DateFound,
             ItemDescription = claims.ItemDescription,
             Status = claims.Status.ToString(),
@@ -51,5 +53,18 @@ public static class LostAndFoundMapper
             ItemDescription = dto.ItemDescription,
             Status =dto.Status,
         };
+    }
+    /// <summary>
+    /// Converts a CreateAndUpdateLostandFoundDTO into a LostAndFound entity.
+    /// </summary>
+    /// <param name="dto">The CreateAndUpdateLostandFoundDTO containing data for creation or update.</param>
+    /// <param name="entity">The LostAndFound entity to convert.</param>
+    public static void UpdateEntity(this CreateAndUpdateLostandFoundDTO dto, LostAndFound entity)
+    {
+        if (entity == null || dto == null) return;
+
+        entity.DateFound = dto.DateFound;
+        entity.ItemDescription = dto.ItemDescription;
+        entity.Status = dto.Status;
     }
 }

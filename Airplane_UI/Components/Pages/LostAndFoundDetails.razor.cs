@@ -1,16 +1,17 @@
-﻿using Airplane_UI.DTOs.LuggageMaintnance.CateringFacilitiesDTOs;
+﻿using Airplane_UI.DTOs.LuggageMaintnance.LostAndFoundDTOs;
+using Airplane_UI.Enums;
 using Microsoft.AspNetCore.Components;
 
 namespace Airplane_UI.Components.Pages
 {
-    public partial class CateringFacilitiesDetails
+    public partial class LostAndFoundDetails
     {
         [Parameter]
         public int id { get; set; }
 
-        private GetCateringFacilitiesDTO? facilitiesDetails;
+        private GetLostAndFoundDTO? lostandfoundsDetails;
 
-        private GetCateringFacilitiesDTO editModel = new();
+        private GetLostAndFoundDTO editModel = new();
 
         private bool isLoading = true;
         private bool isEditing = false;
@@ -22,7 +23,7 @@ namespace Airplane_UI.Components.Pages
         {
             try
             {
-                facilitiesDetails = await FacilitiesService.GetByIdAsync(id);
+                lostandfoundsDetails = await LostAndFoundService.GetByIdAsync(id);
             }
             catch (Exception ex)
             {
@@ -36,13 +37,14 @@ namespace Airplane_UI.Components.Pages
 
         private void StartEdit()
         {
-            if (facilitiesDetails != null)
+            if (lostandfoundsDetails != null)
             {
-                editModel = new GetCateringFacilitiesDTO
+                editModel = new GetLostAndFoundDTO
                 {
-                    Id = facilitiesDetails.Id,
-                    Name = facilitiesDetails.Name,
-                    ContactInfo = facilitiesDetails.ContactInfo,
+                    Id = lostandfoundsDetails.Id,
+                    ItemDescription = lostandfoundsDetails.ItemDescription,
+                    DateFound = lostandfoundsDetails.DateFound,
+                    Status = lostandfoundsDetails.Status
                 };
                 isEditing = true;
             }
@@ -62,21 +64,22 @@ namespace Airplane_UI.Components.Pages
 
             try
             {
-                var updateDto = new CreateAndUpdateCateringFacilitiesDTO
+                var updateDto = new CreateAndUpdateLostandFoundDTO
                 {
-                    Name = editModel.Name,
-                    ContactInfo = editModel.ContactInfo,
+                    DateFound = DateTime.Now,
+                    ItemDescription = editModel.ItemDescription,
+                    Status = Enum.Parse<LostAndFoundStatus>(editModel.Status)
                 };
 
-                var updatedAirline = await FacilitiesService.UpdateAsync(id, updateDto);
+                var updatedAirline = await LostAndFoundService.UpdateAsync(id, updateDto);
 
                 if (updatedAirline != null)
                 {
-                    facilitiesDetails = updatedAirline;
+                    lostandfoundsDetails = updatedAirline;
                 }
                 else
                 {
-                    facilitiesDetails = editModel;
+                    lostandfoundsDetails = editModel;
                 }
 
                 isEditing = false;
@@ -106,12 +109,12 @@ namespace Airplane_UI.Components.Pages
             isDeleting = true;
             try
             {
-                await FacilitiesService.DeleteAsync(id);
-                Navigation.NavigateTo("/cateringfacilities");
+                await LostAndFoundService.DeleteAsync(id);
+                Navigation.NavigateTo("/lostandfound");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error deleting cateringfacilities: {ex.Message}");
+                Console.WriteLine($"Error deleting lostandfound: {ex.Message}");
             }
             finally
             {

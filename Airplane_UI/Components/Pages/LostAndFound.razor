@@ -1,0 +1,42 @@
+﻿@page "/lostandfound"
+@using Airplane_UI.Contracts.LuggageMaintnance
+@using MudBlazor
+@rendermode InteractiveServer
+@using System.Net.Http.Json
+@inject ILostAndFoundService LostAndFoundService
+@inject NavigationManager Navigation
+
+<PageTitle>LostAndFound</PageTitle>
+
+<MudTable Items="@LostandFound" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+    <ToolBarContent>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => Navigation.NavigateTo("/lostandfound/create"))" Class="mb-3">
+            Create New lostandfound
+        </MudButton>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>ItemDescription</MudTh>
+        <MudTh>DateFound</MudTh>
+        <MudTh>Status</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Name">@context.ItemDescription</MudTd>
+        <MudTd DataLabel="DateFound">@context.DateFound</MudTd>
+        <MudTd DataLabel="Status">@context.Status</MudTd>
+        <MudTd DataLabel="Actions">
+            <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(() => NavigateToDetails(context.Id))">
+                View Details
+            </MudButton>
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+
+@if (!string.IsNullOrEmpty(_errorMessage))
+{
+    <MudAlert Severity="Severity.Error" Class="mt-4">
+        @_errorMessage
+    </MudAlert>
+}
+
