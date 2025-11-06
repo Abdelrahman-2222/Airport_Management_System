@@ -82,7 +82,7 @@ namespace Airplane_UI.Services.AirlineCore
         /// </returns>
         public async Task<GetAirportDTO> UpdateAsync(int airportId, CreateAndUpdateAirportDTO dto)
         {
-            var existingAirport = await _context.Airlines.FindAsync(airportId);
+            var existingAirport = await _context.Airports.FindAsync(airportId);
             if (existingAirport == null)
             {
                 return null;
@@ -94,7 +94,9 @@ namespace Airplane_UI.Services.AirlineCore
                 return null;
             }
 
+            dto.UpdateEntity(existingAirport);
             await _context.SaveChangesAsync();
+
             return updateAirport.ToDto();
         }
 

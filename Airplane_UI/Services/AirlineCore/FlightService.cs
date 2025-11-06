@@ -94,7 +94,9 @@ namespace Airplane_UI.Services.AirlineCore
                 return null;
             }
 
+            dto.UpdateEntity(existingFlight);
             await _context.SaveChangesAsync();
+
             return existingFlight.ToDTO();
         }
 
