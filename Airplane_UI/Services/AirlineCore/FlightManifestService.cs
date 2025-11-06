@@ -1,7 +1,6 @@
 ﻿using Airplane_UI.Contracts.AirlineCore;
 using Airplane_UI.Data;
 using Airplane_UI.DTOs.AirlineCore.FlightManifestDTOS;
-using Airplane_UI.Entities.AirlineCore;
 using Airplane_UI.Mapper.AirlineCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,7 +23,12 @@ namespace Airplane_UI.Services.AirlineCore
             _context = context;
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Retrieves all flight manifests asynchronously.
+        /// </summary>
+        /// <returns>
+        /// A task that represents the asynchronous operation. The task result contains a collection of GetFlightManifestDTO objects.
+        /// </returns>
         public async Task<IList<GetFlightManifestDTO>> GetAllAsync()
         {
             var flightManifests = await _context.FlightManifests
@@ -34,7 +38,13 @@ namespace Airplane_UI.Services.AirlineCore
             return flightManifests;
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Retrieves a specific flight manifest by its unique identifier asynchronously.
+        /// </summary>
+        /// <param name="flightManifestId">The unique identifier of the flight manifest to retrieve.</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation. The task result contains the flight manifest DTO if found; otherwise, null.
+        /// </returns>
         public async Task<GetFlightManifestDTO> GetByIdAsync(int flightManifestId)
         {
             var flightManifest = await _context.FlightManifests
@@ -45,41 +55,68 @@ namespace Airplane_UI.Services.AirlineCore
             return flightManifest;
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Creates a new flight manifest record asynchronously.
+        /// </summary>
+        /// <param name="dto">The DTO containing flight manifest details to create.</param>
+        /// <returns>
+        /// The new created flight manifest as a DTO.
+        /// </returns>
         public async Task<GetFlightManifestDTO> CreateAsync(CreateAndUpdateFlightManifestDTO dto)
         {
-            var flightManifest = dto.ToEntity();
+            var flightManifestEntity = dto.ToEntity();
 
-            _context.FlightManifests.Add(flightManifest);
+            _context.FlightManifests.Add(flightManifestEntity);
             await _context.SaveChangesAsync();
 
-            return flightManifest.ToDTO();
+            return flightManifestEntity.ToDTO();
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Updates an existing flight manifest record by ID.
+        /// </summary>
+        /// <param name="flightManifestId">The unique identifier of the flight manifest to update.</param>
+        /// <param name="dto">The DTO containing updated flight manifest details.</param>
+        /// <returns>
+        /// The task result contains the updated GetFlightManifestDTO object if the update succeeded; otherwise, null if the flight manifest was not found.
+        /// </returns>
         public async Task<GetFlightManifestDTO> UpdateAsync(int flightManifestId, CreateAndUpdateFlightManifestDTO dto)
         {
-            var flightManifests = await _context.FlightManifests.FindAsync(flightManifestId);
-            if (flightManifests == null) return null;
+            var existingFlightManifest = await _context.FlightManifests.FindAsync(flightManifestId);
+            if (existingFlightManifest == null)
+            {
+                return null;
+            }
 
-            var updatedFlightManifests = dto.ToEntity();
+            var updateFlightManifest = dto.ToEntity();
+            if (updateFlightManifest == null)
+            {
+                return null;
+            }
 
-            _context.FlightManifests.Update(flightManifests);
             await _context.SaveChangesAsync();
-
-            return flightManifests.ToDTO();
+            return existingFlightManifest.ToDTO();
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Deletes a flight manifest record by ID asynchronously.
+        /// </summary>
+        /// <param name="flightManifestId">The unique identifier of the flight manifest to delete.</param>
+        /// <returns>
+        /// A message indicating the result of the delete operation, or null if the flight manifest was not found.
+        /// </returns>
         public async Task<string> DeleteAsync(int flightManifestId)
         {
             var flightManifest = await _context.FlightManifests.FindAsync(flightManifestId);
-            if (flightManifest == null) return null;
+            if (flightManifest == null)
+            {
+                return null;
+            }
 
             _context.FlightManifests.Remove(flightManifest);
             await _context.SaveChangesAsync();
 
-            return $"Flight with ID {flightManifest} deleted successfully.";
+            return $"Flight with ID {flightManifestId} deleted successfully.";
         }
     }
 }

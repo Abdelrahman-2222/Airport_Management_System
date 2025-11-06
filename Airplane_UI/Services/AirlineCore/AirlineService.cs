@@ -26,6 +26,9 @@ namespace Airplane_UI.Services.AirlineCore
         /// <summary>
         /// Retrieves all airlines asynchronously.
         /// </summary>
+        /// <returns>
+        /// A task that represents the asynchronous operation. The task result contains the airline DTO if found; otherwise, null.
+        /// </returns>
         public async Task<IList<GetAirlineDTO>> GetAllAsync()
         {
             var airlines = await _context.Airlines
@@ -36,8 +39,12 @@ namespace Airplane_UI.Services.AirlineCore
         }
 
         /// <summary>
-        /// Retrieves a specific airline by its unique identifier.
+        /// Retrieves a specific airline by its unique identifier asynchronously.
         /// </summary>
+        /// <param name="airlineId">The unique identifier of the airline to retrieve.</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation. The task result contains the airline DTO if found; otherwise, null.
+        /// </returns>
         public async Task<GetAirlineDTO> GetByIdAsync(int airlineId)
         {
             var airline = await _context.Airlines
@@ -52,20 +59,23 @@ namespace Airplane_UI.Services.AirlineCore
         /// Creates a new airline record asynchronously.
         /// </summary>
         /// <param name="dto">The DTO containing airline details to create.</param>
-        /// <returns>The new created airline as a DTO.</returns>
+        /// <returns>
+        /// The new created airline as a DTO.
+        /// </returns>
         public async Task<GetAirlineDTO> CreateAsync(CreateAndUpdateAirlineDTO dto)
         {
-            var airline = dto.ToEntity();
+            var airlineEntity = dto.ToEntity();
 
-            _context.Airlines.Add(airline);
+            await _context.Airlines.AddAsync(airlineEntity);
             await _context.SaveChangesAsync();
 
-            return airline.ToDto();
+            return airlineEntity.ToDto();
         }
+
         /// <summary>
         /// Updates an existing airline record by ID.
         /// </summary>
-        /// <param name="id">The unique identifier of the airline to update.</param>
+        /// <param name="airlineId">The unique identifier of the airline to update.</param>
         /// <param name="dto">The DTO containing updated airline details.</param>
         /// <returns>
         /// The task result contains the updated GetAirlineDTO object if the update succeeded. otherwise, null if the airline was not found.
@@ -85,7 +95,6 @@ namespace Airplane_UI.Services.AirlineCore
             }
 
             await _context.SaveChangesAsync();
-
             return existingAirline.ToDto();
         }
 
@@ -93,17 +102,21 @@ namespace Airplane_UI.Services.AirlineCore
         /// Deletes an airline record by ID asynchronously.
         /// </summary>
         /// <param name="airlineId">The unique identifier of the airline to delete.</param>
-        /// <returns>A message indicating the result of the delete operation, or null if not found.</returns>
+        /// <returns>
+        /// A message indicating the result of the delete operation, or null if not found.
+        /// </returns>
         public async Task<string> DeleteAsync(int airlineId)
         {
             var airline = await _context.Airlines.FindAsync(airlineId);
-            if (airline == null) return null;
+            if (airline == null)
+            {
+                return null;
+            }
 
             _context.Airlines.Remove(airline);
             await _context.SaveChangesAsync();
 
             return $"Airport with ID {airlineId} deleted successfully.";
         }
-
     }
 }
