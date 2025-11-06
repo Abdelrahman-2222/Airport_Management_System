@@ -31,9 +31,9 @@ namespace Airplane_UI.Components.Pages
                 _loading = false;
             }
         }
-        private void NavigateToDetails(int airlineId)
+        private void NavigateToDetails(int lostandfoundId)
         {
-            Navigation.NavigateTo($"/lostandfound/details/{airlineId}");
+            Navigation.NavigateTo($"/lostandfound/details/{lostandfoundId}");
         }
     }
 }
