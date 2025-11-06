@@ -1,24 +1,44 @@
 ﻿@page "/aircraft"
 @using MudBlazor
 @rendermode InteractiveServer
+@using Airplane_UI.Contracts.AirlineCore
+@inject IAircraftService AircraftService
+@using System.Net.Http.Json
+@inject NavigationManager Navigation
 
-<PageTitle>Airline</PageTitle>
+<PageTitle>Aircraft</PageTitle>
 
-<h1>Airline</h1>
+<MudTable Items="@Aircrafts" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+    <ToolBarContent>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => Navigation.NavigateTo("/aircraft/create"))" Class="mb-3">
+            Create New Aircraft
+        </MudButton>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>TailNumber</MudTh>
+        <MudTh>Model</MudTh>
+        <MudTh>AirlineId</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Name">@context.TailNumber</MudTd>
+        <MudTd DataLabel="IATA Code">@context.Model</MudTd>
+        <MudTd DataLabel="Actions">
+            <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(() => NavigateToDetails(context.Id))">
+                View Details
+            </MudButton>
+        </MudTd>
+    </RowTemplate>
+</MudTable>
 
-<MudGrid Class="mt-4" GutterSize="3">
-    @foreach (var entity in _entities)
-    {
-        <MudItem xs="12" sm="6" md="4">
-            <MudCard Elevation="3" Class="pa-4">
-                <MudCardContent>
-                    <MudText Typo="Typo.h6" Bold="true">@entity</MudText>
-                    <button class="btn btn-primary">@entity</button>
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
-    }
-</MudGrid>
+@if (!string.IsNullOrEmpty(_errorMessage))
+{
+    <MudAlert Severity="Severity.Error" Class="mt-4">
+        @_errorMessage
+    </MudAlert>
+}
+
 
 
 
