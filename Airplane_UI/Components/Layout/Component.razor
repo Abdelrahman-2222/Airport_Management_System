@@ -1,0 +1,27 @@
+@using Microsoft.AspNetCore.Components
+
+@inject NavigationManager NavigationManager
+
+@code {
+    private bool collapseNavMenu = true;
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : "show";
+    private void ToggleNavMenu() => collapseNavMenu = !collapseNavMenu;
+
+    private readonly List<string> Entities = new()
+    {
+        "CheckpointLog",
+        "SecurityGate",
+        "StaffShift",
+        "BaggageClaim",
+        "LostAndFound",
+        "ImmigrationRecord",
+        "Passenger",
+        "Airline"
+    };
+
+    private void NavigateToCreate(string entity)
+    {
+        var url = $"/{entity.ToLower()}/create";
+        NavigationManager.NavigateTo(url);
+    }
+}

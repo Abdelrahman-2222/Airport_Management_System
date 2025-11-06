@@ -2,8 +2,8 @@
 using Airplane_UI.Data;
 using Airplane_UI.DTOs.SecurityGates.SecurityCheckpoint;
 using Airplane_UI.Entities.SecurityGates;
+using Airplane_UI.Mappers.SecurityGates;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace Airplane_UI.Services.SecurityGates
 {
@@ -14,216 +14,111 @@ namespace Airplane_UI.Services.SecurityGates
     {
         private readonly AirplaneManagementSystemContext _context;
 
+
         /// <summary>
         /// Initializes a new instance of <see cref="SecurityCheckpointService"/>.
         /// </summary>
-        /// <param name="context">The database context instance used for data access.</param>
+        /// <param name="context">The database context used for accessing SecurityCheckpoint data.</param>
         public SecurityCheckpointService(AirplaneManagementSystemContext context)
         {
             _context = context;
         }
 
-        /// <summary>
-        /// Retrieves all security checkpoints.
-        /// </summary>
-        /// <returns>A list of all security checkpoints.</returns>
+        /// <inheritdoc/>
         public async Task<List<GetSecurityCheckpointDto>> GetAllAsync()
         {
-            return await _context.SecurityCheckpoints
-                .AsNoTracking()
-                .Select(sc => new GetSecurityCheckpointDto
-                {
-                    Id = sc.Id,
-                    Name = sc.Name,
-                    TerminalID = sc.TerminalID,
-                    Status = sc.Status
-                })
-                .ToListAsync();
+            var checkpoints = await _context.SecurityCheckpoints.AsNoTracking().ToListAsync();
+            return checkpoints.Select(SecurityCheckpointMapper.ToGetDto).ToList();
         }
 
-        /// <summary>
-        /// Retrieves a security checkpoint by ID.
-        /// </summary>
-        /// <param name="id">The unique identifier of the security checkpoint.</param>
-        /// <returns>The matching checkpoint if found; otherwise, null.</returns>
+        /// <inheritdoc/>
         public async Task<GetSecurityCheckpointDto?> GetByIdAsync(int id)
         {
-            return await _context.SecurityCheckpoints
-                .AsNoTracking()
-                .Where(sc => sc.Id == id)
-                .Select(sc => new GetSecurityCheckpointDto
-                {
-                    Id = sc.Id,
-                    Name = sc.Name,
-                    TerminalID = sc.TerminalID,
-                    Status = sc.Status
-                })
-                .FirstOrDefaultAsync();
+            var checkpoint = await _context.SecurityCheckpoints.AsNoTracking().FirstOrDefaultAsync(sc => sc.Id == id);
+            return checkpoint?.ToGetDto();
         }
 
-        /// <summary>
-        /// Retrieves detailed information about a checkpoint including logs and assignments.
-        /// </summary>
-        /// <param name="id">The ID of the security checkpoint.</param>
-        /// <returns>Detailed checkpoint data, or null if not found.</returns>
+        /// <inheritdoc/>
         public async Task<GetSecurityCheckpointDetailsDto?> GetDetailsAsync(int id)
         {
             var checkpoint = await _context.SecurityCheckpoints
-                .AsNoTracking()
-                .Where(sc => sc.Id == id)
                 .Include(sc => sc.CheckpointLogs)
                 .Include(sc => sc.AssignedShifts)
-                .FirstOrDefaultAsync();
+                .AsNoTracking()
+                .FirstOrDefaultAsync(sc => sc.Id == id);
 
-            if (checkpoint == null) return null;
-
-            var averageWaitTime = checkpoint.CheckpointLogs.Any()
-                ? TimeSpan.FromTicks((long)checkpoint.CheckpointLogs.Average(cl => cl.ReportedWaitTime.Ticks))
-                : (TimeSpan?)null;
-
-            return new GetSecurityCheckpointDetailsDto
-            {
-                Id = checkpoint.Id,
-                Name = checkpoint.Name,
-                TerminalID = checkpoint.TerminalID,
-                Status = checkpoint.Status,
-                LogCount = checkpoint.CheckpointLogs.Count,
-                ActiveShifts = checkpoint.AssignedShifts.Count(ss => ss.EndTime > DateTime.UtcNow),
-                AverageWaitTime = averageWaitTime
-            };
+            return checkpoint?.ToDetailsDto();
         }
 
-        /// <summary>
-        /// Retrieves all checkpoints in a specific terminal.
-        /// </summary>
-        /// <param name="terminalId">The terminal ID to filter checkpoints by.</param>
-        /// <returns>A collection of checkpoints within the given terminal.</returns>
+        /// <inheritdoc/>
         public async Task<List<GetSecurityCheckpointDto>> GetByTerminalAsync(int terminalId)
         {
-            return await _context.SecurityCheckpoints
+            var checkpoints = await _context.SecurityCheckpoints
                 .AsNoTracking()
                 .Where(sc => sc.TerminalID == terminalId)
-                .Select(sc => new GetSecurityCheckpointDto
-                {
-                    Id = sc.Id,
-                    Name = sc.Name,
-                    TerminalID = sc.TerminalID,
-                    Status = sc.Status
-                })
                 .ToListAsync();
+
+            return checkpoints.Select(SecurityCheckpointMapper.ToGetDto).ToList();
         }
 
-        /// <summary>
-        /// Retrieves checkpoints with a specific operational status.
-        /// </summary>
-        /// <param name="status">The status to filter checkpoints by.</param>
-        /// <returns>A collection of checkpoints matching the specified status.</returns>
+        /// <inheritdoc/>
         public async Task<List<GetSecurityCheckpointDto>> GetByStatusAsync(string status)
         {
-            return await _context.SecurityCheckpoints
+            var checkpoints = await _context.SecurityCheckpoints
                 .AsNoTracking()
                 .Where(sc => sc.Status == status)
-                .Select(sc => new GetSecurityCheckpointDto
-                {
-                    Id = sc.Id,
-                    Name = sc.Name,
-                    TerminalID = sc.TerminalID,
-                    Status = sc.Status
-                })
                 .ToListAsync();
+
+            return checkpoints.Select(SecurityCheckpointMapper.ToGetDto).ToList();
         }
 
-        /// <summary>
-        /// Creates a new security checkpoint and saves it to the database.
-        /// </summary>
-        /// <param name="createDto">The data used to create the new checkpoint.</param>
-        /// <returns>
-        /// The created <see cref="GetSecurityCheckpointDto"/> if successful; otherwise, <c>null</c> if the terminal does not exist or a duplicate name is found. </returns>
-        public async Task<GetSecurityCheckpointDto?> CreateAsync(CreateSecurityCheckpointDto createDto)
+        /// <inheritdoc/>
+        public async Task<GetSecurityCheckpointDto?> CreateAsync(CreateSecurityCheckpointDto dto)
         {
-            var terminalExists = await _context.Terminals
-                .AsNoTracking()
-                .AnyAsync(t => t.Id == createDto.TerminalID);
-
+            var terminalExists = await _context.Terminals.AsNoTracking().AnyAsync(t => t.Id == dto.TerminalID);
             if (!terminalExists)
                 return null;
 
             var exists = await _context.SecurityCheckpoints
                 .AsNoTracking()
-                .AnyAsync(sc => sc.Name == createDto.Name && sc.TerminalID == createDto.TerminalID);
+                .AnyAsync(sc => sc.Name == dto.Name && sc.TerminalID == dto.TerminalID);
 
             if (exists)
                 return null;
 
-            var checkpoint = new SecurityCheckpoint
-            {
-                Name = createDto.Name,
-                TerminalID = createDto.TerminalID,
-                Status = string.IsNullOrWhiteSpace(createDto.Status) ? "Active" : createDto.Status
-            };
-
+            var checkpoint = SecurityCheckpointMapper.ToEntity(dto);
             _context.SecurityCheckpoints.Add(checkpoint);
             await _context.SaveChangesAsync();
 
-            return await _context.SecurityCheckpoints
-                .AsNoTracking()
-                .Where(sc => sc.Id == checkpoint.Id)
-                .Select(sc => new GetSecurityCheckpointDto
-                {
-                    Id = sc.Id,
-                    Name = sc.Name,
-                    TerminalID = sc.TerminalID,
-                    Status = sc.Status
-                })
-                .FirstOrDefaultAsync();
+            return checkpoint.ToGetDto();
         }
 
-        /// <summary>
-        /// Updates an existing security checkpoint.
-        /// </summary>
-        /// <param name="id">The ID of the checkpoint to update.</param>
-        /// <param name="updateDto">The updated checkpoint data.</param>
-        /// <returns>The updated checkpoint DTO, or null if not found.</returns>
-        public async Task<GetSecurityCheckpointDto?> UpdateAsync(int id, UpdateSecurityCheckpointDto updateDto)
+        /// <inheritdoc/>
+        public async Task<GetSecurityCheckpointDto?> UpdateAsync(int id, UpdateSecurityCheckpointDto dto)
         {
             var checkpoint = await _context.SecurityCheckpoints.FirstOrDefaultAsync(sc => sc.Id == id);
             if (checkpoint == null)
                 return null;
 
-            checkpoint.Name = updateDto.Name;
-            checkpoint.Status = updateDto.Status;
-
+            SecurityCheckpointMapper.UpdateEntity(checkpoint, dto);
             await _context.SaveChangesAsync();
 
-            return new GetSecurityCheckpointDto
-            {
-                Id = checkpoint.Id,
-                Name = checkpoint.Name,
-                TerminalID = checkpoint.TerminalID,
-                Status = checkpoint.Status
-            };
+            return checkpoint.ToGetDto();
         }
 
-        /// <summary>
-        /// Deletes a security checkpoint by ID.
-        /// </summary>
-        /// <param name="id">The ID of the checkpoint to delete.</param>
+        /// <inheritdoc/>
         public async Task<string> DeleteAsync(int id)
         {
-            var checkpoint = await _context.SecurityCheckpoints.FindAsync(id);
-            if (checkpoint == null) return $"SecurityCheckpoint {id} not found";
-
+            var checkpoint = await _context.SecurityCheckpoints.FirstOrDefaultAsync(sc => sc.Id == id);
+            if (checkpoint == null)
+                return $"SecurityCheckpoint {id} not found.";
 
             _context.SecurityCheckpoints.Remove(checkpoint);
             await _context.SaveChangesAsync();
-            return $"Checkpoint {id} deleted successfully";
+            return $"Checkpoint {id} deleted successfully.";
         }
 
-        /// <summary>
-        /// Updates the operational status of a checkpoint.
-        /// </summary>
-        /// <param name="id">The checkpoint ID.</param>
-        /// <param name="status">The new status value.</param>
+        /// <inheritdoc/>
         public async Task UpdateStatusAsync(int id, string status)
         {
             var checkpoint = await _context.SecurityCheckpoints.FirstOrDefaultAsync(sc => sc.Id == id);
