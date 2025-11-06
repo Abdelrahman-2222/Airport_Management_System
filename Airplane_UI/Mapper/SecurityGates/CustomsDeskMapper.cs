@@ -13,7 +13,9 @@ namespace Airplane_UI.Mappers.SecurityGates
         /// Converts a CustomsDesk entity into a GetCustomsDeskDto.
         /// </summary>
         /// <param name="desk">The CustomsDesk entity to convert.</param>
-        /// <returns>A DTO representing the CustomsDesk.</returns>
+        /// <returns>
+        /// A DTO representing the CustomsDesk.
+        /// </returns>
         public static GetCustomsDeskDto ToGetDto(this CustomsDesk desk)
         {
             return new GetCustomsDeskDto
@@ -29,7 +31,9 @@ namespace Airplane_UI.Mappers.SecurityGates
         /// Converts a CreateCustomsDeskDto into a CustomsDesk entity.
         /// </summary>
         /// <param name="dto">The DTO containing creation data.</param>
-        /// <returns>A CustomsDesk entity.</returns>
+        /// <returns>
+        /// A CustomsDesk entity.
+        /// </returns>
         public static CustomsDesk ToEntity(this CreateCustomsDeskDto dto)
         {
             return new CustomsDesk
@@ -55,8 +59,10 @@ namespace Airplane_UI.Mappers.SecurityGates
         /// Converts a CustomsDesk entity with related staff shifts into a GetCustomsDeskDetailsDto.
         /// </summary>
         /// <param name="desk">The CustomsDesk entity.</param>
-        /// <returns>A detailed DTO with staff shift information.</returns>
-        public static GetCustomsDeskDetailsDto ToDetailsDto(this CustomsDesk desk)
+        /// <returns>
+        /// A detailed DTO with staff shift information.
+        /// </returns>
+        public static GetCustomsDeskDetailsDto ToDTO(this CustomsDesk desk)
         {
             return new GetCustomsDeskDetailsDto
             {

@@ -3,11 +3,18 @@ using Airplane_UI.Entities.SecurityGates;
 
 namespace Airplane_UI.Mappers.SecurityGates
 {
-    ///
-    /// Provides mapping methods between StaffShift entity and its DTOs.
-    ///
+    /// <summary>
+    /// Provides mapping methods between StaffShift entities and their corresponding DTOs.
+    /// </summary>
     public static class StaffShiftMapper
     {
+        /// <summary>
+        /// Converts a StaffShift entity to a GetStaffShiftDto.
+        /// </summary>
+        /// <param name="shift">The StaffShift entity to convert.</param>
+        /// <returns>
+        /// A GetStaffShiftDto containing the mapped data from the entity.
+        /// </returns>
         public static GetStaffShiftDto ToGetDto(this StaffShift shift)
         {
             return new GetStaffShiftDto
@@ -21,6 +28,13 @@ namespace Airplane_UI.Mappers.SecurityGates
             };
         }
 
+        /// <summary>
+        /// Converts a CreateStaffShiftDto to a new StaffShift entity.
+        /// </summary>
+        /// <param name="dto">The DTO containing the data for creating a new staff shift.</param>
+        /// <returns>
+        /// A new StaffShift entity populated with the provided data.
+        /// </returns>
         public static StaffShift ToEntity(this CreateStaffShiftDto dto)
         {
             return new StaffShift
@@ -33,13 +47,19 @@ namespace Airplane_UI.Mappers.SecurityGates
             };
         }
 
-        public static void UpdateEntity(this StaffShift shift, UpdateStaffShiftDto dto)
+        /// <summary>
+        /// Updates an existing StaffShift entity using data from an UpdateStaffShiftDto.
+        /// </summary>
+        /// <param name="dto">The DTO containing updated shift information.</param>
+        /// <param name="entity">The existing StaffShift entity to be updated.</param>
+        public static void UpdateEntity(this UpdateStaffShiftDto dto, StaffShift entity)
         {
-            shift.AssignedCheckpointID = dto.AssignedCheckpointID;
-            shift.AssignedDeskID = dto.AssignedDeskID;
-            shift.StartTime = dto.StartTime;
-            shift.EndTime = dto.EndTime;
+            if (entity == null || dto == null) return;
+
+            entity.AssignedCheckpointID = dto.AssignedCheckpointID;
+            entity.AssignedDeskID = dto.AssignedDeskID;
+            entity.StartTime = dto.StartTime;
+            entity.EndTime = dto.EndTime;
         }
     }
-
 }
