@@ -26,10 +26,16 @@ else
                 @shiftDetails.StaffID
             </p>
             <p class="card-text">
-                <strong>Assigned Checkpoint ID:</strong>
+                <strong>Assigned Checkpoint:</strong>
                 @if (isEditing)
                 {
-                    <InputNumber class="form-control" Value="@editModel.AssignedCheckpointID" ValueChanged="@((int? value) => editModel.AssignedCheckpointID = value)" ValueExpression="@(() => editModel.AssignedCheckpointID)" />
+                    <select class="form-select" @bind="editModel.AssignedCheckpointID">
+                        <option value="">-- None --</option>
+                        @foreach (var c in checkpointOptions)
+                        {
+                            <option value="@c.Id">@c.Name</option>
+                        }
+                    </select>
                 }
                 else
                 {
@@ -37,10 +43,16 @@ else
                 }
             </p>
             <p class="card-text">
-                <strong>Assigned Desk ID:</strong>
+                <strong>Assigned Customs Desk:</strong>
                 @if (isEditing)
                 {
-                    <InputNumber class="form-control" Value="@editModel.AssignedDeskID" ValueChanged="@((int? value) => editModel.AssignedDeskID = value)" ValueExpression="@(() => editModel.AssignedDeskID)" />
+                    <select class="form-select" @bind="editModel.AssignedDeskID">
+                        <option value="">-- None --</option>
+                        @foreach (var d in customsDeskOptions)
+                        {
+                            <option value="@d.Id">Desk @d.DeskNumber (Terminal @d.TerminalID)</option>
+                        }
+                    </select>
                 }
                 else
                 {

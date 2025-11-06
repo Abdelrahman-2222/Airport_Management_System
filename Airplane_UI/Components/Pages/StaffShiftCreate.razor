@@ -1,5 +1,6 @@
 @page "/staff-shift/create"
 @using Airplane_UI.Contracts.SecurityGates
+@using Airplane_UI.Contracts.GateAssignments
 @using Airplane_UI.DTOs.SecurityGates.StaffShift
 @inject IStaffShiftService StaffShiftService
 @inject NavigationManager Navigation
@@ -13,21 +14,51 @@
     <DataAnnotationsValidator />
 
     <div class="mb-3">
-        <label class="form-label">Staff ID</label>
-        <InputNumber class="form-control" @bind-Value="shiftModel.StaffID" />
+        <label class="form-label">Staff</label>
+        <select class="form-select" @bind="shiftModel.StaffID">
+            <option value="0">-- Select Staff --</option>
+            @foreach (var s in staffOptions)
+            {
+                <option value="@s.Id">@s.Name</option>
+            }
+        </select>
         <ValidationMessage For="@(() => shiftModel.StaffID)" />
+        @if (!string.IsNullOrEmpty(staffLoadError))
+        {
+            <div class="text-danger mt-1">@staffLoadError</div>
+        }
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Assigned Checkpoint ID (Optional)</label>
-        <InputNumber class="form-control" Value="@shiftModel.AssignedCheckpointID" ValueChanged="@((int? value) => shiftModel.AssignedCheckpointID = value)" ValueExpression="@(() => shiftModel.AssignedCheckpointID)" />
+        <label class="form-label">Assigned Checkpoint (Optional)</label>
+        <select class="form-select" @bind="shiftModel.AssignedCheckpointID">
+            <option value="">-- None --</option>
+            @foreach (var c in checkpointOptions)
+            {
+                <option value="@c.Id">@c.Name</option>
+            }
+        </select>
         <ValidationMessage For="@(() => shiftModel.AssignedCheckpointID)" />
+        @if (!string.IsNullOrEmpty(checkpointLoadError))
+        {
+            <div class="text-danger mt-1">@checkpointLoadError</div>
+        }
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Assigned Desk ID (Optional)</label>
-        <InputNumber class="form-control" Value="@shiftModel.AssignedDeskID" ValueChanged="@((int? value) => shiftModel.AssignedDeskID = value)" ValueExpression="@(() => shiftModel.AssignedDeskID)" />
+        <label class="form-label">Assigned Customs Desk (Optional)</label>
+        <select class="form-select" @bind="shiftModel.AssignedDeskID">
+            <option value="">-- None --</option>
+            @foreach (var d in customsDeskOptions)
+            {
+                <option value="@d.Id">Desk @d.DeskNumber (Terminal @d.TerminalID)</option>
+            }
+        </select>
         <ValidationMessage For="@(() => shiftModel.AssignedDeskID)" />
+        @if (!string.IsNullOrEmpty(customsDeskLoadError))
+        {
+            <div class="text-danger mt-1">@customsDeskLoadError</div>
+        }
     </div>
 
     <div class="mb-3">
