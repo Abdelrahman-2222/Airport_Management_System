@@ -1,5 +1,6 @@
 ﻿@page "/aircraft/details/{id:int}"
 @using Airplane_UI.Contracts.AirlineCore
+@using Airplane_UI.Entities.AirlineCore
 @inject IAircraftService AircraftService
 @inject NavigationManager Navigation
 
@@ -11,7 +12,7 @@
 }
 else if (aircraftDetails == null)
 {
-    <p>Aircraft not found.</p>
+    <p>Airline not found.</p>
 }
 else
 {
@@ -24,7 +25,7 @@ else
                 }
                 else
                 {
-					@aircraftDetails.TailNumber
+                    @aircraftDetails.TailNumber
                 }
             </h5>
             <p class="card-text">
@@ -36,7 +37,7 @@ else
                 else
                 {
                     @aircraftDetails.Model
-                }
+            }
             </p>
         </div>
         <div class="card-footer">
