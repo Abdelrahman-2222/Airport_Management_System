@@ -1,0 +1,48 @@
+﻿@page "/aircraft/create"
+@using Airplane_UI.Contracts.AirlineCore
+@using System.ComponentModel.DataAnnotations
+@inject IAircraftService AircraftService
+@inject NavigationManager Navigation
+
+
+@rendermode InteractiveServer
+
+<h3>Create New Aircraft</h3>
+
+<EditForm Model="@aircraftModel" OnValidSubmit="HandleCreateAsync">
+
+    <DataAnnotationsValidator />
+
+    <div class="mb-3">
+        <label class="form-label">Aircraft TailNumber</label>
+        <InputText class="form-control" @bind-Value="aircraftModel.TailNumber" />
+        <ValidationMessage For="@(() => aircraftModel.TailNumber)" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Model</label>
+        <InputText class="form-control" @bind-Value="aircraftModel.Model" />
+        <ValidationMessage For="@(() => aircraftModel.Model)" />
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @errorMessage
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary" disabled="@isSaving">
+        @if (isSaving)
+        {
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <text>Saving...</text>
+        }
+        else
+        {
+            <text>Save</text>
+        }
+    </button>
+    <button type="button" class="btn btn-secondary" @onclick="GoBack">Cancel</button>
+
+</EditForm>
