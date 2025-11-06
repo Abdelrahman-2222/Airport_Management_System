@@ -1,13 +1,33 @@
 using Airplane_UI.DTOs.SecurityGates.SecurityCheckpoint;
+using Airplane_UI.Contracts.GateAssignments;
+using Airplane_UI.DTOs.GateAssignments.TerminalDTOs;
+using Microsoft.AspNetCore.Components;
 
 namespace Airplane_UI.Components.Pages
 {
     public partial class SecurityCheckpointCreate
     {
+        [Inject]
+        private ITerminalService TerminalService { get; set; }
+
         private CreateSecurityCheckpointDto checkpointModel = new();
 
         private bool isSaving = false;
         private string errorMessage = string.Empty;
+        private IList<GetTerminalDTO> terminalOptions = new List<GetTerminalDTO>();
+        private string terminalLoadError = string.Empty;
+
+        protected override async Task OnInitializedAsync()
+        {
+            try
+            {
+                terminalOptions = await TerminalService.GetAllAsync();
+            }
+            catch (Exception ex)
+            {
+                terminalLoadError = $"Failed to load terminals: {ex.Message}";
+            }
+        }
 
         private async Task HandleCreateAsync()
         {
@@ -36,4 +56,5 @@ namespace Airplane_UI.Components.Pages
         }
     }
 }
+
 

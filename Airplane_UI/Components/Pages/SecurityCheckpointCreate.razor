@@ -1,5 +1,6 @@
 @page "/security-checkpoint/create"
 @using Airplane_UI.Contracts.SecurityGates
+@using Airplane_UI.Contracts.GateAssignments
 @using Airplane_UI.DTOs.SecurityGates.SecurityCheckpoint
 @using System.ComponentModel.DataAnnotations
 @inject ISecurityCheckpointService SecurityCheckpointService
@@ -20,9 +21,19 @@
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Terminal ID</label>
-        <InputNumber class="form-control" @bind-Value="checkpointModel.TerminalID" />
+        <label class="form-label">Terminal</label>
+        <select class="form-select" @bind="checkpointModel.TerminalID">
+            <option value="0">-- Select Terminal --</option>
+            @foreach (var t in terminalOptions)
+            {
+                <option value="@t.Id">@t.Name</option>
+            }
+        </select>
         <ValidationMessage For="@(() => checkpointModel.TerminalID)" />
+        @if (!string.IsNullOrEmpty(terminalLoadError))
+        {
+            <div class="text-danger mt-1">@terminalLoadError</div>
+        }
     </div>
 
     <div class="mb-3">
@@ -52,3 +63,4 @@
     <button type="button" class="btn btn-secondary" @onclick="GoBack">Cancel</button>
 
 </EditForm>
+
