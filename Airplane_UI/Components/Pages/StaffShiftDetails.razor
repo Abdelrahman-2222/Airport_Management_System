@@ -51,7 +51,7 @@ else
                 <strong>Start Time:</strong>
                 @if (isEditing)
                 {
-                    <InputDateTimeLocal class="form-control" Value="@startTime" ValueChanged="@OnStartTimeChanged" ValueExpression="@(() => startTime)" />
+                    <input type="datetime-local" class="form-control" @bind="startTime" />
                 }
                 else
                 {
@@ -62,7 +62,7 @@ else
                 <strong>End Time:</strong>
                 @if (isEditing)
                 {
-                    <InputDateTimeLocal class="form-control" Value="@endTime" ValueChanged="@OnEndTimeChanged" ValueExpression="@(() => endTime)" />
+                    <input type="datetime-local" class="form-control" @bind="endTime" />
                 }
                 else
                 {
