@@ -2,6 +2,7 @@
 using Airplane_UI.Data;
 using Airplane_UI.DTOs.SecurityGates.CustomsDesk;
 using Airplane_UI.Entities.SecurityGates;
+using Airplane_UI.Mappers.SecurityGates;
 using Microsoft.EntityFrameworkCore;
 
 namespace Airplane_UI.Services.SecurityGates
@@ -11,7 +12,6 @@ namespace Airplane_UI.Services.SecurityGates
     /// retrieving, creating, updating, deleting, and modifying their operational status.
     /// </summary>
     public class CustomsDeskService : ICustomsDeskService
-
     {
         private readonly AirplaneManagementSystemContext _context;
 
@@ -24,199 +24,103 @@ namespace Airplane_UI.Services.SecurityGates
             _context = context;
         }
 
-        /// <summary>
-        /// Retrieves all Customs Desks across all terminals.
-        /// </summary>
-        /// <returns>A list of all Customs Desk DTOs.</returns>
+        /// <inheritdoc/>
         public async Task<List<GetCustomsDeskDto>> GetAllAsync()
         {
-            return await _context.CustomsDesks
-                .AsNoTracking()
-                .Select(d => new GetCustomsDeskDto
-                {
-                    Id = d.Id,
-                    TerminalID = d.TerminalID,
-                    DeskNumber = d.DeskNumber,
-                    Status = d.Status
-                })
-                .ToListAsync();
+            var desks = await _context.CustomsDesks.AsNoTracking().ToListAsync();
+            return desks.Select(CustomsDeskMapper.ToGetDto).ToList();
         }
 
-        /// <summary>
-        /// Retrieves a specific Customs Desk by ID.
-        /// </summary>
-        /// <param name="id">The unique ID of the Customs Desk.</param>
-        /// <returns>The matching Customs Desk DTO if found; otherwise, null.</returns>
+        /// <inheritdoc/>
         public async Task<GetCustomsDeskDto?> GetByIdAsync(int id)
         {
-            return await _context.CustomsDesks
-                .AsNoTracking()
-                .Where(d => d.Id == id)
-                .Select(d => new GetCustomsDeskDto
-                {
-                    Id = d.Id,
-                    TerminalID = d.TerminalID,
-                    DeskNumber = d.DeskNumber,
-                    Status = d.Status
-                })
-                .FirstOrDefaultAsync();
+            var desk = await _context.CustomsDesks.AsNoTracking().FirstOrDefaultAsync(d => d.Id == id);
+            return desk?.ToGetDto();
         }
 
-        /// <summary>
-        /// Retrieves detailed information about a Customs Desk including assigned staff shifts.
-        /// </summary>
-        /// <param name="id">The ID of the Customs Desk.</param>
-        /// <returns>The detailed Customs Desk DTO if found; otherwise, null.</returns>
+        /// <inheritdoc/>
         public async Task<GetCustomsDeskDetailsDto?> GetDetailsAsync(int id)
         {
-            //return await _context.CustomsDesks
-            //    .AsNoTracking()
-            //    .Where(d => d.Id == id)
-            //    .Select(d => new GetCustomsDeskDetailsDto
-            //    {
-            //        Id = d.Id,
-            //        TerminalID = d.TerminalID,
-            //        DeskNumber = d.DeskNumber,
-            //        Status = d.Status,
-            //        AssignedShifts = d.AssignedShifts
-            //            .Select(s => new StaffShiftDto
-            //            {
-            //                Id = s.Id,
-            //                StaffName = s.Staff.Name,
-            //                Role = s.Staff.Role,
-            //                StartTime = s.StartTime,
-            //                EndTime = s.EndTime
-            //            }).ToList()
-            //    })
-            //    .FirstOrDefaultAsync();
-            return null;
+            var desk = await _context.CustomsDesks
+                .Include(d => d.AssignedShifts)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(d => d.Id == id);
+
+            return desk?.ToDetailsDto();
         }
 
-        /// <summary>
-        /// Retrieves all Customs Desks belonging to a specific terminal.
-        /// </summary>
-        /// <param name="terminalId">The ID of the terminal.</param>
-        /// <returns>A list of Customs Desks within the specified terminal.</returns>
+        /// <inheritdoc/>
         public async Task<List<GetCustomsDeskDto>> GetByTerminalAsync(int terminalId)
         {
-            return await _context.CustomsDesks
+            var desks = await _context.CustomsDesks
                 .AsNoTracking()
                 .Where(d => d.TerminalID == terminalId)
-                .Select(d => new GetCustomsDeskDto
-                {
-                    Id = d.Id,
-                    TerminalID = d.TerminalID,
-                    DeskNumber = d.DeskNumber,
-                    Status = d.Status
-                })
                 .ToListAsync();
+
+            return desks.Select(CustomsDeskMapper.ToGetDto).ToList();
         }
 
-        /// <summary>
-        /// Retrieves all Customs Desks with a specific operational status.
-        /// </summary>
-        /// <param name="status">The operational status (e.g., "Active", "Inactive").</param>
-        /// <returns>A list of desks matching the given status.</returns>
+        /// <inheritdoc/>
         public async Task<List<GetCustomsDeskDto>> GetByStatusAsync(string status)
         {
-            return await _context.CustomsDesks
+            var desks = await _context.CustomsDesks
                 .AsNoTracking()
                 .Where(d => d.Status == status)
-                .Select(d => new GetCustomsDeskDto
-                {
-                    Id = d.Id,
-                    TerminalID = d.TerminalID,
-                    DeskNumber = d.DeskNumber,
-                    Status = d.Status
-                })
                 .ToListAsync();
+
+            return desks.Select(CustomsDeskMapper.ToGetDto).ToList();
         }
 
-        /// <summary>
-        /// Creates a new Customs Desk entry.
-        /// </summary>
-        /// <param name="createDto">The DTO containing desk creation data.</param>
-        /// <returns>The created Customs Desk DTO if successful; otherwise, null.</returns>
-        public async Task<GetCustomsDeskDto?> CreateAsync(CreateCustomsDeskDto createDto)
+        /// <inheritdoc/>
+        public async Task<GetCustomsDeskDto?> CreateAsync(CreateCustomsDeskDto dto)
         {
-            var terminalExists = await _context.Terminals
-                .AsNoTracking()
-                .AnyAsync(t => t.Id == createDto.TerminalID);
+            var terminalExists = await _context.Terminals.AsNoTracking()
+                .AnyAsync(t => t.Id == dto.TerminalID);
 
             if (!terminalExists)
                 return null;
 
             var exists = await _context.CustomsDesks
                 .AsNoTracking()
-                .AnyAsync(d => d.DeskNumber == createDto.DeskNumber && d.TerminalID == createDto.TerminalID);
+                .AnyAsync(d => d.DeskNumber == dto.DeskNumber && d.TerminalID == dto.TerminalID);
 
             if (exists)
                 return null;
 
-            var desk = new CustomsDesk
-            {
-                TerminalID = createDto.TerminalID,
-                DeskNumber = createDto.DeskNumber,
-                Status = string.IsNullOrWhiteSpace(createDto.Status) ? "Active" : createDto.Status
-            };
+            var desk = dto.ToEntity();
 
             _context.CustomsDesks.Add(desk);
             await _context.SaveChangesAsync();
 
-            return new GetCustomsDeskDto
-            {
-                Id = desk.Id,
-                TerminalID = desk.TerminalID,
-                DeskNumber = desk.DeskNumber,
-                Status = desk.Status
-            };
+            return desk.ToGetDto();
         }
 
-        /// <summary>
-        /// Updates an existing Customs Desk.
-        /// </summary>
-        /// <param name="id">The ID of the Customs Desk to update.</param>
-        /// <param name="updateDto">The updated desk information.</param>
-        /// <returns>The updated Customs Desk DTO if found; otherwise, null.</returns>
-        public async Task<GetCustomsDeskDto?> UpdateAsync(int id, UpdateCustomsDeskDto updateDto)
+        /// <inheritdoc/>
+        public async Task<GetCustomsDeskDto?> UpdateAsync(int id, UpdateCustomsDeskDto dto)
         {
             var desk = await _context.CustomsDesks.FirstOrDefaultAsync(d => d.Id == id);
             if (desk == null)
                 return null;
 
-            desk.DeskNumber = updateDto.DeskNumber;
-            desk.Status = updateDto.Status;
-
+            desk.UpdateEntity(dto);
             await _context.SaveChangesAsync();
 
-            return new GetCustomsDeskDto
-            {
-                Id = desk.Id,
-                TerminalID = desk.TerminalID,
-                DeskNumber = desk.DeskNumber,
-                Status = desk.Status
-            };
+            return desk.ToGetDto();
         }
 
-        /// <summary>
-        /// Deletes a Customs Desk by its ID.
-        /// </summary>
-        /// <param name="id">The ID of the Customs Desk to delete.</param>
-        public async Task DeleteAsync(int id)
+        /// <inheritdoc/>
+        public async Task<string> DeleteAsync(int id)
         {
             var desk = await _context.CustomsDesks.FirstOrDefaultAsync(d => d.Id == id);
             if (desk == null)
-                return;
+                return "Customs desk not found.";
 
             _context.CustomsDesks.Remove(desk);
             await _context.SaveChangesAsync();
+            return "Customs desk deleted successfully.";
         }
 
-        /// <summary>
-        /// Updates the operational status of a Customs Desk.
-        /// </summary>
-        /// <param name="id">The ID of the desk to update.</param>
-        /// <param name="status">The new operational status.</param>
+        /// <inheritdoc/>
         public async Task UpdateStatusAsync(int id, string status)
         {
             var desk = await _context.CustomsDesks.FirstOrDefaultAsync(d => d.Id == id);

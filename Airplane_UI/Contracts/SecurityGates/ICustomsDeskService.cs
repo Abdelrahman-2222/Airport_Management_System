@@ -60,7 +60,7 @@ namespace Airplane_UI.Contracts.SecurityGates
         /// Permanently deletes a customs desk from the database.
         /// </summary>
         /// <param name="id">The ID of the customs desk to delete.</param>
-        Task DeleteAsync(int id);
+        Task<string> DeleteAsync(int id);
 
         /// <summary>
         /// Updates the operational status of an existing customs desk.

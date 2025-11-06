@@ -2,6 +2,7 @@
 using Airplane_UI.Data;
 using Airplane_UI.DTOs.SecurityGates.AirportStaff;
 using Airplane_UI.Entities.SecurityGates;
+using Airplane_UI.Mappers.SecurityGates;
 using Microsoft.EntityFrameworkCore;
 
 namespace Airplane_UI.Services.SecurityGates
@@ -10,7 +11,7 @@ namespace Airplane_UI.Services.SecurityGates
     /// Provides functionality for managing Airport Staff, including
     /// retrieving, creating, updating, and deleting staff records.
     /// </summary>
-    public class AirportStaffService:IAirportStaffService
+    public class AirportStaffService : IAirportStaffService
     {
         private readonly AirplaneManagementSystemContext _context;
 
@@ -23,103 +24,52 @@ namespace Airplane_UI.Services.SecurityGates
             _context = context;
         }
 
-        /// <summary>
-        /// Retrieves all airport staff members from the system.
-        /// </summary>
-        /// <returns>A list of all existing airport staff members.</returns>
+        /// <inheritdoc/>
         public async Task<List<GetAirportStaffDto>> GetAllAsync()
         {
-            return await _context.AirportStaffs
-                .AsNoTracking()
-                .Select(s => new GetAirportStaffDto
-                {
-                    Id = s.Id,
-                    Name = s.Name,
-                    Role = s.Role
-                })
-                .ToListAsync();
+            var staffList = await _context.AirportStaffs.AsNoTracking().ToListAsync();
+            return staffList.Select(AirportStaffMapper.ToGetDto).ToList();
         }
 
-        /// <summary>
-        /// Retrieves a specific airport staff member by their unique identifier.
-        /// </summary>
-        /// <param name="id">The unique ID of the staff member.</param>
-        /// <returns>The matching staff member if found; otherwise, null.</returns>
+        /// <inheritdoc/>
         public async Task<GetAirportStaffDto?> GetByIdAsync(int id)
         {
-            return await _context.AirportStaffs
-                .AsNoTracking()
-                .Where(s => s.Id == id)
-                .Select(s => new GetAirportStaffDto
-                {
-                    Id = s.Id,
-                    Name = s.Name,
-                    Role = s.Role
-                })
-                .FirstOrDefaultAsync();
+            var staff = await _context.AirportStaffs.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id);
+            return staff == null ? null : AirportStaffMapper.ToGetDto(staff);
         }
 
-        /// <summary>
-        /// Creates a new airport staff member record.
-        /// </summary>
-        /// <param name="dto">The data required to create the new staff member.</param>
-        /// <returns>The created staff member DTO if successful; otherwise, null.</returns>
+        /// <inheritdoc/>
         public async Task<GetAirportStaffDto?> CreateAsync(CreateAirportStaffDto dto)
         {
-            var staff = new AirportStaff
-            {
-                Name = dto.Name,
-                Role = dto.Role
-            };
-
+            var staff = AirportStaffMapper.ToEntity(dto);
             _context.AirportStaffs.Add(staff);
             await _context.SaveChangesAsync();
-
-            return new GetAirportStaffDto
-            {
-                Id = staff.Id,
-                Name = staff.Name,
-                Role = staff.Role
-            };
+            return AirportStaffMapper.ToGetDto(staff);
         }
 
-        /// <summary>
-        /// Updates the information of an existing airport staff member.
-        /// </summary>
-        /// <param name="id">The ID of the staff member to update.</param>
-        /// <param name="dto">The updated data for the staff member.</param>
-        /// <returns>The updated staff member DTO if found; otherwise, null.</returns>
+        /// <inheritdoc/>
         public async Task<GetAirportStaffDto?> UpdateAsync(int id, UpdateAirportStaffDto dto)
         {
             var staff = await _context.AirportStaffs.FirstOrDefaultAsync(s => s.Id == id);
             if (staff == null)
                 return null;
 
-            staff.Name = dto.Name;
-            staff.Role = dto.Role;
-
+            AirportStaffMapper.UpdateEntity(staff, dto);
             await _context.SaveChangesAsync();
-
-            return new GetAirportStaffDto
-            {
-                Id = staff.Id,
-                Name = staff.Name,
-                Role = staff.Role
-            };
+            return AirportStaffMapper.ToGetDto(staff);
         }
 
-        /// <summary>
-        /// Deletes an airport staff member by their unique ID.
-        /// </summary>
-        /// <param name="id">The ID of the staff member to delete.</param>
-        public async Task DeleteAsync(int id)
+        /// <inheritdoc/>
+        public async Task<string> DeleteAsync(int id)
         {
             var staff = await _context.AirportStaffs.FirstOrDefaultAsync(s => s.Id == id);
             if (staff == null)
-                return;
+                return "Staff not found.";
 
             _context.AirportStaffs.Remove(staff);
             await _context.SaveChangesAsync();
+
+            return "Staff deleted successfully.";
         }
     }
 }
