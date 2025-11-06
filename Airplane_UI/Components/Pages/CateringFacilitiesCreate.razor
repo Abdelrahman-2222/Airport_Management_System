@@ -1,0 +1,50 @@
+﻿<h3>CateringFacilitiesCreate</h3>
+
+@page "/cateringfacilities/create"
+@using Airplane_UI.Contracts.LuggageMaintnance
+@using System.ComponentModel.DataAnnotations
+@inject ICateringFacilitiesService CateringFacilitiesService
+@inject NavigationManager Navigation
+
+@rendermode InteractiveServer
+
+<h3>Create New CateringFacilities</h3>
+
+<EditForm Model="@facilitiesModel" OnValidSubmit="HandleCreateAsync">
+
+    <DataAnnotationsValidator />
+
+    <div class="mb-3">
+        <label class="form-label">facilities Name</label>
+        <InputText class="form-control" @bind-Value="facilitiesModel.Name" />
+        <ValidationMessage For="@(() => facilitiesModel.Name)" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">ContactInfo</label>
+        <InputText class="form-control" @bind-Value="facilitiesModel.ContactInfo" />
+        <ValidationMessage For="@(() => facilitiesModel.ContactInfo)" />
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @errorMessage
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary" disabled="@isSaving">
+        @if (isSaving)
+        {
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <text>Saving...</text>
+        }
+        else
+        {
+            <text>Save</text>
+        }
+    </button>
+    <button type="button" class="btn btn-secondary" @onclick="GoBack">Cancel</button>
+
+</EditForm>
+

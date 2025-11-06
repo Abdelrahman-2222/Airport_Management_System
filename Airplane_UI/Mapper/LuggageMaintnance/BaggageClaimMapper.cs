@@ -22,7 +22,7 @@ public static class BaggageClaimMapper
             Id = claims.Id,
             CarouselNumber = claims.CarouselNumber,
             Status = claims.Status.ToString(),
-            TerminalName = claims.Terminal.Name
+            TerminalName = claims.Terminal?.Name
         };
         return result;
     }

@@ -1,7 +1,6 @@
 ﻿using Airplane_UI.Contracts.AirlineCore;
 using Airplane_UI.Data;
 using Airplane_UI.DTOs.AirlineCore.AircraftDTOs;
-using Airplane_UI.Entities.AirlineCore;
 using Airplane_UI.Mapper.AirlineCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +26,9 @@ namespace Airplane_UI.Services.AirlineCore
         /// <summary>
         /// Retrieves all aircrafts asynchronously.
         /// </summary>
+        /// <returns>
+        /// A task that represents the asynchronous operation. The task result contains the aircraft DTO if found; otherwise, null.
+        /// </returns>
         public async Task<IList<GetAircraftDTO>> GetAllAsync()
         {
             var aircrafts = await _context.Aircrafts
@@ -35,9 +37,14 @@ namespace Airplane_UI.Services.AirlineCore
 
             return aircrafts;
         }
+
         /// <summary>
-        /// Retrieves a specific aircraft by its unique identifier.
+        /// Retrieves a specific aircraft by its unique identifier asynchronously.
         /// </summary>
+        /// <param name="aircraftId">The unique identifier of the aircraft to retrieve.</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation. The task result contains the aircraft DTO if found; otherwise, null.
+        /// </returns>
         public async Task<GetAircraftDTO> GetByIdAsync(int aircraftId)
         {
             var aircraft = await _context.Aircrafts
@@ -47,45 +54,64 @@ namespace Airplane_UI.Services.AirlineCore
 
             return aircraft;
         }
+
         /// <summary>
         /// Creates a new aircraft record asynchronously.
         /// </summary>
         /// <param name="dto">The DTO containing aircraft details to create.</param>
-        /// <returns>The new created aircraft as a DTO.</returns>
+        /// <returns>
+        /// The new created aircraft as a DTO.
+        /// </returns>
         public async Task<GetAircraftDTO> CreateAsync(CreateAndUpdateAircraftDTO dto)
         {
             var aircraftEntity = dto.ToEntity();
 
-            _context.Aircrafts.Add(aircraftEntity);
+            await _context.Aircrafts.AddAsync(aircraftEntity);
             await _context.SaveChangesAsync();
 
             return aircraftEntity.ToDto();
         }
+
         /// <summary>
         /// Updates an existing aircraft record by ID.
         /// </summary>
-        /// <param name="id">The unique identifier of the aircraft to update.</param>
+        /// <param name="aircraftId">The unique identifier of the aircraft to update.</param>
         /// <param name="dto">The DTO containing updated aircraft details.</param>
-        /// <returns> The task result contains the updated GetAircraftDTO object if the update succeeded. otherwise, null if the aircraft was not found.</returns>
+        /// <returns> 
+        /// The task result contains the updated GetAircraftDTO object if the update succeeded. otherwise, null if the aircraft was not found.
+        /// </returns>
         public async Task<GetAircraftDTO> UpdateAsync(int aircraftId, CreateAndUpdateAircraftDTO dto)
         {
-            var updatedAircraft = await _context.Aircrafts.FindAsync(aircraftId);
-            if (updatedAircraft == null) return null;
+            var existingAircraft = await _context.Aircrafts.FindAsync(aircraftId);
+            if (existingAircraft == null)
+            {
+                return null;
+            }
 
-            dto.ToEntity();
+            var updatedAircraft = dto.ToEntity();
+            if (updatedAircraft == null)
+            {
+                return null;
+            }
 
             await _context.SaveChangesAsync();
             return updatedAircraft.ToDto();
         }
-        // <summary>
+
+        /// <summary>
         /// Deletes an aircraft record by ID asynchronously.
         /// </summary>
         /// <param name="aircraftId">The unique identifier of the aircraft to delete.</param>
-        /// <returns>A message indicating the result of the delete operation, or null if not found.</returns>
+        /// <returns>
+        /// A message indicating the result of the delete operation, or null if not found.
+        /// </returns>
         public async Task<string> DeleteAsync(int aircraftId)
         {
             var aircraft = await _context.Aircrafts.FindAsync(aircraftId);
-            if (aircraft == null) return null;
+            if (aircraft == null)
+            {
+                return null;
+            }
 
             _context.Aircrafts.Remove(aircraft);
             await _context.SaveChangesAsync();
