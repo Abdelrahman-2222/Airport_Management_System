@@ -1,16 +1,16 @@
-using Airplane_UI.DTOs.SecurityGates.SecurityCheckpoint;
+using Airplane_UI.DTOs.SecurityGates.SecurityIncident;
 using Microsoft.AspNetCore.Components;
 
 namespace Airplane_UI.Components.Pages
 {
-    public partial class SecurityCheckpointDetails
+    public partial class SecurityIncidentDetails
     {
         [Parameter]
         public int id { get; set; }
 
-        private GetSecurityCheckpointDto? checkpointDetails;
+        private GetSecurityIncidentDto? incidentDetails;
 
-        private UpdateSecurityCheckpointDto editModel = new();
+        private UpdateSecurityIncidentDto editModel = new();
 
         private bool isLoading = true;
         private bool isEditing = false;
@@ -22,11 +22,11 @@ namespace Airplane_UI.Components.Pages
         {
             try
             {
-                checkpointDetails = await SecurityCheckpointService.GetByIdAsync(id);
+                incidentDetails = await SecurityIncidentService.GetByIdAsync(id);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error loading security checkpoint details: {ex.Message}");
+                Console.WriteLine($"Error loading security incident details: {ex.Message}");
             }
             finally
             {
@@ -34,23 +34,26 @@ namespace Airplane_UI.Components.Pages
             }
         }
 
-        private void StartEdit()
+        private async Task StartEdit()
         {
-            if (checkpointDetails != null)
+            if (incidentDetails != null)
             {
-                editModel = new UpdateSecurityCheckpointDto
+                editModel = new UpdateSecurityIncidentDto
                 {
-                    Name = checkpointDetails.Name,
-                    Status = checkpointDetails.Status
+                    AssignedStaffID = incidentDetails.AssignedStaffID,
+                    ReportDetails = incidentDetails.ReportDetails,
+                    Severity = incidentDetails.Severity
                 };
                 isEditing = true;
+                await InvokeAsync(StateHasChanged);
             }
         }
 
-        private void CancelEdit()
+        private async Task CancelEdit()
         {
             isEditing = false;
             editModel = new();
+            await InvokeAsync(StateHasChanged);
         }
 
         private async Task SaveAsync()
@@ -61,18 +64,19 @@ namespace Airplane_UI.Components.Pages
 
             try
             {
-                var updatedCheckpoint = await SecurityCheckpointService.UpdateAsync(id, editModel);
+                var updatedIncident = await SecurityIncidentService.UpdateAsync(id, editModel);
 
-                if (updatedCheckpoint != null)
+                if (updatedIncident != null)
                 {
-                    checkpointDetails = updatedCheckpoint;
+                    incidentDetails = updatedIncident;
                 }
 
                 isEditing = false;
+                await InvokeAsync(StateHasChanged);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error updating security checkpoint: {ex.Message}");
+                Console.WriteLine($"Error updating security incident: {ex.Message}");
             }
             finally
             {
@@ -95,12 +99,12 @@ namespace Airplane_UI.Components.Pages
             isDeleting = true;
             try
             {
-                await SecurityCheckpointService.DeleteAsync(id);
-                Navigation.NavigateTo("/security-checkpoint");
+                await SecurityIncidentService.DeleteAsync(id);
+                Navigation.NavigateTo("/security-incident");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error deleting security checkpoint: {ex.Message}");
+                Console.WriteLine($"Error deleting security incident: {ex.Message}");
             }
             finally
             {
@@ -110,5 +114,4 @@ namespace Airplane_UI.Components.Pages
         }
     }
 }
-
 

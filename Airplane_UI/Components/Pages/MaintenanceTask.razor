@@ -1,0 +1,39 @@
+﻿@page "/maintenancetask"
+@using Airplane_UI.Contracts.LuggageMaintnance
+@using MudBlazor
+@using System.Net.Http.Json
+@inject IMaintenanceTaskService MaintenanceTaskService
+@inject NavigationManager Navigation
+
+<PageTitle>MaintenanceTask</PageTitle>
+
+<MudTable Items="@MaintenanceTasks" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+    <ToolBarContent>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => Navigation.NavigateTo("/maintenancetask/create"))" Class="mb-3">
+            Create New maintenance task
+        </MudButton>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>Name</MudTh>
+        <MudTh>Description</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="Description">@context.Description</MudTd>
+        <MudTd DataLabel="Actions">
+            <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(() => NavigateToDetails(context.Id))">
+                View Details
+            </MudButton>
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+
+@if (!string.IsNullOrEmpty(_errorMessage))
+{
+    <MudAlert Severity="Severity.Error" Class="mt-4">
+        @_errorMessage
+    </MudAlert>
+}
+

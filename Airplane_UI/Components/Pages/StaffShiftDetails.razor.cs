@@ -1,4 +1,7 @@
 using Airplane_UI.DTOs.SecurityGates.StaffShift;
+using Airplane_UI.Contracts.SecurityGates;
+using Airplane_UI.DTOs.SecurityGates.SecurityCheckpoint;
+using Airplane_UI.DTOs.SecurityGates.CustomsDesk;
 using Microsoft.AspNetCore.Components;
 
 namespace Airplane_UI.Components.Pages
@@ -20,12 +23,22 @@ namespace Airplane_UI.Components.Pages
         private bool isSaving = false;
         private bool showDeleteConfirmation = false;
         private bool isDeleting = false;
+        private IList<GetSecurityCheckpointDto> checkpointOptions = new List<GetSecurityCheckpointDto>();
+        private IList<GetCustomsDeskDto> customsDeskOptions = new List<GetCustomsDeskDto>();
+
+        [Inject]
+        private ISecurityCheckpointService SecurityCheckpointService { get; set; }
+
+        [Inject]
+        private ICustomsDeskService CustomsDeskService { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
             try
             {
                 shiftDetails = await StaffShiftService.GetByIdAsync(id);
+                checkpointOptions = await SecurityCheckpointService.GetAllAsync();
+                customsDeskOptions = await CustomsDeskService.GetAllAsync();
                 if (shiftDetails != null)
                 {
                     startTime = shiftDetails.StartTime;

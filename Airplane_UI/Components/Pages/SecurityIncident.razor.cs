@@ -1,29 +1,29 @@
-using Airplane_UI.DTOs.SecurityGates.SecurityCheckpoint;
+using Airplane_UI.DTOs.SecurityGates.SecurityIncident;
 
 namespace Airplane_UI.Components.Pages
 {
-    public partial class SecurityCheckpoint
+    public partial class SecurityIncident
     {
-        private IList<GetSecurityCheckpointDto> SecurityCheckpoints = new List<GetSecurityCheckpointDto>();
+        private IList<GetSecurityIncidentDto> SecurityIncidents = new List<GetSecurityIncidentDto>();
         private bool _loading = false;
         private string _errorMessage = string.Empty;
 
         protected override async Task OnInitializedAsync()
         {
-            await LoadSecurityCheckpointsAsync();
+            await LoadSecurityIncidentsAsync();
         }
 
-        private async Task LoadSecurityCheckpointsAsync()
+        private async Task LoadSecurityIncidentsAsync()
         {
             try
             {
                 _loading = true;
                 _errorMessage = string.Empty;
-                SecurityCheckpoints = await SecurityCheckpointService.GetAllAsync();
+                SecurityIncidents = await SecurityIncidentService.GetAllAsync();
             }
             catch (Exception ex)
             {
-                _errorMessage = $"Error loading security checkpoints: {ex.Message}";
+                _errorMessage = $"Error loading security incidents: {ex.Message}";
             }
             finally
             {
@@ -33,9 +33,10 @@ namespace Airplane_UI.Components.Pages
 
         private void NavigateToDetails(int id)
         {
-            Navigation.NavigateTo($"/security-checkpoint/details/{id}");
+            Navigation.NavigateTo($"/security-incident/details/{id}");
         }
     }
 }
+
 
 

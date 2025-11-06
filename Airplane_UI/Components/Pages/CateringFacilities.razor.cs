@@ -11,10 +11,10 @@ namespace Airplane_UI.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            await LoadAirlinesAsync();
+            await LoadFacilitiesAsync();
         }
 
-        private async Task LoadAirlinesAsync()
+        private async Task LoadFacilitiesAsync()
         {
             try
             {
@@ -31,9 +31,9 @@ namespace Airplane_UI.Components.Pages
                 _loading = false;
             }
         }
-        private void NavigateToDetails(int airlineId)
+        private void NavigateToDetails(int cateringfacilitiesId)
         {
-            Navigation.NavigateTo($"/cateringfacilities/details/{airlineId}");
+            Navigation.NavigateTo($"/cateringfacilities/details/{cateringfacilitiesId}");
         }
     }
 }

@@ -1,16 +1,16 @@
-using Airplane_UI.DTOs.SecurityGates.SecurityCheckpoint;
+﻿using Airplane_UI.DTOs.LuggageMaintnance.MaintenanceTaskDTOs;
 using Microsoft.AspNetCore.Components;
 
 namespace Airplane_UI.Components.Pages
 {
-    public partial class SecurityCheckpointDetails
+    public partial class MaintenanceTaskDetails
     {
         [Parameter]
         public int id { get; set; }
 
-        private GetSecurityCheckpointDto? checkpointDetails;
+        private GetMaintenanceTaskDTO? maintenanceTaskDetails;
 
-        private UpdateSecurityCheckpointDto editModel = new();
+        private GetMaintenanceTaskDTO editModel = new();
 
         private bool isLoading = true;
         private bool isEditing = false;
@@ -22,11 +22,11 @@ namespace Airplane_UI.Components.Pages
         {
             try
             {
-                checkpointDetails = await SecurityCheckpointService.GetByIdAsync(id);
+                maintenanceTaskDetails = await MaintenanceTaskService.GetByIdAsync(id);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error loading security checkpoint details: {ex.Message}");
+                Console.WriteLine($"Error loading MaintenanceTask details: {ex.Message}");
             }
             finally
             {
@@ -36,12 +36,14 @@ namespace Airplane_UI.Components.Pages
 
         private void StartEdit()
         {
-            if (checkpointDetails != null)
+            if (maintenanceTaskDetails != null)
             {
-                editModel = new UpdateSecurityCheckpointDto
+                editModel = new GetMaintenanceTaskDTO
                 {
-                    Name = checkpointDetails.Name,
-                    Status = checkpointDetails.Status
+                    Id = maintenanceTaskDetails.Id,
+                    Description = maintenanceTaskDetails.Description,
+                    MaintenanceLogs = maintenanceTaskDetails.MaintenanceLogs,
+                    Name = maintenanceTaskDetails.Name
                 };
                 isEditing = true;
             }
@@ -61,18 +63,28 @@ namespace Airplane_UI.Components.Pages
 
             try
             {
-                var updatedCheckpoint = await SecurityCheckpointService.UpdateAsync(id, editModel);
-
-                if (updatedCheckpoint != null)
+                var updateDto = new CreateAndUpdateMaintenanceTaskDTO
                 {
-                    checkpointDetails = updatedCheckpoint;
+                    Description = editModel.Description,
+                    Name = editModel.Name,
+                };
+
+                var updatedAircraft = await MaintenanceTaskService.UpdateAsync(id, updateDto);
+
+                if (updatedAircraft != null)
+                {
+                    maintenanceTaskDetails = updatedAircraft;
+                }
+                else
+                {
+                    maintenanceTaskDetails = editModel;
                 }
 
                 isEditing = false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error updating security checkpoint: {ex.Message}");
+                Console.WriteLine($"Error updating MaintenanceTask: {ex.Message}");
             }
             finally
             {
@@ -95,12 +107,12 @@ namespace Airplane_UI.Components.Pages
             isDeleting = true;
             try
             {
-                await SecurityCheckpointService.DeleteAsync(id);
-                Navigation.NavigateTo("/security-checkpoint");
+                await MaintenanceTaskService.DeleteAsync(id);
+                Navigation.NavigateTo("/maintenancetask");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error deleting security checkpoint: {ex.Message}");
+                Console.WriteLine($"Error deleting MaintenanceTask: {ex.Message}");
             }
             finally
             {
@@ -110,5 +122,3 @@ namespace Airplane_UI.Components.Pages
         }
     }
 }
-
-
