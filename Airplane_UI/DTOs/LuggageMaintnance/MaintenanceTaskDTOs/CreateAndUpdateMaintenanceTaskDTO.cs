@@ -1,6 +1,6 @@
-﻿namespace Airplane_UI.DTOs.LuggageMaintnance.MaintinanceTaskDTOs;
+﻿namespace Airplane_UI.DTOs.LuggageMaintnance.MaintenanceTaskDTOs;
 /// <summary>
-/// Data Transfer Object (DTO) used for craete and update MaintenanceLTask records.
+/// Data Transfer Object (DTO) used for craete and update MaintenanceTask records.
 /// </summary>
 public class CreateAndUpdateMaintenanceTaskDTO
 {

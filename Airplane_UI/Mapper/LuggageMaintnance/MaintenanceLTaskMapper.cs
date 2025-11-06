@@ -1,6 +1,5 @@
 ﻿using Airplane_UI.DTOs.LuggageMaintnance.MaintenanceLogDTOs;
-using Airplane_UI.DTOs.LuggageMaintnance.MaintenanceTaskDTO;
-using Airplane_UI.DTOs.LuggageMaintnance.MaintinanceTaskDTOs;
+using Airplane_UI.DTOs.LuggageMaintnance.MaintenanceTaskDTOs;
 using Airplane_UI.Entities.LuggageMaintnance;
 
 namespace Airplane_UI.Mapper.LuggageMaintnance;

@@ -19,7 +19,7 @@ namespace Airplane_UI.Contracts.AirlineCore
         /// <summary>
         /// Retrieves a specific airport by its unique identifier.
         /// </summary>
-        /// <param name="id">The unique identifier of the airport to retrieve.</param>
+        /// <param name="airportId">The unique identifier of the airport to retrieve.</param>
         /// <returns>
         /// The task result contains the AirportDTOs if found; otherwise, null.
         /// </returns>
@@ -37,17 +37,17 @@ namespace Airplane_UI.Contracts.AirlineCore
         /// <summary>
         /// Updates an existing airport record identified by its unique identifier.
         /// </summary>
-        /// <param name="id">The unique identifier of the airport to update.</param>
+        /// <param name="airportId">The unique identifier of the airport to update.</param>
         /// <param name="dto">The data transfer object containing updated airport details.</param>
         /// <returns>
         /// The task result indicates whether the update operation was successful.
         /// </returns>
-        Task<GetAirportDTO> UpdateAsync(int id, CreateAndUpdateAirportDTO dto);
+        Task<GetAirportDTO> UpdateAsync(int airportId, CreateAndUpdateAirportDTO dto);
 
         /// <summary>
         /// Deletes an existing airport record from the system.
         /// </summary>
-        /// <param name="id">The unique identifier of the airport to delete.</param>
+        /// <param name="airportId">The unique identifier of the airport to delete.</param>
         /// <returns>
         /// The task result indicates whether the delete operation was successful.
         /// </returns>

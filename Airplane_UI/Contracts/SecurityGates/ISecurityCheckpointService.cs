@@ -17,16 +17,16 @@ namespace Airplane_UI.Contracts.SecurityGates
         /// Retrieves detailed information about a specific checkpoint, 
         /// including its related logs and staff assignments.
         /// </summary>
-        /// <param name="id">The unique identifier of the checkpoint.</param>
+        /// <param name="securityCheckPointId">The unique identifier of the checkpoint.</param>
         /// <returns>Detailed information about the checkpoint.</returns>
-        Task<GetSecurityCheckpointDetailsDto> GetDetailsAsync(int id);
+        Task<GetSecurityCheckpointDetailsDto> GetDetailsAsync(int securityCheckPointId);
 
         /// <summary>
         /// Retrieves a specific security checkpoint by its unique identifier.
         /// </summary>
-        /// <param name="id">The unique identifier of the checkpoint.</param>
+        /// <param name="securityCheckPointId">The unique identifier of the checkpoint.</param>
         /// <returns>The corresponding checkpoint if found; otherwise, null.</returns>
-        Task<GetSecurityCheckpointDto> GetByIdAsync(int id);
+        Task<GetSecurityCheckpointDto> GetByIdAsync(int securityCheckPointId);
 
         /// <summary>
         /// Retrieves all security checkpoints that belong to a specific terminal.
@@ -52,24 +52,24 @@ namespace Airplane_UI.Contracts.SecurityGates
         /// <summary>
         /// Updates the information of an existing security checkpoint.
         /// </summary>
-        /// <param name="id">The unique identifier of the checkpoint to be updated.</param>
+        /// <param name="securityCheckPointId">The unique identifier of the checkpoint to be updated.</param>
         /// <param name="updateDto">The updated data for the checkpoint.</param>
         /// <returns>The updated checkpoint after modification.</returns>
-        Task<GetSecurityCheckpointDto> UpdateAsync(int id, UpdateSecurityCheckpointDto updateDto);
+        Task<GetSecurityCheckpointDto> UpdateAsync(int securityCheckPointId, UpdateSecurityCheckpointDto updateDto);
 
         /// <summary>
         /// Permanently deletes a specific security checkpoint from the system.
         /// </summary>
-        /// <param name="id">The unique identifier of the checkpoint to delete.</param>
+        /// <param name="securityCheckPointId">The unique identifier of the checkpoint to delete.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
-        Task<string> DeleteAsync(int id);
+        Task<string> DeleteAsync(int securityCheckPointId);
 
         /// <summary>
         /// Updates only the operational status of a specific checkpoint (e.g., from Active to Maintenance).
         /// </summary>
-        /// <param name="id">The unique identifier of the checkpoint to update.</param>
+        /// <param name="statusId">The unique identifier of the checkpoint to update.</param>
         /// <param name="status">The new operational status to set.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
-        Task UpdateStatusAsync(int id, string status);
+        Task UpdateStatusAsync(int statusId, string status);
     }
 }

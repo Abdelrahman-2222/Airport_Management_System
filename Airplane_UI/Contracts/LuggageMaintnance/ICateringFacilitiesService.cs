@@ -1,5 +1,4 @@
-﻿
-using Airplane_UI.DTOs.LuggageMaintnance.CateringFacilitiesDTOs;
+﻿using Airplane_UI.DTOs.LuggageMaintnance.CateringFacilitiesDTOs;
 
 namespace Airplane_UI.Contracts.LuggageMaintnance;
 /// <summary>

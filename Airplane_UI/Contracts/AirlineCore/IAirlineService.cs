@@ -20,7 +20,7 @@ namespace Airplane_UI.Contracts.AirlineCore
         /// <summary>
         /// Retrieves a specific airline by its unique identifier.
         /// </summary>
-        /// <param name="id">The unique identifier of the airline to retrieve.</param>
+        /// <param name="airlineId">The unique identifier of the airline to retrieve.</param>
         /// <returns>
         /// The task result contains the AirlineDTOs if found; otherwise, null.
         /// </returns>
@@ -38,17 +38,17 @@ namespace Airplane_UI.Contracts.AirlineCore
         /// <summary>
         /// Updates an existing airline record identified by its unique identifier.
         /// </summary>
-        /// <param name="id">The unique identifier of the airline to update.</param>
+        /// <param name="airlineId">The unique identifier of the airline to update.</param>
         /// <param name="dto">The data transfer object containing updated airline details.</param>
         /// <returns>
         /// The task result indicates whether the update operation was successful.
         /// </returns>
-        Task<GetAirlineDTO> UpdateAsync(int id, CreateAndUpdateAirlineDTO dto);
+        Task<GetAirlineDTO> UpdateAsync(int airlineId, CreateAndUpdateAirlineDTO dto);
 
         /// <summary>
         /// Deletes an existing airline record from the system.
         /// </summary>
-        /// <param name="id">The unique identifier of the airline to delete.</param>
+        /// <param name="airlineId">The unique identifier of the airline to delete.</param>
         /// <returns>
         /// The task result indicates whether the delete operation was successful.
         /// </returns>
