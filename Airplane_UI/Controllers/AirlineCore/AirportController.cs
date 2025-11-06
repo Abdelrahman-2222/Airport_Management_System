@@ -44,9 +44,13 @@ namespace Airplane_UI.Controllers.AirlineCore
         /// Returns 200 OK if found; otherwise, may return 404 Not Found.
         /// </returns>
         [HttpGet("{airportId}")]
-        public async Task<ActionResult> GetById(int airportId)
+        public async Task<ActionResult<GetAirportDTO>> GetById(int airportId)
         {
             var airport = await _service.GetyByIdAsync(airportId);
+            if (airport == null)
+            {
+                return NotFound();
+            }
             return Ok(airport);
         }
 
@@ -58,10 +62,10 @@ namespace Airplane_UI.Controllers.AirlineCore
         /// Returns 200 OK if creation is successful.
         /// </returns>
         [HttpPost]
-        public async Task<ActionResult> Create([FromBody] CreateAndUpdateAirportDTO dto)
+        public async Task<ActionResult<GetAirportDTO>> Create([FromBody] CreateAndUpdateAirportDTO dto)
         {
-            var created = await _service.CreateAsync(dto);
-            return Ok(created);
+            var createdAirport = await _service.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { airportId = createdAirport.Id }, createdAirport);
         }
 
         /// <summary>
@@ -73,10 +77,14 @@ namespace Airplane_UI.Controllers.AirlineCore
         /// Returns 200 OK if the update succeeds, or null if the airport was not found.
         /// </returns>
         [HttpPut("{airportId}")]
-        public async Task<ActionResult> Update(int airportId, [FromBody] CreateAndUpdateAirportDTO dto)
+        public async Task<ActionResult<GetAirportDTO>> Update(int airportId, [FromBody] CreateAndUpdateAirportDTO dto)
         {
-            var isUpdated = await _service.UpdateAsync(airportId, dto);
-            return isUpdated == null ? null : Ok(isUpdated);
+            var updatedAirport = await _service.UpdateAsync(airportId, dto);
+            if (updatedAirport == null)
+            {
+                return NotFound();
+            }
+            return Ok(updatedAirport);
         }
 
         /// <summary>
@@ -87,10 +95,14 @@ namespace Airplane_UI.Controllers.AirlineCore
         /// Returns 200 OK if deletion succeeds, or <c>400 Bad Request</c> if it fails.
         /// </returns>
         [HttpDelete("{airportId}")]
-        public async Task<ActionResult> Delete(int airportId)
+        public async Task<ActionResult<string>> Delete(int airportId)
         {
-            var isDeleted = await _service.DeleteAsync(airportId);
-            return isDeleted == null ? BadRequest() : Ok(isDeleted);
+            var result = await _service.DeleteAsync(airportId);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
         }
     }
 }

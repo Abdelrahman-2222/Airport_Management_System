@@ -1,5 +1,4 @@
 ﻿using Airplane_UI.Contracts.AirlineCore;
-using Airplane_UI.DTOs.AirlineCore.AircraftDTOs;
 using Airplane_UI.DTOs.AirlineCore.AirlineDTOs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +12,6 @@ namespace Airplane_UI.Controllers.AirlineCore
     [ApiController]
     public class AirlineController : ControllerBase
     {
-        
         private readonly IAirlineService _service;
 
         /// <summary>
