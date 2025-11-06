@@ -1,0 +1,23 @@
+@page "/securityMain"
+@using MudBlazor
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+<PageTitle>Security Gates</PageTitle>
+
+<h1>Security Gates</h1>
+
+<MudGrid Class="mt-4" GutterSize="3">
+    @foreach (var entity in _entities)
+    {
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="3" Class="pa-4">
+                <MudCardContent>
+                    <MudButton Typo="Typo.h6" Bold="true" OnClick="@(() => OnEntityClick(entity))">@entity</MudButton>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    }
+</MudGrid>
+
+

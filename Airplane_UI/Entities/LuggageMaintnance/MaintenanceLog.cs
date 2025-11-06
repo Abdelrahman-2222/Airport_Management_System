@@ -9,6 +9,9 @@ namespace Airplane_UI.Entities.LuggageMaintnance;
 /// </summary>
 public class MaintenanceLog : IBaseEntity
 {
+    /// <summary>
+    /// Gets or sets the unique identifier for the entity.
+    /// </summary>
     public int Id { get; set; }
     /// <summary>
     /// Description of the maintenance activity performed.

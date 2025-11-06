@@ -1,0 +1,45 @@
+@page "/checkpoint-log"
+@using Airplane_UI.Contracts.SecurityGates
+@using Airplane_UI.DTOs.SecurityGates.CheckpointLog
+@using MudBlazor
+@rendermode InteractiveServer
+@inject ICheckpointLogService CheckpointLogService
+@inject NavigationManager Navigation
+
+<PageTitle>Checkpoint Log</PageTitle>
+
+<MudTable Items="@CheckpointLogs" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+    <ToolBarContent>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => Navigation.NavigateTo("/checkpoint-log/create"))" Class="mb-3">
+            Create New Checkpoint Log
+        </MudButton>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>Checkpoint ID</MudTh>
+        <MudTh>Timestamp</MudTh>
+        <MudTh>Reported Wait Time</MudTh>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Checkpoint ID">@context.CheckpointID</MudTd>
+        <MudTd DataLabel="Timestamp">@context.Timestamp.ToString("yyyy-MM-dd HH:mm:ss")</MudTd>
+        <MudTd DataLabel="Reported Wait Time">@context.ReportedWaitTime</MudTd>
+        <MudTd DataLabel="Actions">
+            <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(() => NavigateToDetails(context.Id))">
+                View Details
+            </MudButton>
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+
+@if (!string.IsNullOrEmpty(_errorMessage))
+{
+    <MudAlert Severity="Severity.Error" Class="mt-4">
+        @_errorMessage
+    </MudAlert>
+}
+
+
+

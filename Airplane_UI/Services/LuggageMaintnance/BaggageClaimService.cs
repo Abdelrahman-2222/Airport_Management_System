@@ -2,153 +2,133 @@
 using Airplane_UI.Data;
 using Airplane_UI.DTOs.LuggageMaintnance.BaggageClaim;
 using Airplane_UI.Entities.LuggageMaintnance;
+using Airplane_UI.Mapper.LuggageMaintnance;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
+using System.Security.Claims;
+
 
 namespace Airplane_UI.Services.LuggageMaintnance;
-
+/// <summary>
+/// Provides implementation for baggage claim service operations such as retrieving,
+/// creating, updating, and deleting baggage claim records.
+/// </summary>
 public class BaggageClaimService : IBaggageClaimService
 {
+    /// <summary>
+    /// The database context used for accessing baggage claim data.
+    /// </summary>
     private readonly AirplaneManagementSystemContext _context;
-
+    //private readonly IMapper<BaggageClaim, GetBaggageClaimDto> _mapper;
+    /// <summary>
+    /// Initializes a new instance of the BaggageClaimService class.
+    /// </summary>
+    /// <param name="context">The database context for the airplane management system.</param>
     public BaggageClaimService(AirplaneManagementSystemContext context)
     {
         _context = context;
+        //_mapper = mapper;
     }
-    public async Task<IEnumerable<GetBaggageClaimDto>> GetAllAsync()
+    /// <inheritdoc/>
+    public async Task<IList<GetBaggageClaimDto>> GetAllAsync()
     {
-        return await SelectBaggageClaimDto(_context.BaggageClaims.AsNoTracking()).ToListAsync();
+        //var result = await _context.BaggageClaims.Select(_mapper.ToDto()).ToListAsync();
+        var result = await _context.BaggageClaims.Include(b => b.Terminal).Select(b => b.ToDto()).ToListAsync();
+        return result;
     }
-
+    /// <inheritdoc/>
     public async Task<GetBaggageClaimDto> GetByIdAsync(int BaggageId)
     {
-        //if(BaggageId < 0)
-        //    throw new ArgumentException("Invalid Id", nameof(BaggageId));
-        //var baggageClaim = await _context.BaggageClaims
-        //    .Include(bc => bc.Terminal)
-        //    .SingleAsync(bc => bc.Id == BaggageId);
-        //if (baggageClaim == null)
-        //    throw new ArgumentException("Not Found baggageClaim", nameof(baggageClaim));
-
-        //return baggageClaim != null ? MapToGetDto(baggageClaim) : null;
-        return await SelectBaggageClaimDto(_context.BaggageClaims.AsNoTracking()).FirstOrDefaultAsync(dto => dto.Id == BaggageId);
+        var result = await _context.BaggageClaims.Where(b => b.Id == BaggageId).Select(b => b.ToDto()).SingleOrDefaultAsync();
+        return result;
     }
-    public async Task<GetBaggageClaimDto> CreateAsync(CreateBaggageClaimDto dto)
+    /// <inheritdoc/>
+    public async Task<GetBaggageClaimDto> CreateAsync(CreateAndUpdateBaggageClaimDto dto)
     {
-        //var baggageClaimEntity = MapToEntity(dto);
+        var baggageClaimEntity = dto.ToEntity();
 
-        //_context.BaggageClaims.Add(baggageClaimEntity);
-        //await _context.SaveChangesAsync();
-        //await _context.Terminals.Entry(baggageClaimEntity.TerminalId).Reference(t => t.Terminal).LoadAsync();
-
-        //return MapToGetDto(baggageClaimEntity);
-        var baggageClaimEntity = MapToEntity(dto);
-
-        _context.BaggageClaims.Add(baggageClaimEntity);
+        var response = await _context.BaggageClaims.AddAsync(baggageClaimEntity);
+        if (response == null)
+        {
+            return null;
+        }
         await _context.SaveChangesAsync();
 
-        return await SelectBaggageClaimDto(_context.BaggageClaims.AsNoTracking()).FirstAsync(dto => dto.Id == baggageClaimEntity.Id);
+        var result = baggageClaimEntity.ToDto();
+        return result;
     }
-
-    public async Task<bool> UpdateAsync(int BaggageId, CreateBaggageClaimDto dto)
-    {
-        var existingClaim = await _context.BaggageClaims.FindAsync(BaggageId);
-
-        if (existingClaim == null)
-        {
-            return false;
-        }
-
-        existingClaim.CarouselNumber = dto.CarouselNumber;
-        existingClaim.Status = dto.Status;
-        existingClaim.TerminalId = dto.TerminalId;
-
-        try
-        {
-            await _context.SaveChangesAsync();
-            return true;
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            return false;
-        }
-    }
-    public async Task<bool> DeleteAsync(int BaggageId)
+    /// <inheritdoc/>
+    public async Task<GetBaggageClaimDto> UpdateAsync(int BaggageId, CreateAndUpdateBaggageClaimDto dto)
     {
         if (BaggageId < 0)
-            throw new ArgumentException("Invalid Id", nameof(BaggageId));
+        {
+            return null;
+        }
+        var existingClaim = await _context.BaggageClaims.FindAsync(BaggageId);
+        if (existingClaim == null )
+        {
+            return null;
+        }
+        var updateBaggageClaimEntity = dto.ToEntity();
+        if (updateBaggageClaimEntity == null)
+        {
+            return null;
+        }
+        var result = existingClaim.ToDto();
+        return result;
+    }
+    /// <inheritdoc/>
+    public async Task<string> DeleteAsync(int BaggageId)
+    {
+        if (BaggageId < 0)
+        {
+            return "Invalid Id";
+        }
         var baggageClaim = await _context.BaggageClaims.FindAsync(BaggageId);
         if (baggageClaim == null)
         {
-            return false;
+            return null;
         }
         _context.BaggageClaims.Remove(baggageClaim);
-        return await _context.SaveChangesAsync() > 0;
-    }
-
-
-
-
-    /// <summary>
-    /// Manually maps a BaggageClaim entity to a GetBaggageClaimDto.
-    /// </summary>
-    //private GetBaggageClaimDto MapToGetDto(BaggageClaim entity)
-    //{
-    //    return new GetBaggageClaimDto
-    //    {
-    //        CarouselNumber = entity.CarouselNumber,
-    //        Status = entity.Status,
-    //        TerminalName = entity.Terminal?.Name ?? "N/A"
-    //    };
-    //}
-    /// <summary>
-    /// Projects a BaggageClaim entity (with Terminal navigation) directly to a GetBaggageClaimDto.
-    /// Used inside IQueryable to avoid loading full entities and the use of 'Include'.
-    /// </summary>
-    private static IQueryable<GetBaggageClaimDto> SelectBaggageClaimDto(IQueryable<BaggageClaim> claims)
-    {
-        return claims.Select(bc => new GetBaggageClaimDto
+        var result = await _context.SaveChangesAsync();
+        if (result == null)
         {
-            CarouselNumber = bc.CarouselNumber,
-            Status = bc.Status,
-            TerminalName = bc.Terminal.Name
-        });
+            return null;
+        }
+        return $"{BaggageId} is Deleted successfully";
     }
-    /// <summary>
-    /// Manually maps a CreateBaggageClaimDto to a BaggageClaim entity.
-    /// </summary>
-    //private GetBaggageClaimDto MapToGetEntity(BaggageClaim dto)
-    //{
-    //    return new GetBaggageClaimDto
-    //    {
-    //        CarouselNumber = dto.CarouselNumber,
-    //        Status = dto.Status,
-    //        TerminalName = dto.
-    //    };
-    //}
-
-
-    /// <summary>
-    /// Manually maps a CreateBaggageClaimDto to a BaggageClaim entity.
-    /// </summary>
-    private BaggageClaim MapToEntity(CreateBaggageClaimDto dto)
-    {
-        return new BaggageClaim
-        {
-            CarouselNumber = dto.CarouselNumber,
-            Status = dto.Status,
-            TerminalId = dto.TerminalId
-        };
-    }
-    /// <summary>
-    /// Manually maps a CreateBaggageClaimDto to a BaggageClaim entity.
-    /// </summary>
-    //private static BaggageClaim MapToEntity(CreateBaggageClaimDto dto)
-    //{
-    //    return new BaggageClaim
-    //    {
-    //        CarouselNumber = dto.CarouselNumber,
-    //        Status = dto.Status,
-    //        TerminalId = dto.TerminalId
-    //    };
-    //}
 }
+
+//public interface IMapper<TEntity, TDto>
+//{
+//    Expression<Func<TEntity, TDto>> ToDto();
+//    Expression<Func<TDto, TEntity>> ToEntity();
+//}
+
+//public class BaggageClaimMapper : IMapper<BaggageClaim, GetBaggageClaimDto>
+//{
+//    public Expression<Func<BaggageClaim, GetBaggageClaimDto>> ToDto()
+//    {
+//        return claims => new GetBaggageClaimDto
+//        {
+//            Id = claims.Id,
+//            CarouselNumber = claims.CarouselNumber,
+//            Status = claims.Status.ToString(),
+//            TerminalName = claims.Terminal.Name
+//        };
+//    }
+
+//    public Expression<Func<GetBaggageClaimDto, BaggageClaim>> ToEntity()
+//    {
+//        throw new NotImplementedException();
+//    }
+//}
+
+//public static class extensions
+//{
+//    public static IServiceCollection RegisterMapping(this IServiceCollection services)
+//    {
+//        services.AddScoped<IMapper<BaggageClaim, GetBaggageClaimDto>, BaggageClaimMapper>();
+//        return services;
+//    }
+//}

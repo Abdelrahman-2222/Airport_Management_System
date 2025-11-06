@@ -4,7 +4,17 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Airplane_UI</RootNamespace>
+  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  <NoWarn>$(NoWarn);1591</NoWarn> <!-- Optional: suppress missing doc warnings -->
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Contracts\Gate\**" />
+    <Content Remove="Contracts\Gate\**" />
+    <EmbeddedResource Remove="Contracts\Gate\**" />
+    <None Remove="Contracts\Gate\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.21" />
@@ -19,15 +29,12 @@
 
   <ItemGroup>
     <Folder Include="Contracts\GateAssignments\" />
-    <Folder Include="Contracts/Gate/CreateGateContract" />
     <Folder Include="Contracts\SecurityGates\" />
     <Folder Include="DTOs\GateAssignments\GroundCrewTeamDTOs\" />
     <Folder Include="DTOs\GateAssignments\RunwayScheduleDTOs\" />
     <Folder Include="DTOs\GateAssignments\RunwayDTOs\" />
 
     <Folder Include="Mapper\" />
-    <Folder Include="Services\AirlineCore\" />
-    <Folder Include="Services\SecurityGates\" />
   </ItemGroup>
 
 </Project>

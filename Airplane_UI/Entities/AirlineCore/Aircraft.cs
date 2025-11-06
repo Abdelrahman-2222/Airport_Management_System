@@ -4,16 +4,15 @@ using Airplane_UI.Entities.LuggageMaintnance;
 namespace Airplane_UI.Entities.AirlineCore
 {
     /// <summary>
-    /// Represents an aircraft within the system.
+    /// Represents an airport entity within the system.
+    /// This entity implements the IBaseEntity interface, which including an identifier
     /// </summary>
     public class Aircraft : IBaseEntity
     {
-        public int Id { get; set; }
         /// <summary>
-        /// Initializes a new instance of the Aircraft class.
-        /// The constructor initializes the Flights and MaintenanceLogs 
-        /// collections to prevent null reference issues when adding related entities.
+        /// Gets or sets the unique identifier for the airport.
         /// </summary>
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets the unique tail number of the aircraft.

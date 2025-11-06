@@ -1,0 +1,61 @@
+﻿@page "/baggagcelaim/create"
+@using Airplane_UI.Contracts.LuggageMaintnance
+@using Airplane_UI.DTOs.AirlineCore.AirlineDTOs
+@using System.ComponentModel.DataAnnotations
+@inject IBaggageClaimService BaggageClaimService
+@inject NavigationManager Navigation
+
+@rendermode InteractiveServer
+
+<h3>BaggageClaim Create</h3>
+
+<EditForm  OnValidSubmit="HandleCreateAsync">
+@* <EditForm Model="@baggagcelaimModel" OnValidSubmit="HandleCreateAsync"> 
+
+    <DataAnnotationsValidator />
+
+     <div class="mb-3">
+        <label class="form-label">BaggageClaim CarouselNumber</label>
+        <InputText class="form-control" @bind-Value="baggagcelaimModel.CarouselNumber" />
+        <ValidationMessage For="@(() => baggagcelaimModel.CarouselNumber)" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Status</label>
+        <InputSelect class="form-control" @bind-Value="baggagcelaimModel.Status">
+            @foreach (var status in Enum.GetValues<BaggageStatus>())
+            {
+                <option value="@status">@status</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => baggagcelaimModel.Status)" />
+    </div> 
+
+
+    <div class="mb-3">
+        <label class="form-label">TerminalId</label>
+        <InputText class="form-control" @bind-Value="baggagcelaimModel.TerminalId" />
+        <ValidationMessage For="@(() => baggagcelaimModel.TerminalId)" />
+    </div>
+    *@
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @errorMessage
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary" disabled="@isSaving">
+        @if (isSaving)
+        {
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <text>Saving...</text>
+        }
+        else
+        {
+            <text>Save</text>
+        }
+    </button>
+    <button type="button" class="btn btn-secondary" @onclick="GoBack">Cancel</button>
+
+</EditForm>

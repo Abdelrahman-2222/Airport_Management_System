@@ -1,0 +1,60 @@
+@page "/security-incident/create"
+@using Airplane_UI.Contracts.SecurityGates
+@using Airplane_UI.DTOs.SecurityGates.SecurityIncident
+@inject ISecurityIncidentService SecurityIncidentService
+@inject NavigationManager Navigation
+
+@rendermode InteractiveServer
+
+<h3>Create New Security Incident</h3>
+
+<EditForm Model="@incidentModel" OnValidSubmit="HandleCreateAsync">
+
+    <DataAnnotationsValidator />
+
+    <div class="mb-3">
+        <label class="form-label">Location</label>
+        <InputText class="form-control" @bind-Value="incidentModel.Location" />
+        <ValidationMessage For="@(() => incidentModel.Location)" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Report Details</label>
+        <InputTextArea class="form-control" @bind-Value="incidentModel.ReportDetails" />
+        <ValidationMessage For="@(() => incidentModel.ReportDetails)" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Severity</label>
+        <InputText class="form-control" @bind-Value="incidentModel.Severity" />
+        <ValidationMessage For="@(() => incidentModel.Severity)" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Assigned Staff ID (Optional)</label>
+        <InputNumber class="form-control" Value="@incidentModel.AssignedStaffID" ValueChanged="@((int? value) => incidentModel.AssignedStaffID = value)" ValueExpression="@(() => incidentModel.AssignedStaffID)" />
+        <ValidationMessage For="@(() => incidentModel.AssignedStaffID)" />
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @errorMessage
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary" disabled="@isSaving">
+        @if (isSaving)
+        {
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <text>Saving...</text>
+        }
+        else
+        {
+            <text>Save</text>
+        }
+    </button>
+    <button type="button" class="btn btn-secondary" @onclick="GoBack">Cancel</button>
+
+</EditForm>
+

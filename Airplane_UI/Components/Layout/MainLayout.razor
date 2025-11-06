@@ -1,6 +1,18 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="page">
+    @* Required - Must be first *@
+    <MudThemeProvider />
+
+    @* Needed for dialogs - Should come before components that might use dialogs *@
+    <MudDialogProvider />
+
+    @* Needed for snackbars - Should come before components that might use snackbars *@
+    <MudSnackbarProvider />
+
+    @* Popover provider - Should come after other providers *@
+    <MudPopoverProvider />
+
     <div class="sidebar">
         <NavMenu />
     </div>

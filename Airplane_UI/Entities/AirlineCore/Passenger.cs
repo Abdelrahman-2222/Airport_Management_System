@@ -8,12 +8,10 @@ namespace Airplane_UI.Entities.AirlineCore
     /// </summary>
     public class Passenger : IBaseEntity
     {
-        public int Id { get; set; }
         /// <summary>
-        /// Initializes a new instance of the Passenger class.
-        /// The constructor initializes the FlightManifests collection 
-        /// to prevent null reference issues when adding related flight records.
+        /// Gets or sets the unique identifier of the passenger.
         /// </summary>
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets the first name of the passenger.
