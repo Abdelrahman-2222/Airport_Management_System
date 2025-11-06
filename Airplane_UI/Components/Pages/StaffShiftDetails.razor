@@ -1,0 +1,128 @@
+@page "/staff-shift/details/{id:int}"
+@using Airplane_UI.Contracts.SecurityGates
+@using Airplane_UI.DTOs.SecurityGates.StaffShift
+@inject IStaffShiftService StaffShiftService
+@inject NavigationManager Navigation
+
+@rendermode InteractiveServer
+
+<h3>Staff Shift Details</h3>
+
+@if (isLoading)
+{
+    <p>Loading...</p>
+}
+else if (shiftDetails == null)
+{
+    <p>Staff shift not found.</p>
+}
+else
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Staff Shift #@shiftDetails.Id</h5>
+            <p class="card-text">
+                <strong>Staff ID:</strong>
+                @shiftDetails.StaffID
+            </p>
+            <p class="card-text">
+                <strong>Assigned Checkpoint ID:</strong>
+                @if (isEditing)
+                {
+                    <InputNumber class="form-control" Value="@editModel.AssignedCheckpointID" ValueChanged="@((int? value) => editModel.AssignedCheckpointID = value)" ValueExpression="@(() => editModel.AssignedCheckpointID)" />
+                }
+                else
+                {
+                    @(shiftDetails.AssignedCheckpointID?.ToString() ?? "N/A")
+                }
+            </p>
+            <p class="card-text">
+                <strong>Assigned Desk ID:</strong>
+                @if (isEditing)
+                {
+                    <InputNumber class="form-control" Value="@editModel.AssignedDeskID" ValueChanged="@((int? value) => editModel.AssignedDeskID = value)" ValueExpression="@(() => editModel.AssignedDeskID)" />
+                }
+                else
+                {
+                    @(shiftDetails.AssignedDeskID?.ToString() ?? "N/A")
+                }
+            </p>
+            <p class="card-text">
+                <strong>Start Time:</strong>
+                @if (isEditing)
+                {
+                    <InputDateTimeLocal class="form-control" Value="@startTime" ValueChanged="@OnStartTimeChanged" ValueExpression="@(() => startTime)" />
+                }
+                else
+                {
+                    @shiftDetails.StartTime.ToString("yyyy-MM-dd HH:mm:ss")
+                }
+            </p>
+            <p class="card-text">
+                <strong>End Time:</strong>
+                @if (isEditing)
+                {
+                    <InputDateTimeLocal class="form-control" Value="@endTime" ValueChanged="@OnEndTimeChanged" ValueExpression="@(() => endTime)" />
+                }
+                else
+                {
+                    @shiftDetails.EndTime.ToString("yyyy-MM-dd HH:mm:ss")
+                }
+            </p>
+        </div>
+        <div class="card-footer">
+            @if (isEditing)
+            {
+                <button class="btn btn-success me-2" @onclick="SaveAsync" disabled="@isSaving">
+                    @if (isSaving)
+                    {
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <text>Saving...</text>
+                    }
+                    else
+                    {
+                        <text>Save</text>
+                    }
+                </button>
+                <button class="btn btn-secondary" @onclick="CancelEdit">Cancel</button>
+            }
+            else
+            {
+                <button class="btn btn-primary me-2" @onclick="StartEdit">Update</button>
+                <button class="btn btn-danger" @onclick="ShowDeleteConfirmation">Delete</button>
+            }
+        </div>
+    </div>
+
+    @if (showDeleteConfirmation)
+    {
+        <div class="modal d-block" style="background-color: rgba(0,0,0,0.5);">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm Delete</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete this staff shift?</p>
+                        <p>This action cannot be undone.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" @onclick="DeleteAsync" disabled="@isDeleting">
+                            @if (isDeleting)
+                            {
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                <text>Deleting...</text>
+                            }
+                            else
+                            {
+                                <text>Delete</text>
+                            }
+                        </button>
+                        <button type="button" class="btn btn-secondary" @onclick="CancelDelete">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
