@@ -1,4 +1,5 @@
-﻿using Airplane_UI.DTOs.AirlineCore.AirlineDTOs;
+﻿using Airplane_UI.DTOs.AirlineCore.AircraftDTOs;
+using Airplane_UI.DTOs.AirlineCore.AirlineDTOs;
 using Airplane_UI.Entities.AirlineCore;
 
 namespace Airplane_UI.Mapper.AirlineCore
@@ -57,11 +58,17 @@ namespace Airplane_UI.Mapper.AirlineCore
                 IATA_Code = dto.IATA_Code
             };
         }
-        public static void UpdateEntity(this Airline entity, CreateAndUpdateAirlineDTO dto)
+
+        /// <summary>
+        /// Converts a CreateAndUpdateAirlineDTO into a Airline entity.
+        /// </summary>
+        /// <param name="dto">The CreateAndUpdateAirlineDTO containing data for creation or update.</param>
+        /// <param name="entity">The Airline entity to convert.</param>
+        public static void UpdateEntity(this CreateAndUpdateAirlineDTO dto, Airline entity)
         {
             if (entity == null || dto == null) return;
 
-            entity.Name = dto.Name;
+            entity.Name= dto.Name; 
             entity.IATA_Code = dto.IATA_Code;
         }
     }

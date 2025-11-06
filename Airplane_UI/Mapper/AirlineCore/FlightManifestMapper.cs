@@ -1,4 +1,5 @@
-﻿using Airplane_UI.DTOs.AirlineCore.FlightManifestDTOS;
+﻿using Airplane_UI.DTOs.AirlineCore.AirportDTOs;
+using Airplane_UI.DTOs.AirlineCore.FlightManifestDTOS;
 using Airplane_UI.Entities.AirlineCore;
 
 namespace Airplane_UI.Mapper.AirlineCore
@@ -27,24 +28,6 @@ namespace Airplane_UI.Mapper.AirlineCore
         }
 
         /// <summary>
-        /// Converts a GetFlightManifestDTO object to a FlightManifest entity.
-        /// </summary>
-        /// <param name="dto">The DTO object to convert.</param>
-        /// <returns> A FlightManifest entity that represents the provided DTO or null if the input is null.</returns>
-        public static FlightManifest ToEntity(this GetFlightManifestDTO dto)
-        {
-            if (dto == null) return null;
-
-            return new FlightManifest
-            {
-                Id = dto.Id,
-                SeatNumber = dto.SeatNumber,
-                FlightId = dto.FlightId,
-                PassengerId = dto.PassengerId
-            };
-        }
-
-        /// <summary>
         /// Converts a CreateAndUpdateFlightManifestDTO object to a new FlightManifest entity.
         /// </summary>
         /// <param name="dto">The DTO containing the flight manifest data.</param>
@@ -59,6 +42,20 @@ namespace Airplane_UI.Mapper.AirlineCore
                 FlightId = dto.FlightId,
                 PassengerId = dto.PassengerId
             };
+        }
+
+        /// <summary>
+        /// Converts a CreateAndUpdateFlightManifestDTO into a FlightManifest entity.
+        /// </summary>
+        /// <param name="dto">The CreateAndUpdateFlightManifestDTO containing data for creation or update.</param>
+        /// <param name="entity">The FlightManifest entity to convert.</param>
+        public static void UpdateEntity(this CreateAndUpdateFlightManifestDTO dto, FlightManifest entity)
+        {
+            if (entity == null || dto == null) return;
+
+            entity.SeatNumber = dto.SeatNumber;
+            entity.FlightId = dto.FlightId;
+            entity.PassengerId = dto.PassengerId;
         }
     }
 }
