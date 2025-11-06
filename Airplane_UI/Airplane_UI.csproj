@@ -10,6 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Contracts\Gate\**" />
+    <Content Remove="Contracts\Gate\**" />
+    <EmbeddedResource Remove="Contracts\Gate\**" />
+    <None Remove="Contracts\Gate\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.21" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.21" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.21">
@@ -22,7 +29,6 @@
 
   <ItemGroup>
     <Folder Include="Contracts\GateAssignments\" />
-    <Folder Include="Contracts/Gate/CreateGateContract" />
     <Folder Include="Contracts\SecurityGates\" />
     <Folder Include="DTOs\GateAssignments\GroundCrewTeamDTOs\" />
     <Folder Include="DTOs\GateAssignments\RunwayScheduleDTOs\" />

@@ -16,11 +16,11 @@ namespace Airplane_UI.Contracts.SecurityGates
         /// <summary>
         /// Retrieves a single checkpoint log by its unique identifier.
         /// </summary>
-        /// <param name="CheckpointId">The unique identifier of the checkpoint log.</param>
+        /// <param name="checkpointId">The unique identifier of the checkpoint log.</param>
         /// <returns>
         /// A <see cref="GetCheckpointLogDto"/> representing the checkpoint log,
         /// </returns>
-        Task<GetCheckpointLogDto> GetByIdAsync(int CheckpointId);
+        Task<GetCheckpointLogDto> GetByIdAsync(int checkpointId);
 
         /// <summary>
         /// Creates a new checkpoint log in the system.
@@ -32,18 +32,18 @@ namespace Airplane_UI.Contracts.SecurityGates
         /// <summary>
         /// Updates an existing checkpoint log's reported wait time.
         /// </summary>
-        /// <param name="CheckpointId">The unique identifier of the checkpoint log to update.</param>
+        /// <param name="checkpointId">The unique identifier of the checkpoint log to update.</param>
         /// <param name="dto">The data containing the updated wait time.</param>
         /// <returns>
         /// A <see cref="GetCheckpointLogDto"/> representing the updated log,
         /// </returns>
-        Task<GetCheckpointLogDto> UpdateAsync(int CheckpointId, UpdateCheckpointLogDto dto);
+        Task<GetCheckpointLogDto> UpdateAsync(int checkpointId, UpdateCheckpointLogDto dto);
 
         /// <summary>
         /// Deletes a checkpoint log by its unique identifier.
         /// </summary>
-        /// <param name="CheckpointId">The unique identifier of the checkpoint log to delete.</param>
+        /// <param name="checkpointId">The unique identifier of the checkpoint log to delete.</param>
         /// <returns>A string message indicating the result of the deletion operation.</returns>
-        Task<string> DeleteAsync(int CheckpointId);
+        Task<string> DeleteAsync(int checkpointId);
     }
 }

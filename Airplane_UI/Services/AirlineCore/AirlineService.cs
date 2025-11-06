@@ -1,8 +1,6 @@
 ﻿using Airplane_UI.Contracts.AirlineCore;
 using Airplane_UI.Data;
 using Airplane_UI.DTOs.AirlineCore.AirlineDTOs;
-using Airplane_UI.DTOs.AirlineCore.AirportDTOs;
-using Airplane_UI.Entities.LuggageMaintnance;
 using Airplane_UI.Mapper.AirlineCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -86,7 +84,6 @@ namespace Airplane_UI.Services.AirlineCore
                 return null;
             }
 
-            existingAirline.UpdateEntity(dto);
             await _context.SaveChangesAsync();
 
             return existingAirline.ToDto();

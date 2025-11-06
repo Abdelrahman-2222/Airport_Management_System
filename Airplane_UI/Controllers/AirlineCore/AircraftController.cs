@@ -40,9 +40,13 @@ namespace Airplane_UI.Controllers.AirlineCore
         /// <param name="aircraftId">The unique identifier of the aircraft to retrieve.</param>
         /// <returns> Returns 200 OK if found; otherwise, may return 404 Not Found. </returns>
         [HttpGet("{aircraftId}")]
-        public async Task<ActionResult> GetById(int aircraftId)
+        public async Task<ActionResult<GetAircraftDTO>> GetById(int aircraftId)
         {
             var aircraft = await _service.GetByIdAsync(aircraftId);
+            if (aircraft == null)
+            {
+                return NotFound();
+            }
             return Ok(aircraft);
         }
 
@@ -52,7 +56,7 @@ namespace Airplane_UI.Controllers.AirlineCore
         /// <param name="dto">The dto containing the aircraft details to create.</param>
         /// <returns> Returns 200 OK if creation is successful. </returns>
         [HttpPost]
-        public async Task<ActionResult> Create([FromBody] CreateAndUpdateAircraftDTO dto)
+        public async Task<ActionResult<GetAircraftDTO>> Create([FromBody] CreateAndUpdateAircraftDTO dto)
         {
             var createdAircraft = await _service.CreateAsync(dto);
             return CreatedAtAction(nameof(GetById), new { aircraftId = createdAircraft.Id }, createdAircraft);
@@ -65,9 +69,13 @@ namespace Airplane_UI.Controllers.AirlineCore
         /// <param name="dto">The dto containing updated aircraft information.</param>
         /// <returns> Returns 200 OK if the update succeeds, or null if the aircraft was not found.</returns>
         [HttpPut("{aircraftId}")]
-        public async Task<ActionResult> Update(int aircraftId, [FromBody] CreateAndUpdateAircraftDTO dto)
+        public async Task<ActionResult<GetAircraftDTO>> Update(int aircraftId, [FromBody] CreateAndUpdateAircraftDTO dto)
         {
             var updatedAircraft = await _service.UpdateAsync(aircraftId, dto);
+            if (updatedAircraft == null)
+            {
+                return NotFound();
+            }
             return Ok(updatedAircraft);
         }
 
@@ -77,9 +85,13 @@ namespace Airplane_UI.Controllers.AirlineCore
         /// <param name="aircraftId">The unique identifier of the aircraft to delete.</param>
         /// <returns> Returns 200 OK if deletion succeeds, or 400 Bad Request if it fails.</returns>
         [HttpDelete("{aircraftId}")]
-        public async Task<ActionResult> Delete(int aircraftId)
+        public async Task<ActionResult<string>> Delete(int aircraftId)
         {
             var result = await _service.DeleteAsync(aircraftId);
+            if (result == null)
+            {
+                return NotFound();
+            }
             return Ok(result);
         }
     }

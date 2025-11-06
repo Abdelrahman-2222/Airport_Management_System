@@ -1,4 +1,6 @@
-﻿namespace Airplane_UI.DTOs.SecurityGates.CustomsDesk
+﻿using Airplane_UI.DTOs.SecurityGates.StaffShift;
+
+namespace Airplane_UI.DTOs.SecurityGates.CustomsDesk
 {
     /// <summary>
     /// Represents a detailed DTO for a customs desk including assigned staff and related shift information.
@@ -28,6 +30,6 @@
         /// <summary>
         /// Gets or sets a collection of staff shift assignments associated with this desk.
         /// </summary>
-        //public ICollection<StaffShiftDto> AssignedShifts { get; set; } = new List<StaffShiftDto>();
+        public ICollection<GetStaffShiftDto> AssignedShifts { get; set; } = new List<GetStaffShiftDto>();
     }
 }

@@ -1,8 +1,8 @@
 ﻿using Airplane_UI.DTOs.LuggageMaintnance.MaintenanceLogDTOs;
 
-namespace Airplane_UI.DTOs.LuggageMaintnance.MaintenanceTaskDTO;
+namespace Airplane_UI.DTOs.LuggageMaintnance.MaintenanceTaskDTOs;
 /// <summary>
-/// Data Transfer Object (DTO) used for get MaintenanceL task records.
+/// Data Transfer Object (DTO) used for get Maintenance task records.
 /// </summary>
 public class GetMaintenanceTaskDTO
 {
@@ -11,12 +11,12 @@ public class GetMaintenanceTaskDTO
     /// </summary>
     public int Id { get; set; }
     /// <summary>
-    /// The name of the maintenance task.
+    /// The name of the Maintenance task.
     /// </summary>
     public string Name { get; set; }
 
     /// <summary>
-    /// Description of the maintenance task.
+    /// Description of the Maintenance task.
     /// </summary>
     public string Description { get; set; }
     /// <summary>

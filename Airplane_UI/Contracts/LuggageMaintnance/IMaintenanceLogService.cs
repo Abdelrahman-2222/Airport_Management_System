@@ -1,5 +1,4 @@
-﻿
-using Airplane_UI.DTOs.LuggageMaintnance.MaintenanceLogDTOs;
+﻿using Airplane_UI.DTOs.LuggageMaintnance.MaintenanceLogDTOs;
 
 namespace Airplane_UI.Contracts.LuggageMaintnance;
 /// <summary>
