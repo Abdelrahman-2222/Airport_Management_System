@@ -1,0 +1,48 @@
+@page "/staff-shift"
+@using Airplane_UI.Contracts.SecurityGates
+@using Airplane_UI.DTOs.SecurityGates.StaffShift
+@using MudBlazor
+@rendermode InteractiveServer
+@inject IStaffShiftService StaffShiftService
+@inject NavigationManager Navigation
+
+<PageTitle>Staff Shift</PageTitle>
+
+<MudTable Items="@StaffShifts" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+    <ToolBarContent>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => Navigation.NavigateTo("/staff-shift/create"))" Class="mb-3">
+            Create New Staff Shift
+        </MudButton>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>Staff ID</MudTh>
+        <MudTh>Checkpoint ID</MudTh>
+        <MudTh>Desk ID</MudTh>
+        <MudTh>Start Time</MudTh>
+        <MudTh>End Time</MudTh>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Staff ID">@context.StaffID</MudTd>
+        <MudTd DataLabel="Checkpoint ID">@(context.AssignedCheckpointID?.ToString() ?? "N/A")</MudTd>
+        <MudTd DataLabel="Desk ID">@(context.AssignedDeskID?.ToString() ?? "N/A")</MudTd>
+        <MudTd DataLabel="Start Time">@context.StartTime.ToString("yyyy-MM-dd HH:mm:ss")</MudTd>
+        <MudTd DataLabel="End Time">@context.EndTime.ToString("yyyy-MM-dd HH:mm:ss")</MudTd>
+        <MudTd DataLabel="Actions">
+            <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(() => NavigateToDetails(context.Id))">
+                View Details
+            </MudButton>
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+
+@if (!string.IsNullOrEmpty(_errorMessage))
+{
+    <MudAlert Severity="Severity.Error" Class="mt-4">
+        @_errorMessage
+    </MudAlert>
+}
+
+
